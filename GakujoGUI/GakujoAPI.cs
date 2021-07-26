@@ -10,11 +10,14 @@ using System.Net;
 using System.Net.Http.Headers;
 using System.IO;
 using System.Web;
+using System.Collections;
+using System.Reflection;
 
 namespace GakujoAPI
 {
     class GakujoAPI
     {
+        static CookieContainer cookieContainer;
         static HttpClientHandler httpClientHandler;
         static HttpClient httpClient;
         static HttpRequestMessage httpRequestMessage;
@@ -26,8 +29,10 @@ namespace GakujoAPI
 
         public bool Login()
         {
+            cookieContainer = new CookieContainer();
             httpClientHandler = new HttpClientHandler();
             httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
+            httpClientHandler.CookieContainer = cookieContainer;
             httpClient = new HttpClient(httpClientHandler);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
@@ -122,7 +127,7 @@ namespace GakujoAPI
             httpRequestMessage.Content = new StringContent("j_username=" + userId + "&j_password=" + passWord + "&_eventId_proceed=");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            if (System.Web.HttpUtility.HtmlDecode(httpResponse.Content.ReadAsStringAsync().Result).Contains("ユーザ名またはパスワードが正しくありません。"))
+            if (HttpUtility.HtmlDecode(httpResponse.Content.ReadAsStringAsync().Result).Contains("ユーザ名またはパスワードが正しくありません。"))
             {
                 return false;
             }
@@ -239,44 +244,44 @@ namespace GakujoAPI
         public List<Quiz> GetQuizList(int limitCount = 0)
         {
             List<Quiz> quizList = new List<Quiz> { };
-                httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-                httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua", "^^");
-                httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua-mobile", "?0");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Upgrade-Insecure-Requests", "1");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Site", "same-origin");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Mode", "navigate");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-User", "?1");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "document");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-                httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&headTitle=小テスト一覧&menuCode=A03&nextPath=/test/student/searchList/initialize&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=&_screenInfoDisp=&_scrollTop=0");
-                httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-                httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                HtmlDocument htmlDocument = new HtmlDocument();
-                htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-                apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
-                if (limitCount == 0)
-                {
-                    limitCount = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count;
-                }
-                for (int i = 0; i < htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count && i < limitCount; i++)
-                {
-                    Quiz quiz = new Quiz();
-                    quiz.classSubjects = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[0].InnerText.Replace("\r", "").Replace("\n", "").Trim();
-                    quiz.classSubjects = System.Text.RegularExpressions.Regex.Replace(quiz.classSubjects, @"\s+", " ");
-                    quiz.title = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").InnerText.Trim();
-                    quiz.status = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[2].InnerText.Trim();
-                    quiz.submissionPeriod = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].InnerText.Trim();
-                    quiz.submissionStatus = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[4].InnerText.Trim();
-                    quiz.implementationFormat = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[5].InnerText.Trim();
-                    quiz.operation = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[6].InnerText.Trim();
-                    quizList.Add(quiz);
-                }
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua", "^^");
+            httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua-mobile", "?0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Upgrade-Insecure-Requests", "1");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Site", "same-origin");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Mode", "navigate");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-User", "?1");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "document");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&headTitle=小テスト一覧&menuCode=A03&nextPath=/test/student/searchList/initialize&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
+            if (limitCount == 0)
+            {
+                limitCount = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            }
+            for (int i = 0; i < htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count && i < limitCount; i++)
+            {
+                Quiz quiz = new Quiz();
+                quiz.classSubjects = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[0].InnerText.Replace("\r", "").Replace("\n", "").Trim();
+                quiz.classSubjects = System.Text.RegularExpressions.Regex.Replace(quiz.classSubjects, @"\s+", " ");
+                quiz.title = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").InnerText.Trim();
+                quiz.status = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[2].InnerText.Trim();
+                quiz.submissionPeriod = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].InnerText.Trim();
+                quiz.submissionStatus = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[4].InnerText.Trim();
+                quiz.implementationFormat = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[5].InnerText.Trim();
+                quiz.operation = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[6].InnerText.Trim();
+                quizList.Add(quiz);
+            }
             Console.WriteLine(quizList.Count + "件の小テストを取得しました。");
             return quizList;
         }
@@ -315,7 +320,7 @@ namespace GakujoAPI
                 classContact.classSubjects = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].InnerText.Replace("\r", "").Replace("\n", "").Trim();
                 classContact.classSubjects = System.Text.RegularExpressions.Regex.Replace(classContact.classSubjects, @"\s+", " ");
                 classContact.responsibleTeacherFullName = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[2].InnerText.Trim();
-                classContact.title = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].SelectSingleNode("a").InnerText.Replace("&nbsp;", "").Replace("nbsp;", "").Trim();
+                classContact.title = HttpUtility.HtmlDecode(htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].SelectSingleNode("a").InnerText).Trim();
                 classContact.targetDate = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[5].InnerText.Trim();
                 classContact.contactTime = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[6].InnerText.Trim();
                 classContactList.Add(classContact);
@@ -349,7 +354,7 @@ namespace GakujoAPI
                 htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
                 apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
                 classContactList[i].contactType = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[0].SelectSingleNode("td").InnerText;
-                classContactList[i].content = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td").InnerText.Replace("&nbsp;", "").Replace("nbsp;", "");
+                classContactList[i].content = HttpUtility.HtmlDecode(htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td").InnerText);
                 classContactList[i].content = System.Text.RegularExpressions.Regex.Replace(classContactList[i].content, "[\\r\\n]+", Environment.NewLine, System.Text.RegularExpressions.RegexOptions.Multiline);
                 classContactList[i].file = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td").InnerText;
                 classContactList[i].fileLinkRelease = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td").InnerText;
@@ -429,7 +434,7 @@ namespace GakujoAPI
             apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             classContact.contactType = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[0].SelectSingleNode("td").InnerText;
             //classContactList[i].title = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[1].SelectSingleNode("td").InnerText.Replace("&nbsp;", "").Replace("nbsp;", "");
-            classContact.content = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td").InnerText.Replace("&nbsp;", "").Replace("nbsp;", "");
+            classContact.content = HttpUtility.HtmlDecode(htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td").InnerText);
             classContact.content = System.Text.RegularExpressions.Regex.Replace(classContact.content, "[\\r\\n]+", Environment.NewLine, System.Text.RegularExpressions.RegexOptions.Multiline);
             classContact.file = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td").InnerText;
             classContact.fileLinkRelease = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td").InnerText;
@@ -573,12 +578,28 @@ namespace GakujoAPI
             httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "document");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmit");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&studentName=" + studentName + "&studentCode=" + studentCode + "&submitNo=&fileNo=&backPath=/report/student/searchList/selfForward&submitFileHidden=&maxFileSize=10&comment=" + comment + "&_screenIdentifier=SC_A02_02_G&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&studentName=" + studentName + "&studentCode=" + studentCode + "&submitNo=&fileNo=&backPath=/report/student/searchList/selfForward&submitFileHidden=&maxFileSize=10&comment=" + HttpUtility.HtmlEncode(comment) + "&_screenIdentifier=SC_A02_02_G&_screenInfoDisp=&_scrollTop=0");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            Console.WriteLine(httpResponse.Content.ReadAsStringAsync().Result);
             Login();
             return true;
+        }
+
+        public IEnumerable<Cookie> GetCookies()
+        {
+            Hashtable k = (Hashtable)cookieContainer.GetType().GetField("m_domainTable", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(cookieContainer);
+            foreach (DictionaryEntry element in k)
+            {
+                SortedList l = (SortedList)element.Value.GetType().GetField("m_list", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(element.Value);
+                foreach (var e in l)
+                {
+                    var cl = (CookieCollection)((DictionaryEntry)e).Value;
+                    foreach (Cookie fc in cl)
+                    {
+                        yield return fc;
+                    }
+                }
+            }
         }
     }
 

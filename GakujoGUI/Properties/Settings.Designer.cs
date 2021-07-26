@@ -94,5 +94,17 @@ namespace GakujoGUI.Properties {
                 this["classContactDetail"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string 設定 {
+            get {
+                return ((string)(this["設定"]));
+            }
+            set {
+                this["設定"] = value;
+            }
+        }
     }
 }

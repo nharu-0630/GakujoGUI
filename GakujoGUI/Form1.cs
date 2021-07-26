@@ -27,7 +27,7 @@ namespace GakujoGUI
         private List<GakujoAPI.Report> reportList = new List<GakujoAPI.Report> { };
         private List<GakujoAPI.Quiz> quizList = new List<GakujoAPI.Quiz> { };
         private List<MaterialFlatButton> fileButtonList = new List<MaterialFlatButton> { };
-        private readonly string downloadPath = System.Environment.CurrentDirectory + "/download/";
+        private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
         private bool gakujoLogin = false;
 
         private async void buttonLogin_Click(object sender, EventArgs e)
@@ -46,6 +46,12 @@ namespace GakujoGUI
                     textOutputBox.Set("GakujoGUI", "ログインに失敗しました。", MessageBoxButtons.OK);
                 }
                 textOutputBox.ShowDialog();
+            }
+
+            using (BrowserBox browserBox = new BrowserBox())
+            {
+                browserBox.Set("https://github.com/xyzyxJP");
+                browserBox.ShowDialog();
             }
         }
 
@@ -122,11 +128,18 @@ namespace GakujoGUI
 
         private async void listViewClassContact_MouseClick(object sender, MouseEventArgs e)
         {
-            if (listViewClassContact.SelectedItems.Count != 1)
+            Point point = listViewClassContact.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewClassContact.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
             {
                 return;
             }
-            int selectIndex = listViewClassContact.SelectedItems[0].Index;
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (listViewClassContact.SelectedItems.Count != 1 || (columnIndex != 2 && columnIndex != 3))
+            {
+                return;
+            }
             if (classContactList[selectIndex].content != null)
             {
             }
@@ -192,7 +205,7 @@ namespace GakujoGUI
                 return;
             }
             int selectIndex = listViewReport.SelectedItems[0].Index;
-            Point point = listViewReport.PointToClient(Control.MousePosition);
+            Point point = listViewReport.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewReport.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
             if (columnIndex == 6 && reportList[selectIndex].operation == "提出開始")
@@ -220,11 +233,12 @@ namespace GakujoGUI
                 return;
             }
             int selectIndex = listViewQuiz.SelectedItems[0].Index;
-            Point point = listViewQuiz.PointToClient(Control.MousePosition);
+            Point point = listViewQuiz.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
             if (columnIndex == 6 && quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始")
             {
+
                 using (TextOutputBox textOutputBox = new TextOutputBox())
                 {
                     textOutputBox.Set("GakujoGUI", "提出開始", MessageBoxButtons.OK);
@@ -278,7 +292,7 @@ namespace GakujoGUI
 
         private void listViewClassContact_MouseMove(object sender, MouseEventArgs e)
         {
-            Point point = listViewClassContact.PointToClient(Control.MousePosition);
+            Point point = listViewClassContact.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewClassContact.HitTest(point);
             if (listViewHitTestInfo.Item == null)
             {
@@ -286,7 +300,7 @@ namespace GakujoGUI
             }
             int selectIndex = listViewHitTestInfo.Item.Index;
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 2)
+            if (columnIndex == 2 || columnIndex == 3)
             {
                 listViewClassContact.Cursor = Cursors.Hand;
             }
@@ -298,7 +312,7 @@ namespace GakujoGUI
 
         private void listViewReport_MouseMove(object sender, MouseEventArgs e)
         {
-            Point point = listViewReport.PointToClient(Control.MousePosition);
+            Point point = listViewReport.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewReport.HitTest(point);
             if (listViewHitTestInfo.Item == null)
             {
@@ -318,7 +332,7 @@ namespace GakujoGUI
 
         private void listViewQuiz_MouseMove(object sender, MouseEventArgs e)
         {
-            Point point = listViewQuiz.PointToClient(Control.MousePosition);
+            Point point = listViewQuiz.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
             if (listViewHitTestInfo.Item == null)
             {
