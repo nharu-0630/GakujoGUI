@@ -282,6 +282,7 @@ namespace GakujoAPI
                 quiz.submissionStatus = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[4].InnerText.Trim();
                 quiz.implementationFormat = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[5].InnerText.Trim();
                 quiz.operation = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[6].InnerText.Trim();
+                quiz.id = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").Attributes["onclick"].Value.Replace("formSubmit('forwardSubmitRef', '", "").Replace("','');", "");
                 quizList.Add(quiz);
             }
             Console.WriteLine(quizList.Count + "件の小テストを取得しました。");
@@ -490,7 +491,7 @@ namespace GakujoAPI
             return classContact;
         }
 
-        public string GetQuizDetail(int testId)
+        public string GetQuizDetail(string testId)
         {
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/searchList/forwardSubmit");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
@@ -516,7 +517,7 @@ namespace GakujoAPI
             return htmlDocument.DocumentNode.SelectSingleNode("/html/body/div[2]/div[1]/div/form").InnerHtml;
         }
 
-        public bool SubmitQuiz(int testId, string outputText)
+        public bool SubmitQuiz(string testId, string outputText)
         {
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/submit/confirmAction");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
@@ -717,6 +718,8 @@ namespace GakujoAPI
         public string operation { get; set; }
         //GUI
         public bool invisible { get; set; }
+        //ID
+        public string id { get; set; }
     }
 
     //授業連絡
