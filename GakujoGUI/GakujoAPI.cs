@@ -25,6 +25,8 @@ namespace GakujoAPI
 
         public string userId;
         public string passWord;
+        public string studentName;
+        public string studentCode;
         static string apacheToken;
 
         public bool Login()
@@ -514,6 +516,54 @@ namespace GakujoAPI
             return htmlDocument.DocumentNode.SelectSingleNode("/html/body/div[2]/div[1]/div/form").InnerHtml;
         }
 
+        public bool SubmitQuiz(int testId, string outputText)
+        {
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/submit/confirmAction");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua", "^^");
+            httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua-mobile", "?0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Upgrade-Insecure-Requests", "1");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.55");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Site", "same-origin");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Mode", "navigate");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-User", "?1");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "document");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/test/student/searchList/forwardSubmit");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&studentCode=" + studentCode + "&testId=" + testId + "&questionNumber=&selectedKey=&backPath=/test/student/searchList/selfForward" + Uri.EscapeUriString(outputText) + "&maxFileSize=5&_screenIdentifier=SC_A03_02_G&_screenInfoDisp=&_scrollTop=2510");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
+
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/submitConfirm/confirmAction");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua", "^^");
+            httpRequestMessage.Headers.TryAddWithoutValidation("sec-ch-ua-mobile", "?0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Upgrade-Insecure-Requests", "1");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.55");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Site", "same-origin");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Mode", "navigate");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-User", "?1");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "document");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/test/student/submit/confirmAction");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&studentCode=" + studentCode + "&testId=" + testId + "&questionNumber=/test/student/submit/selfForward&maxFileSize=5&_screenIdentifier=SC_A03_03_G&_screenInfoDisp=&_scrollTop=2309");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            Login();
+            return true;
+        }
+
         public bool SubmitReport(string reportId, string[] fileArray, string comment)
         {
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmit");
@@ -537,8 +587,6 @@ namespace GakujoAPI
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
-            string studentName = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form/input[1]")[0].Attributes["value"].Value;
-            string studentCode = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form/input[2]")[0].Attributes["value"].Value;
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUpload/fileUploadInit");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -604,7 +652,7 @@ namespace GakujoAPI
             httpRequestMessage.Headers.TryAddWithoutValidation("Sec-Fetch-Dest", "document");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmit");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&studentName=" + studentName + "&studentCode=" + studentCode + "&submitNo=&fileNo=&backPath=/report/student/searchList/selfForward&submitFileHidden=&maxFileSize=10&comment=" + HttpUtility.HtmlEncode(comment) + "&_screenIdentifier=SC_A02_02_G&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&studentName=" + studentName + "&studentCode=" + studentCode + "&submitNo=&fileNo=&backPath=/report/student/searchList/selfForward&submitFileHidden=&maxFileSize=10&comment=" + Uri.EscapeUriString(comment) + "&_screenIdentifier=SC_A02_02_G&_screenInfoDisp=&_scrollTop=0");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             Login();

@@ -34,6 +34,8 @@ namespace GakujoGUI
         {
             gakujoAPI.userId = textBoxUserId.Text;
             gakujoAPI.passWord = textBoxPassWord.Text;
+            gakujoAPI.studentName = textBoxStudentName.Text;
+            gakujoAPI.studentCode = textBoxStudentCode.Text;
             gakujoLogin = await Task.Run(() => gakujoAPI.Login());
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
@@ -47,22 +49,14 @@ namespace GakujoGUI
                 }
                 textOutputBox.ShowDialog();
             }
-
-
-            using (QuizForm quizForm = new QuizForm())
-            {
-                quizForm.Set("GakujoGUI", "<script type=\"text/javascript\"> function GetOutputText(){    var outputText = \"\";    for (var i = 10; true; i++){         var jLimit = document.getElementsByName(\"value\" + i).length;         if (jLimit === 0){             break;         }         outputText = outputText + \"&value\" + i + \"=\";         for (var j = 0; j < jLimit; j++){             if (document.getElementsByName(\"value\" + i)[j].checked){                 outputText = outputText + document.getElementsByName(\"value\" + i)[j].value;             }         }     }     return outputText; } </script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(25337))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>","").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>","").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
-                if (quizForm.ShowDialog() == DialogResult.OK)
-                {
-                    Console.WriteLine(quizForm.outputText);
-                }
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             textBoxUserId.Text = Properties.Settings.Default.userId;
             textBoxPassWord.Text = Properties.Settings.Default.passWord;
+            textBoxStudentName.Text = Properties.Settings.Default.studentName;
+            textBoxStudentCode.Text = Properties.Settings.Default.studentCode;
             checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             textBoxClassContactLimit.Text = Properties.Settings.Default.classContactLimit.ToString();
@@ -230,7 +224,7 @@ namespace GakujoGUI
             }
         }
 
-        private void listViewQuiz_MouseClick(object sender, MouseEventArgs e)
+        private async void listViewQuiz_MouseClick(object sender, MouseEventArgs e)
         {
             if (listViewQuiz.SelectedItems.Count != 1)
             {
@@ -242,7 +236,16 @@ namespace GakujoGUI
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
             if (columnIndex == 6 && quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始")
             {
+                using (QuizForm quizForm = new QuizForm())
+                {
+                    quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(25337))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
+                    if (quizForm.ShowDialog() == DialogResult.OK)
+                    {
+                        Console.WriteLine(quizForm.outputText);
+                        gakujoAPI.SubmitQuiz(25337, quizForm.outputText);
+                    }
 
+                }
             }
             else if (columnIndex == 1)
             {
@@ -358,6 +361,8 @@ namespace GakujoGUI
         {
             Properties.Settings.Default.userId = textBoxUserId.Text;
             Properties.Settings.Default.passWord = textBoxPassWord.Text;
+            Properties.Settings.Default.studentName = textBoxStudentName.Text;
+            Properties.Settings.Default.studentCode = textBoxStudentCode.Text;
             Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
             Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
             Properties.Settings.Default.classContactLimit = int.Parse(textBoxClassContactLimit.Text);

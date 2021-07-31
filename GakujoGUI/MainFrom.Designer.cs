@@ -76,6 +76,8 @@ namespace GakujoGUI
             this.columnSubmissionStatus2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperation2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
+            this.textBoxStudentName = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.textBoxStudentCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
@@ -108,6 +110,8 @@ namespace GakujoGUI
             // tabPageLogin
             // 
             this.tabPageLogin.BackColor = System.Drawing.Color.White;
+            this.tabPageLogin.Controls.Add(this.textBoxStudentCode);
+            this.tabPageLogin.Controls.Add(this.textBoxStudentName);
             this.tabPageLogin.Controls.Add(this.webView21);
             this.tabPageLogin.Controls.Add(this.checkBoxAutoLogin);
             this.tabPageLogin.Controls.Add(this.buttonTwitter);
@@ -139,7 +143,7 @@ namespace GakujoGUI
             this.checkBoxAutoLogin.AutoSize = true;
             this.checkBoxAutoLogin.Depth = 0;
             this.checkBoxAutoLogin.Font = new System.Drawing.Font("Roboto", 10F);
-            this.checkBoxAutoLogin.Location = new System.Drawing.Point(79, 64);
+            this.checkBoxAutoLogin.Location = new System.Drawing.Point(79, 122);
             this.checkBoxAutoLogin.Margin = new System.Windows.Forms.Padding(0);
             this.checkBoxAutoLogin.MouseLocation = new System.Drawing.Point(-1, -1);
             this.checkBoxAutoLogin.MouseState = MaterialSkin.MouseState.HOVER;
@@ -174,7 +178,7 @@ namespace GakujoGUI
             this.buttonLogin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonLogin.Depth = 0;
             this.buttonLogin.Icon = null;
-            this.buttonLogin.Location = new System.Drawing.Point(187, 61);
+            this.buttonLogin.Location = new System.Drawing.Point(187, 119);
             this.buttonLogin.MouseState = MaterialSkin.MouseState.HOVER;
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Primary = true;
@@ -651,7 +655,41 @@ namespace GakujoGUI
             this.materialTabSelector.TabIndex = 6;
             this.materialTabSelector.Text = "materialTabSelector";
             // 
-            // Form1
+            // textBoxStudentName
+            // 
+            this.textBoxStudentName.Depth = 0;
+            this.textBoxStudentName.Hint = "氏名（全角スペース）";
+            this.textBoxStudentName.Location = new System.Drawing.Point(3, 61);
+            this.textBoxStudentName.MaxLength = 32767;
+            this.textBoxStudentName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textBoxStudentName.Name = "textBoxStudentName";
+            this.textBoxStudentName.PasswordChar = '\0';
+            this.textBoxStudentName.SelectedText = "";
+            this.textBoxStudentName.SelectionLength = 0;
+            this.textBoxStudentName.SelectionStart = 0;
+            this.textBoxStudentName.Size = new System.Drawing.Size(250, 23);
+            this.textBoxStudentName.TabIndex = 7;
+            this.textBoxStudentName.TabStop = false;
+            this.textBoxStudentName.UseSystemPasswordChar = false;
+            // 
+            // textBoxStudentCode
+            // 
+            this.textBoxStudentCode.Depth = 0;
+            this.textBoxStudentCode.Hint = "学籍番号（半角数字）";
+            this.textBoxStudentCode.Location = new System.Drawing.Point(3, 90);
+            this.textBoxStudentCode.MaxLength = 32767;
+            this.textBoxStudentCode.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textBoxStudentCode.Name = "textBoxStudentCode";
+            this.textBoxStudentCode.PasswordChar = '\0';
+            this.textBoxStudentCode.SelectedText = "";
+            this.textBoxStudentCode.SelectionLength = 0;
+            this.textBoxStudentCode.SelectionStart = 0;
+            this.textBoxStudentCode.Size = new System.Drawing.Size(250, 23);
+            this.textBoxStudentCode.TabIndex = 8;
+            this.textBoxStudentCode.TabStop = false;
+            this.textBoxStudentCode.UseSystemPasswordChar = false;
+            // 
+            // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -660,7 +698,7 @@ namespace GakujoGUI
             this.Controls.Add(this.materialTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 450);
-            this.Name = "Form1";
+            this.Name = "MainFrom";
             this.Text = "GakujoGUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -730,6 +768,8 @@ namespace GakujoGUI
         private System.Windows.Forms.ColumnHeader columnVisible2;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxAllVisible;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textBoxStudentCode;
+        private MaterialSkin.Controls.MaterialSingleLineTextField textBoxStudentName;
     }
 }
 

@@ -98,12 +98,24 @@ namespace GakujoGUI.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string 設定 {
+        public string studentName {
             get {
-                return ((string)(this["設定"]));
+                return ((string)(this["studentName"]));
             }
             set {
-                this["設定"] = value;
+                this["studentName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string studentCode {
+            get {
+                return ((string)(this["studentCode"]));
+            }
+            set {
+                this["studentCode"] = value;
             }
         }
     }
