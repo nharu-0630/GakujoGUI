@@ -8,7 +8,7 @@
 
 ### Installation
 
-準備中
+[v1.0.7883.28119](https://github.com/xyzyxJP/GakujoGUI/releases/tag/v1.0.7883.28119)
 
 ### Usage
 
