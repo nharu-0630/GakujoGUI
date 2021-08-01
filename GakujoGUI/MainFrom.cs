@@ -36,7 +36,14 @@ namespace GakujoGUI
             gakujoAPI.passWord = textBoxPassWord.Text;
             gakujoAPI.studentName = textBoxStudentName.Text;
             gakujoAPI.studentCode = textBoxStudentCode.Text;
-            gakujoLogin = await Task.Run(() => gakujoAPI.Login());
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                gakujoLogin = await Task.Run(() => gakujoAPI.Login(progress));
+                progressBox.Close();
+            }
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
                 if (gakujoLogin)
@@ -73,7 +80,14 @@ namespace GakujoGUI
             {
                 return;
             }
-            classContactList = await Task.Run(() => gakujoAPI.GetClassContactList(int.Parse(textBoxClassContactLimit.Text), int.Parse(textBoxClassContactDetail.Text), checkBoxClassContactFileDownload.Checked, downloadPath));
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                classContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, int.Parse(textBoxClassContactLimit.Text), int.Parse(textBoxClassContactDetail.Text), checkBoxClassContactFileDownload.Checked, downloadPath));
+                progressBox.Close();
+            }
             listViewClassContact.Items.Clear();
             foreach (GakujoAPI.ClassContact classContact in classContactList)
             {
@@ -92,7 +106,14 @@ namespace GakujoGUI
             {
                 return;
             }
-            reportList = await Task.Run(() => gakujoAPI.GetReportList(0));
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                reportList = await Task.Run(() => gakujoAPI.GetReportList(progress, 0));
+                progressBox.Close();
+            }
             listViewReport.Items.Clear();
             foreach (GakujoAPI.Report report in reportList)
             {
@@ -111,7 +132,14 @@ namespace GakujoGUI
             {
                 return;
             }
-            quizList = await Task.Run(() => gakujoAPI.GetQuizList(0));
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                quizList = await Task.Run(() => gakujoAPI.GetQuizList(progress, 0));
+                progressBox.Close();
+            }
             listViewQuiz.Items.Clear();
             foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
             {
@@ -149,9 +177,15 @@ namespace GakujoGUI
                     switch (textOutputBox.ShowDialog())
                     {
                         case DialogResult.Yes:
-                            GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
-                            listViewClassContact.Items[selectIndex] = new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime });
-                            classContactList[selectIndex] = classContact;
+                            using (ProgressBox progressBox = new ProgressBox())
+                            {
+                                progressBox.Set("GakujoGUI", "");
+                                Progress<double> progress = new Progress<double>(progressBox.Update);
+                                GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
+                                progressBox.Close();
+                                listViewClassContact.Items[selectIndex] = new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime });
+                                classContactList[selectIndex] = classContact;
+                            }
                             break;
                         case DialogResult.No:
                             return;
@@ -213,7 +247,13 @@ namespace GakujoGUI
                     fileTextInputBox.Set("GakujoGUI", reportList[selectIndex].classSubjects + Environment.NewLine + reportList[selectIndex].title);
                     if (fileTextInputBox.ShowDialog() == DialogResult.OK)
                     {
-                        Task.Run(() => gakujoAPI.SubmitReport(reportList[selectIndex].id, new string[] { fileTextInputBox.inputFile }, fileTextInputBox.inputText));
+                        using (ProgressBox progressBox = new ProgressBox())
+                        {
+                            progressBox.Set("GakujoGUI", "");
+                            Progress<double> progress = new Progress<double>(progressBox.Update);
+                            Task.Run(() => gakujoAPI.SubmitReport(progress, reportList[selectIndex].id, new string[] { fileTextInputBox.inputFile }, fileTextInputBox.inputText));
+                            progressBox.Close();
+                        }
                         using (TextOutputBox textOutputBox = new TextOutputBox())
                         {
                             textOutputBox.Set("GakujoGUI", "提出が完了しました。", MessageBoxButtons.OK);
@@ -238,10 +278,22 @@ namespace GakujoGUI
             {
                 using (QuizForm quizForm = new QuizForm())
                 {
-                    quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(quizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
+                    using (ProgressBox progressBox = new ProgressBox())
+                    {
+                        progressBox.Set("GakujoGUI", "");
+                        Progress<double> progress = new Progress<double>(progressBox.Update);
+                        quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, quizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
+                        progressBox.Close();
+                    }
                     if (quizForm.ShowDialog() == DialogResult.OK)
                     {
-                        gakujoAPI.SubmitQuiz(quizList[selectIndex].id, quizForm.outputText);
+                        using (ProgressBox progressBox = new ProgressBox())
+                        {
+                            progressBox.Set("GakujoGUI", "");
+                            Progress<double> progress = new Progress<double>(progressBox.Update);
+                            gakujoAPI.SubmitQuiz(progress, quizList[selectIndex].id, quizForm.outputText);
+                            progressBox.Close();
+                        }
                     }
 
                 }

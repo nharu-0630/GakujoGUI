@@ -32,6 +32,8 @@ namespace GakujoGUI
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrom));
             this.materialTabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
+            this.textBoxStudentCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.textBoxStudentName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.checkBoxAutoLogin = new MaterialSkin.Controls.MaterialCheckBox();
             this.buttonTwitter = new MaterialSkin.Controls.MaterialFlatButton();
@@ -76,8 +78,6 @@ namespace GakujoGUI
             this.columnSubmissionStatus2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperation2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
-            this.textBoxStudentName = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.textBoxStudentCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
@@ -123,6 +123,40 @@ namespace GakujoGUI
             this.tabPageLogin.Size = new System.Drawing.Size(768, 319);
             this.tabPageLogin.TabIndex = 4;
             this.tabPageLogin.Text = "ログイン";
+            // 
+            // textBoxStudentCode
+            // 
+            this.textBoxStudentCode.Depth = 0;
+            this.textBoxStudentCode.Hint = "学籍番号（半角数字）";
+            this.textBoxStudentCode.Location = new System.Drawing.Point(3, 90);
+            this.textBoxStudentCode.MaxLength = 32767;
+            this.textBoxStudentCode.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textBoxStudentCode.Name = "textBoxStudentCode";
+            this.textBoxStudentCode.PasswordChar = '\0';
+            this.textBoxStudentCode.SelectedText = "";
+            this.textBoxStudentCode.SelectionLength = 0;
+            this.textBoxStudentCode.SelectionStart = 0;
+            this.textBoxStudentCode.Size = new System.Drawing.Size(250, 23);
+            this.textBoxStudentCode.TabIndex = 8;
+            this.textBoxStudentCode.TabStop = false;
+            this.textBoxStudentCode.UseSystemPasswordChar = false;
+            // 
+            // textBoxStudentName
+            // 
+            this.textBoxStudentName.Depth = 0;
+            this.textBoxStudentName.Hint = "氏名（全角スペース）";
+            this.textBoxStudentName.Location = new System.Drawing.Point(3, 61);
+            this.textBoxStudentName.MaxLength = 32767;
+            this.textBoxStudentName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.textBoxStudentName.Name = "textBoxStudentName";
+            this.textBoxStudentName.PasswordChar = '\0';
+            this.textBoxStudentName.SelectedText = "";
+            this.textBoxStudentName.SelectionLength = 0;
+            this.textBoxStudentName.SelectionStart = 0;
+            this.textBoxStudentName.Size = new System.Drawing.Size(250, 23);
+            this.textBoxStudentName.TabIndex = 7;
+            this.textBoxStudentName.TabStop = false;
+            this.textBoxStudentName.UseSystemPasswordChar = false;
             // 
             // webView21
             // 
@@ -409,7 +443,6 @@ namespace GakujoGUI
             this.labelClassContactTitle.Name = "labelClassContactTitle";
             this.labelClassContactTitle.Size = new System.Drawing.Size(756, 20);
             this.labelClassContactTitle.TabIndex = 12;
-            this.labelClassContactTitle.Text = "タイトル";
             // 
             // labelClassContactContent
             // 
@@ -654,40 +687,6 @@ namespace GakujoGUI
             this.materialTabSelector.Size = new System.Drawing.Size(800, 23);
             this.materialTabSelector.TabIndex = 6;
             this.materialTabSelector.Text = "materialTabSelector";
-            // 
-            // textBoxStudentName
-            // 
-            this.textBoxStudentName.Depth = 0;
-            this.textBoxStudentName.Hint = "氏名（全角スペース）";
-            this.textBoxStudentName.Location = new System.Drawing.Point(3, 61);
-            this.textBoxStudentName.MaxLength = 32767;
-            this.textBoxStudentName.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textBoxStudentName.Name = "textBoxStudentName";
-            this.textBoxStudentName.PasswordChar = '\0';
-            this.textBoxStudentName.SelectedText = "";
-            this.textBoxStudentName.SelectionLength = 0;
-            this.textBoxStudentName.SelectionStart = 0;
-            this.textBoxStudentName.Size = new System.Drawing.Size(250, 23);
-            this.textBoxStudentName.TabIndex = 7;
-            this.textBoxStudentName.TabStop = false;
-            this.textBoxStudentName.UseSystemPasswordChar = false;
-            // 
-            // textBoxStudentCode
-            // 
-            this.textBoxStudentCode.Depth = 0;
-            this.textBoxStudentCode.Hint = "学籍番号（半角数字）";
-            this.textBoxStudentCode.Location = new System.Drawing.Point(3, 90);
-            this.textBoxStudentCode.MaxLength = 32767;
-            this.textBoxStudentCode.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textBoxStudentCode.Name = "textBoxStudentCode";
-            this.textBoxStudentCode.PasswordChar = '\0';
-            this.textBoxStudentCode.SelectedText = "";
-            this.textBoxStudentCode.SelectionLength = 0;
-            this.textBoxStudentCode.SelectionStart = 0;
-            this.textBoxStudentCode.Size = new System.Drawing.Size(250, 23);
-            this.textBoxStudentCode.TabIndex = 8;
-            this.textBoxStudentCode.TabStop = false;
-            this.textBoxStudentCode.UseSystemPasswordChar = false;
             // 
             // MainFrom
             // 

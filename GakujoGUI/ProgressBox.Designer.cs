@@ -1,7 +1,7 @@
 ﻿
 namespace GakujoGUI
 {
-    partial class BrowserBox
+    partial class ProgressBox
     {
         /// <summary>
         /// Required designer variable.
@@ -29,42 +29,39 @@ namespace GakujoGUI
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BrowserBox));
-            this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressBox));
+            this.progressBar = new MaterialSkin.Controls.MaterialProgressBar();
             this.SuspendLayout();
             // 
-            // webView2
+            // progressBar
             // 
-            this.webView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webView2.CreationProperties = null;
-            this.webView2.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView2.Location = new System.Drawing.Point(12, 76);
-            this.webView2.Name = "webView2";
-            this.webView2.Size = new System.Drawing.Size(776, 362);
-            this.webView2.TabIndex = 3;
-            this.webView2.ZoomFactor = 1D;
+            this.progressBar.Depth = 0;
+            this.progressBar.Location = new System.Drawing.Point(12, 76);
+            this.progressBar.MouseState = MaterialSkin.MouseState.HOVER;
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(376, 5);
+            this.progressBar.TabIndex = 1;
             // 
-            // BrowserBox
+            // ProgressBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.webView2);
+            this.ClientSize = new System.Drawing.Size(400, 93);
+            this.Controls.Add(this.progressBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(400, 93);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(800, 450);
-            this.Name = "BrowserBox";
+            this.MinimumSize = new System.Drawing.Size(400, 93);
+            this.Name = "ProgressBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Title";
-            ((System.ComponentModel.ISupportInitialize)(this.webView2)).EndInit();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProgressBox_FormClosing);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
+        private MaterialSkin.Controls.MaterialProgressBar progressBar;
     }
 }
