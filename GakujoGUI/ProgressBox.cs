@@ -41,5 +41,6 @@ namespace GakujoGUI
         {
             e.Cancel = true;
         }
+
     }
 }

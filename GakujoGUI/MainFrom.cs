@@ -32,6 +32,7 @@ namespace GakujoGUI
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
+            buttonLogin.Enabled = false;
             gakujoAPI.userId = textBoxUserId.Text;
             gakujoAPI.passWord = textBoxPassWord.Text;
             gakujoAPI.studentName = textBoxStudentName.Text;
@@ -56,6 +57,7 @@ namespace GakujoGUI
                 }
                 textOutputBox.ShowDialog();
             }
+            buttonLogin.Enabled = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -81,6 +83,7 @@ namespace GakujoGUI
             {
                 return;
             }
+            buttonRefreshClassContact.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -99,6 +102,7 @@ namespace GakujoGUI
                 textOutputBox.Set("GakujoGUI", classContactList.Count + "件の授業連絡を取得しました。", MessageBoxButtons.OK);
                 textOutputBox.ShowDialog();
             }
+            buttonRefreshClassContact.Enabled = true;
         }
 
         private async void buttonRefreshReport_Click(object sender, EventArgs e)
@@ -107,6 +111,7 @@ namespace GakujoGUI
             {
                 return;
             }
+            buttonRefreshReport.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -125,6 +130,7 @@ namespace GakujoGUI
                 textOutputBox.Set("GakujoGUI", reportList.Count + "件のレポートを取得しました。", MessageBoxButtons.OK);
                 textOutputBox.ShowDialog();
             }
+            buttonRefreshReport.Enabled = true;
         }
 
         private async void buttonRefreshQuiz_Click(object sender, EventArgs e)
@@ -133,6 +139,7 @@ namespace GakujoGUI
             {
                 return;
             }
+            buttonRefreshQuiz.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -151,6 +158,7 @@ namespace GakujoGUI
                 textOutputBox.Set("GakujoGUI", quizList.Count + "件の小テストを取得しました。", MessageBoxButtons.OK);
                 textOutputBox.ShowDialog();
             }
+            buttonRefreshQuiz.Enabled = true;
         }
 
         private async void listViewClassContact_MouseClick(object sender, MouseEventArgs e)
@@ -184,6 +192,7 @@ namespace GakujoGUI
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
                                 GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
+                                Enabled = true;
                                 listViewClassContact.Items[selectIndex] = new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime });
                                 classContactList[selectIndex] = classContact;
                             }
@@ -254,6 +263,7 @@ namespace GakujoGUI
                             Progress<double> progress = new Progress<double>(progressBox.Update);
                             Task.Run(() => gakujoAPI.SubmitReport(progress, reportList[selectIndex].id, new string[] { fileTextInputBox.inputFile }, fileTextInputBox.inputText));
                             progressBox.Close();
+                            Enabled = true;
                         }
                         using (TextOutputBox textOutputBox = new TextOutputBox())
                         {
