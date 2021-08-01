@@ -60,6 +60,7 @@ namespace GakujoGUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             textBoxUserId.Text = Properties.Settings.Default.userId;
             textBoxPassWord.Text = Properties.Settings.Default.passWord;
             textBoxStudentName.Text = Properties.Settings.Default.studentName;
