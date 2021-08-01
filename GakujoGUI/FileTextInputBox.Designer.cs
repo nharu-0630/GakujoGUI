@@ -42,13 +42,14 @@ namespace GakujoGUI
             this.buttonCancel.AutoSize = true;
             this.buttonCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonCancel.Depth = 0;
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Icon = null;
             this.buttonCancel.Location = new System.Drawing.Point(315, 202);
             this.buttonCancel.MouseState = MaterialSkin.MouseState.HOVER;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Primary = true;
             this.buttonCancel.Size = new System.Drawing.Size(73, 36);
-            this.buttonCancel.TabIndex = 1;
+            this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "CANCEL";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -64,7 +65,7 @@ namespace GakujoGUI
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Primary = true;
             this.buttonOk.Size = new System.Drawing.Size(39, 36);
-            this.buttonOk.TabIndex = 2;
+            this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
@@ -95,7 +96,7 @@ namespace GakujoGUI
             this.label.MouseState = MaterialSkin.MouseState.HOVER;
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(376, 46);
-            this.label.TabIndex = 4;
+            this.label.TabIndex = 1;
             // 
             // buttonFile
             // 
@@ -110,7 +111,7 @@ namespace GakujoGUI
             this.buttonFile.Name = "buttonFile";
             this.buttonFile.Primary = false;
             this.buttonFile.Size = new System.Drawing.Size(127, 36);
-            this.buttonFile.TabIndex = 5;
+            this.buttonFile.TabIndex = 2;
             this.buttonFile.Text = "DRAG AND DROP";
             this.buttonFile.UseVisualStyleBackColor = true;
             this.buttonFile.DragDrop += new System.Windows.Forms.DragEventHandler(this.buttonFile_DragDrop);
@@ -118,8 +119,10 @@ namespace GakujoGUI
             // 
             // FileTextInputBox
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(400, 250);
             this.Controls.Add(this.buttonFile);
             this.Controls.Add(this.label);

@@ -274,7 +274,7 @@ namespace GakujoGUI
             Point point = listViewQuiz.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 6 && quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始")
+            if (columnIndex == 7 && quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始")
             {
                 using (QuizForm quizForm = new QuizForm())
                 {

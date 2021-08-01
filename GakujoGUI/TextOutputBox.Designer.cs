@@ -45,7 +45,7 @@ namespace GakujoGUI
             this.label.MouseState = MaterialSkin.MouseState.HOVER;
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(376, 123);
-            this.label.TabIndex = 0;
+            this.label.TabIndex = 1;
             // 
             // buttonOk
             // 
@@ -58,7 +58,7 @@ namespace GakujoGUI
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Primary = true;
             this.buttonOk.Size = new System.Drawing.Size(39, 36);
-            this.buttonOk.TabIndex = 1;
+            this.buttonOk.TabIndex = 2;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Visible = false;

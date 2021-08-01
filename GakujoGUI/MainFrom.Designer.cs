@@ -105,7 +105,8 @@ namespace GakujoGUI
             this.materialTabControl.Name = "materialTabControl";
             this.materialTabControl.SelectedIndex = 0;
             this.materialTabControl.Size = new System.Drawing.Size(776, 345);
-            this.materialTabControl.TabIndex = 5;
+            this.materialTabControl.TabIndex = 0;
+            this.materialTabControl.TabStop = false;
             // 
             // tabPageLogin
             // 
@@ -137,8 +138,7 @@ namespace GakujoGUI
             this.textBoxStudentCode.SelectionLength = 0;
             this.textBoxStudentCode.SelectionStart = 0;
             this.textBoxStudentCode.Size = new System.Drawing.Size(250, 23);
-            this.textBoxStudentCode.TabIndex = 8;
-            this.textBoxStudentCode.TabStop = false;
+            this.textBoxStudentCode.TabIndex = 4;
             this.textBoxStudentCode.UseSystemPasswordChar = false;
             // 
             // textBoxStudentName
@@ -154,8 +154,7 @@ namespace GakujoGUI
             this.textBoxStudentName.SelectionLength = 0;
             this.textBoxStudentName.SelectionStart = 0;
             this.textBoxStudentName.Size = new System.Drawing.Size(250, 23);
-            this.textBoxStudentName.TabIndex = 7;
-            this.textBoxStudentName.TabStop = false;
+            this.textBoxStudentName.TabIndex = 3;
             this.textBoxStudentName.UseSystemPasswordChar = false;
             // 
             // webView21
@@ -169,7 +168,8 @@ namespace GakujoGUI
             this.webView21.Name = "webView21";
             this.webView21.Size = new System.Drawing.Size(509, 319);
             this.webView21.Source = new System.Uri("https://gakujo.shizuoka.ac.jp/UI/jsp/topPage/topPage.jsp", System.UriKind.Absolute);
-            this.webView21.TabIndex = 6;
+            this.webView21.TabIndex = 0;
+            this.webView21.TabStop = false;
             this.webView21.ZoomFactor = 1D;
             // 
             // checkBoxAutoLogin
@@ -201,7 +201,7 @@ namespace GakujoGUI
             this.buttonTwitter.Name = "buttonTwitter";
             this.buttonTwitter.Primary = false;
             this.buttonTwitter.Size = new System.Drawing.Size(92, 36);
-            this.buttonTwitter.TabIndex = 4;
+            this.buttonTwitter.TabIndex = 7;
             this.buttonTwitter.Text = "@xyzyxjp";
             this.buttonTwitter.UseVisualStyleBackColor = true;
             this.buttonTwitter.Click += new System.EventHandler(this.buttonTwitter_Click);
@@ -217,7 +217,7 @@ namespace GakujoGUI
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Primary = true;
             this.buttonLogin.Size = new System.Drawing.Size(66, 36);
-            this.buttonLogin.TabIndex = 2;
+            this.buttonLogin.TabIndex = 6;
             this.buttonLogin.Text = "ログイン";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
@@ -235,8 +235,7 @@ namespace GakujoGUI
             this.textBoxPassWord.SelectionLength = 0;
             this.textBoxPassWord.SelectionStart = 0;
             this.textBoxPassWord.Size = new System.Drawing.Size(250, 23);
-            this.textBoxPassWord.TabIndex = 1;
-            this.textBoxPassWord.TabStop = false;
+            this.textBoxPassWord.TabIndex = 2;
             this.textBoxPassWord.UseSystemPasswordChar = false;
             // 
             // textBoxUserId
@@ -252,8 +251,7 @@ namespace GakujoGUI
             this.textBoxUserId.SelectionLength = 0;
             this.textBoxUserId.SelectionStart = 0;
             this.textBoxUserId.Size = new System.Drawing.Size(250, 23);
-            this.textBoxUserId.TabIndex = 0;
-            this.textBoxUserId.TabStop = false;
+            this.textBoxUserId.TabIndex = 1;
             this.textBoxUserId.UseSystemPasswordChar = false;
             // 
             // tabPageClassContact
@@ -304,8 +302,7 @@ namespace GakujoGUI
             this.textBoxClassContactDetail.SelectionLength = 0;
             this.textBoxClassContactDetail.SelectionStart = 0;
             this.textBoxClassContactDetail.Size = new System.Drawing.Size(80, 23);
-            this.textBoxClassContactDetail.TabIndex = 10;
-            this.textBoxClassContactDetail.TabStop = false;
+            this.textBoxClassContactDetail.TabIndex = 4;
             this.textBoxClassContactDetail.Text = "10";
             this.textBoxClassContactDetail.UseSystemPasswordChar = false;
             this.textBoxClassContactDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxClassContactDetail_KeyPress);
@@ -323,8 +320,7 @@ namespace GakujoGUI
             this.textBoxClassContactLimit.SelectionLength = 0;
             this.textBoxClassContactLimit.SelectionStart = 0;
             this.textBoxClassContactLimit.Size = new System.Drawing.Size(80, 23);
-            this.textBoxClassContactLimit.TabIndex = 9;
-            this.textBoxClassContactLimit.TabStop = false;
+            this.textBoxClassContactLimit.TabIndex = 3;
             this.textBoxClassContactLimit.Text = "0";
             this.textBoxClassContactLimit.UseSystemPasswordChar = false;
             this.textBoxClassContactLimit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxClassContactLimit_KeyPress);
@@ -341,7 +337,7 @@ namespace GakujoGUI
             this.checkBoxClassContactFileDownload.Name = "checkBoxClassContactFileDownload";
             this.checkBoxClassContactFileDownload.Ripple = true;
             this.checkBoxClassContactFileDownload.Size = new System.Drawing.Size(140, 30);
-            this.checkBoxClassContactFileDownload.TabIndex = 8;
+            this.checkBoxClassContactFileDownload.TabIndex = 2;
             this.checkBoxClassContactFileDownload.Text = "ファイルダウンロード";
             this.checkBoxClassContactFileDownload.UseVisualStyleBackColor = true;
             // 
@@ -356,7 +352,7 @@ namespace GakujoGUI
             this.buttonRefreshClassContact.Name = "buttonRefreshClassContact";
             this.buttonRefreshClassContact.Primary = true;
             this.buttonRefreshClassContact.Size = new System.Drawing.Size(51, 36);
-            this.buttonRefreshClassContact.TabIndex = 7;
+            this.buttonRefreshClassContact.TabIndex = 1;
             this.buttonRefreshClassContact.Text = "更新";
             this.buttonRefreshClassContact.UseVisualStyleBackColor = true;
             this.buttonRefreshClassContact.Click += new System.EventHandler(this.buttonRefreshClassContact_Click);
@@ -386,7 +382,7 @@ namespace GakujoGUI
             this.listViewClassContact.Name = "listViewClassContact";
             this.listViewClassContact.OwnerDraw = true;
             this.listViewClassContact.Size = new System.Drawing.Size(762, 108);
-            this.listViewClassContact.TabIndex = 0;
+            this.listViewClassContact.TabIndex = 5;
             this.listViewClassContact.UseCompatibleStateImageBehavior = false;
             this.listViewClassContact.View = System.Windows.Forms.View.Details;
             this.listViewClassContact.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewClassContact_MouseClick);
@@ -429,7 +425,7 @@ namespace GakujoGUI
             this.buttonFile.Name = "buttonFile";
             this.buttonFile.Primary = false;
             this.buttonFile.Size = new System.Drawing.Size(63, 36);
-            this.buttonFile.TabIndex = 13;
+            this.buttonFile.TabIndex = 8;
             this.buttonFile.Text = "ファイル";
             this.buttonFile.UseVisualStyleBackColor = true;
             this.buttonFile.Visible = false;
@@ -442,7 +438,7 @@ namespace GakujoGUI
             this.labelClassContactTitle.Location = new System.Drawing.Point(3, 0);
             this.labelClassContactTitle.Name = "labelClassContactTitle";
             this.labelClassContactTitle.Size = new System.Drawing.Size(756, 20);
-            this.labelClassContactTitle.TabIndex = 12;
+            this.labelClassContactTitle.TabIndex = 6;
             // 
             // labelClassContactContent
             // 
@@ -458,8 +454,7 @@ namespace GakujoGUI
             this.labelClassContactContent.ReadOnly = true;
             this.labelClassContactContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.labelClassContactContent.Size = new System.Drawing.Size(756, 85);
-            this.labelClassContactContent.TabIndex = 11;
-            this.labelClassContactContent.TabStop = false;
+            this.labelClassContactContent.TabIndex = 7;
             // 
             // tabPageReport
             // 
@@ -484,7 +479,7 @@ namespace GakujoGUI
             this.buttonRefreshReport.Name = "buttonRefreshReport";
             this.buttonRefreshReport.Primary = true;
             this.buttonRefreshReport.Size = new System.Drawing.Size(51, 36);
-            this.buttonRefreshReport.TabIndex = 8;
+            this.buttonRefreshReport.TabIndex = 1;
             this.buttonRefreshReport.Text = "更新";
             this.buttonRefreshReport.UseVisualStyleBackColor = true;
             this.buttonRefreshReport.Click += new System.EventHandler(this.buttonRefreshReport_Click);
@@ -515,7 +510,7 @@ namespace GakujoGUI
             this.listViewReport.Name = "listViewReport";
             this.listViewReport.OwnerDraw = true;
             this.listViewReport.Size = new System.Drawing.Size(762, 268);
-            this.listViewReport.TabIndex = 1;
+            this.listViewReport.TabIndex = 2;
             this.listViewReport.UseCompatibleStateImageBehavior = false;
             this.listViewReport.View = System.Windows.Forms.View.Details;
             this.listViewReport.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewReport_MouseClick);
@@ -581,7 +576,7 @@ namespace GakujoGUI
             this.checkBoxAllVisible.Name = "checkBoxAllVisible";
             this.checkBoxAllVisible.Ripple = true;
             this.checkBoxAllVisible.Size = new System.Drawing.Size(97, 30);
-            this.checkBoxAllVisible.TabIndex = 10;
+            this.checkBoxAllVisible.TabIndex = 2;
             this.checkBoxAllVisible.Text = "すべて表示";
             this.checkBoxAllVisible.UseVisualStyleBackColor = true;
             this.checkBoxAllVisible.CheckedChanged += new System.EventHandler(this.checkBoxAllVisible_CheckedChanged);
@@ -597,7 +592,7 @@ namespace GakujoGUI
             this.buttonRefreshQuiz.Name = "buttonRefreshQuiz";
             this.buttonRefreshQuiz.Primary = true;
             this.buttonRefreshQuiz.Size = new System.Drawing.Size(51, 36);
-            this.buttonRefreshQuiz.TabIndex = 9;
+            this.buttonRefreshQuiz.TabIndex = 1;
             this.buttonRefreshQuiz.Text = "更新";
             this.buttonRefreshQuiz.UseVisualStyleBackColor = true;
             this.buttonRefreshQuiz.Click += new System.EventHandler(this.buttonRefreshQuiz_Click);
@@ -629,7 +624,7 @@ namespace GakujoGUI
             this.listViewQuiz.Name = "listViewQuiz";
             this.listViewQuiz.OwnerDraw = true;
             this.listViewQuiz.Size = new System.Drawing.Size(762, 268);
-            this.listViewQuiz.TabIndex = 2;
+            this.listViewQuiz.TabIndex = 3;
             this.listViewQuiz.UseCompatibleStateImageBehavior = false;
             this.listViewQuiz.View = System.Windows.Forms.View.Details;
             this.listViewQuiz.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewQuiz_MouseClick);
@@ -685,7 +680,8 @@ namespace GakujoGUI
             this.materialTabSelector.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector.Name = "materialTabSelector";
             this.materialTabSelector.Size = new System.Drawing.Size(800, 23);
-            this.materialTabSelector.TabIndex = 6;
+            this.materialTabSelector.TabIndex = 0;
+            this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
             // 
             // MainFrom

@@ -34,9 +34,12 @@ namespace GakujoGUI
                 case MessageBoxButtons.YesNo:
                     buttonYes.Visible = true;
                     buttonNo.Visible = true;
+                    AcceptButton = buttonYes;
+                    CancelButton = buttonNo;
                     break;
                 case MessageBoxButtons.OK:
                     buttonOk.Visible = true;
+                    AcceptButton = buttonOk;
                     break;
             }
             return dialogResult;
