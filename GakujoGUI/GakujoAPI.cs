@@ -599,7 +599,7 @@ namespace GakujoAPI
 
         public bool CancelQuiz(IProgress<double> progress, string testId)
         {
-            progress.Report(100 * 0 / 2);
+            progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/searchList/submitCancel");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -621,7 +621,7 @@ namespace GakujoAPI
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
-            progress.Report(100 * 2 / 2);
+            progress.Report(100 * 1 / 1);
             return true;
         }
 

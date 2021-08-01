@@ -190,6 +190,7 @@ namespace GakujoGUI
                             using (ProgressBox progressBox = new ProgressBox())
                             {
                                 progressBox.Set("GakujoGUI", "");
+                                progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
                                 GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
@@ -264,6 +265,7 @@ namespace GakujoGUI
                         using (ProgressBox progressBox = new ProgressBox())
                         {
                             progressBox.Set("GakujoGUI", "");
+                            progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
                             Task.Run(() => gakujoAPI.SubmitReport(progress, reportList[selectIndex].id, new string[] { fileTextInputBox.inputFile }, fileTextInputBox.inputText));
                             progressBox.Close();
@@ -276,6 +278,10 @@ namespace GakujoGUI
                         }
                     }
                 }
+            }
+            else if (columnIndex == 6 && reportList[selectIndex].operation == "提出取消")
+            {
+                //
             }
         }
 
@@ -297,15 +303,18 @@ namespace GakujoGUI
                     using (ProgressBox progressBox = new ProgressBox())
                     {
                         progressBox.Set("GakujoGUI", "");
+                        progressBox.Show();
                         Progress<double> progress = new Progress<double>(progressBox.Update);
-                        quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
+                        string quizDetail = (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>");
                         progressBox.Close();
+                        quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + quizDetail);
                     }
                     if (quizForm.ShowDialog() == DialogResult.OK)
                     {
                         using (ProgressBox progressBox = new ProgressBox())
                         {
                             progressBox.Set("GakujoGUI", "");
+                            progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
                             gakujoAPI.SubmitQuiz(progress, tempQuizList[selectIndex].id, quizForm.outputText);
                             progressBox.Close();
@@ -316,12 +325,20 @@ namespace GakujoGUI
             }
             else if (columnIndex == 7 && tempQuizList[selectIndex].operation == "提出取消")
             {
-                using (ProgressBox progressBox = new ProgressBox())
+                using (TextOutputBox textOutputBox = new TextOutputBox())
                 {
-                    progressBox.Set("GakujoGUI", "");
-                    Progress<double> progress = new Progress<double>(progressBox.Update);
-                    gakujoAPI.CancelQuiz(progress, tempQuizList[selectIndex].id);
-                    progressBox.Close();
+                    textOutputBox.Set("GakujoGUI", tempQuizList[selectIndex].classSubjects + Environment.NewLine + tempQuizList[selectIndex].title + Environment.NewLine + "を提出取消しますか。", MessageBoxButtons.YesNo);
+                    if (textOutputBox.ShowDialog() == DialogResult.Yes)
+                    {
+                        using (ProgressBox progressBox = new ProgressBox())
+                        {
+                            progressBox.Set("GakujoGUI", "");
+                            progressBox.Show();
+                            Progress<double> progress = new Progress<double>(progressBox.Update);
+                            gakujoAPI.CancelQuiz(progress, tempQuizList[selectIndex].id);
+                            progressBox.Close();
+                        }
+                    }
                 }
             }
             else if (columnIndex == 1)
@@ -419,7 +436,7 @@ namespace GakujoGUI
             }
             int selectIndex = listViewHitTestInfo.Item.Index;
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if ((columnIndex == 7 && quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始") || (columnIndex == 1))
+            if ((columnIndex == 7 && (quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始" || quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出取消")) || (columnIndex == 1))
             {
                 listViewQuiz.Cursor = Cursors.Hand;
             }
