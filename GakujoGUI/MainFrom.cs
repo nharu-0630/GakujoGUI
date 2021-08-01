@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 
 namespace GakujoGUI
 {
@@ -237,7 +238,10 @@ namespace GakujoGUI
 
         private void FileButton_Click(object sender, EventArgs e)
         {
-            Process.Start(downloadPath + ((Button)sender).Text);
+            if (File.Exists(downloadPath + ((Button)sender)))
+            {
+                Process.Start(downloadPath + ((Button)sender).Text);
+            }
         }
 
         private void listViewReport_MouseClick(object sender, MouseEventArgs e)
@@ -285,7 +289,8 @@ namespace GakujoGUI
             Point point = listViewQuiz.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 7 && quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始")
+            List<GakujoAPI.Quiz> tempQuizList = quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToList();
+            if (columnIndex == 7 && tempQuizList[selectIndex].operation == "提出開始")
             {
                 using (QuizForm quizForm = new QuizForm())
                 {
@@ -293,7 +298,7 @@ namespace GakujoGUI
                     {
                         progressBox.Set("GakujoGUI", "");
                         Progress<double> progress = new Progress<double>(progressBox.Update);
-                        quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, quizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
+                        quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>"));
                         progressBox.Close();
                     }
                     if (quizForm.ShowDialog() == DialogResult.OK)
@@ -302,11 +307,21 @@ namespace GakujoGUI
                         {
                             progressBox.Set("GakujoGUI", "");
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            gakujoAPI.SubmitQuiz(progress, quizList[selectIndex].id, quizForm.outputText);
+                            gakujoAPI.SubmitQuiz(progress, tempQuizList[selectIndex].id, quizForm.outputText);
                             progressBox.Close();
                         }
                     }
 
+                }
+            }
+            else if (columnIndex == 7 && tempQuizList[selectIndex].operation == "提出取消")
+            {
+                using (ProgressBox progressBox = new ProgressBox())
+                {
+                    progressBox.Set("GakujoGUI", "");
+                    Progress<double> progress = new Progress<double>(progressBox.Update);
+                    gakujoAPI.CancelQuiz(progress, tempQuizList[selectIndex].id);
+                    progressBox.Close();
                 }
             }
             else if (columnIndex == 1)
