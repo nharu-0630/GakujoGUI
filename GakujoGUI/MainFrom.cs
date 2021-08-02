@@ -281,7 +281,21 @@ namespace GakujoGUI
             }
             else if (columnIndex == 6 && reportList[selectIndex].operation == "提出取消")
             {
-                //
+                using (TextOutputBox textOutputBox = new TextOutputBox())
+                {
+                    textOutputBox.Set("GakujoGUI", reportList[selectIndex].classSubjects + Environment.NewLine + reportList[selectIndex].title + Environment.NewLine + "を提出取消しますか。", MessageBoxButtons.YesNo);
+                    if (textOutputBox.ShowDialog() == DialogResult.Yes)
+                    {
+                        using (ProgressBox progressBox = new ProgressBox())
+                        {
+                            progressBox.Set("GakujoGUI", "");
+                            progressBox.Show();
+                            Progress<double> progress = new Progress<double>(progressBox.Update);
+                            gakujoAPI.CancelReport(progress, reportList[selectIndex].id);
+                            progressBox.Close();
+                        }
+                    }
+                }
             }
         }
 
@@ -416,7 +430,7 @@ namespace GakujoGUI
             }
             int selectIndex = listViewHitTestInfo.Item.Index;
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 6 && reportList[selectIndex].operation == "提出開始")
+            if (columnIndex == 6 && (reportList[selectIndex].operation == "提出開始" || reportList[selectIndex].operation == "提出取消"))
             {
                 listViewReport.Cursor = Cursors.Hand;
             }
