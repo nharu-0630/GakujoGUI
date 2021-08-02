@@ -8,9 +8,7 @@
 
 ### Installation
 
-#### v1.1
-
-[v1.1.7884.22281](https://github.com/xyzyxJP/GakujoGUI/releases/tag/v1.1.7884.22281) 2021/08/02
+[v1.1.7884.22281](https://github.com/xyzyxJP/GakujoGUI/releases/tag/v1.1.7884.22281)
 
 ### Usage
 
