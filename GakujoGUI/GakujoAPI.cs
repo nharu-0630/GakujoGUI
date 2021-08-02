@@ -146,6 +146,8 @@ namespace GakujoAPI
                 htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
                 apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
+                //studentName = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/div/div/div/ul[2]/li/a/span/span")[0].InnerText;
+                //studentName = studentName.Substring(0, studentName.Length - 2);
                 progress.Report(100 * 9 / 9);
             }
             return true;
