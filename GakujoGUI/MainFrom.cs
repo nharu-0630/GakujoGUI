@@ -9,6 +9,8 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.IO;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace GakujoGUI
 {
@@ -24,9 +26,78 @@ namespace GakujoGUI
         }
 
         private GakujoAPI.GakujoAPI gakujoAPI = new GakujoAPI.GakujoAPI();
-        private List<GakujoAPI.ClassContact> classContactList = new List<GakujoAPI.ClassContact> { };
-        private List<GakujoAPI.Report> reportList = new List<GakujoAPI.Report> { };
-        private List<GakujoAPI.Quiz> quizList = new List<GakujoAPI.Quiz> { };
+        private List<GakujoAPI.ClassContact> _classContactList = new List<GakujoAPI.ClassContact> { };
+        private List<GakujoAPI.ClassContact> classContactList
+        {
+            get
+            {
+                return _classContactList;
+            }
+            set
+            {
+                _classContactList = value;
+                try
+                {
+                    StreamWriter streamWriter = new StreamWriter("classContact.json", false, Encoding.UTF8);
+                    streamWriter.WriteLine(JsonConvert.SerializeObject(classContactList, Formatting.None));
+                    streamWriter.Close();
+                }
+                catch { }
+                listViewClassContact.Items.Clear();
+                foreach (GakujoAPI.ClassContact classContact in classContactList)
+                {
+                    listViewClassContact.Items.Add(new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime }));
+                }
+            }
+        }
+        private List<GakujoAPI.Report> _reportList = new List<GakujoAPI.Report> { };
+        private List<GakujoAPI.Report> reportList
+        {
+            get
+            {
+                return _reportList;
+            }
+            set
+            {
+                _reportList = value;
+                try
+                {
+                    StreamWriter streamWriter = new StreamWriter("report.json", false, Encoding.UTF8);
+                    streamWriter.WriteLine(JsonConvert.SerializeObject(reportList, Formatting.None));
+                    streamWriter.Close();
+                }
+                catch { }
+                listViewReport.Items.Clear();
+                foreach (GakujoAPI.Report report in reportList)
+                {
+                    listViewReport.Items.Add(new ListViewItem(new string[] { "", report.classSubjects, report.title, report.status, report.submissionPeriod, report.lastSubmissionTime, report.operation }));
+                }
+            }
+        }
+        private List<GakujoAPI.Quiz> _quizList = new List<GakujoAPI.Quiz> { };
+        private List<GakujoAPI.Quiz> quizList
+        {
+            get
+            {
+                return _quizList;
+            }
+            set
+            {
+                _quizList = value;
+                try
+                {
+                    StreamWriter streamWriter = new StreamWriter("quiz.json", false, Encoding.UTF8);
+                    streamWriter.WriteLine(JsonConvert.SerializeObject(quizList, Formatting.None));
+                    streamWriter.Close();
+                }
+                catch { }
+                listViewQuiz.Items.Clear();
+                foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
+                {
+                    listViewQuiz.Items.Add(new ListViewItem(new string[] { "", "非表示", quiz.classSubjects, quiz.title, quiz.status, quiz.submissionPeriod, quiz.submissionStatus, quiz.operation }));
+                }
+            }
+        }
         private List<MaterialFlatButton> fileButtonList = new List<MaterialFlatButton> { };
         private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
         private bool gakujoLogin = false;
@@ -72,9 +143,33 @@ namespace GakujoGUI
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             textBoxClassContactLimit.Text = Properties.Settings.Default.classContactLimit.ToString();
             textBoxClassContactDetail.Text = Properties.Settings.Default.classContactDetail.ToString();
+            Task task = Task.Run(() => LoadJson());
             if (checkBoxAutoLogin.Checked)
             {
                 buttonLogin.PerformClick();
+            }
+            task.Wait();
+        }
+
+        private void LoadJson()
+        {
+            if (File.Exists("classContact.json"))
+            {
+                StreamReader streamReader = new StreamReader("classContact.json", Encoding.UTF8);
+                classContactList = JsonConvert.DeserializeObject<List<GakujoAPI.ClassContact>>(streamReader.ReadToEnd());
+                streamReader.Close();
+            }
+            if (File.Exists("report.json"))
+            {
+                StreamReader streamReader = new StreamReader("report.json", Encoding.UTF8);
+                reportList = JsonConvert.DeserializeObject<List<GakujoAPI.Report>>(streamReader.ReadToEnd());
+                streamReader.Close();
+            }
+            if (File.Exists("quiz.json"))
+            {
+                StreamReader streamReader = new StreamReader("quiz.json", Encoding.UTF8);
+                quizList = JsonConvert.DeserializeObject<List<GakujoAPI.Quiz>>(streamReader.ReadToEnd());
+                streamReader.Close();
             }
         }
 
@@ -92,11 +187,6 @@ namespace GakujoGUI
                 Progress<double> progress = new Progress<double>(progressBox.Update);
                 classContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, int.Parse(textBoxClassContactLimit.Text), int.Parse(textBoxClassContactDetail.Text), checkBoxClassContactFileDownload.Checked, downloadPath));
                 progressBox.Close();
-            }
-            listViewClassContact.Items.Clear();
-            foreach (GakujoAPI.ClassContact classContact in classContactList)
-            {
-                listViewClassContact.Items.Add(new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime }));
             }
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
@@ -119,12 +209,10 @@ namespace GakujoGUI
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
                 reportList = await Task.Run(() => gakujoAPI.GetReportList(progress, 0));
+                StreamWriter streamWriter = new StreamWriter("report.json", false, Encoding.UTF8);
+                streamWriter.WriteLine(JsonConvert.SerializeObject(reportList, Formatting.None));
+                streamWriter.Close();
                 progressBox.Close();
-            }
-            listViewReport.Items.Clear();
-            foreach (GakujoAPI.Report report in reportList)
-            {
-                listViewReport.Items.Add(new ListViewItem(new string[] { "", report.classSubjects, report.title, report.status, report.submissionPeriod, report.lastSubmissionTime, report.operation }));
             }
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
@@ -147,12 +235,10 @@ namespace GakujoGUI
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
                 quizList = await Task.Run(() => gakujoAPI.GetQuizList(progress, 0));
+                StreamWriter streamWriter = new StreamWriter("quiz.json", false, Encoding.UTF8);
+                streamWriter.WriteLine(JsonConvert.SerializeObject(quizList, Formatting.None));
+                streamWriter.Close();
                 progressBox.Close();
-            }
-            listViewQuiz.Items.Clear();
-            foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
-            {
-                listViewQuiz.Items.Add(new ListViewItem(new string[] { "", "非表示", quiz.classSubjects, quiz.title, quiz.status, quiz.submissionPeriod, quiz.submissionStatus, quiz.operation }));
             }
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
@@ -194,8 +280,6 @@ namespace GakujoGUI
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
                                 GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
-                                Enabled = true;
-                                listViewClassContact.Items[selectIndex] = new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime });
                                 classContactList[selectIndex] = classContact;
                             }
                             break;

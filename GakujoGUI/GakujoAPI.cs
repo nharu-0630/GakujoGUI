@@ -12,6 +12,7 @@ using System.IO;
 using System.Web;
 using System.Collections;
 using System.Reflection;
+using Newtonsoft.Json;
 
 namespace GakujoAPI
 {
@@ -772,75 +773,107 @@ namespace GakujoAPI
     }
 
     //レポート
+    [JsonObject]
     class Report
     {
         //授業科目 学期/曜日時限
+        [JsonProperty("classSubjects")]
         public string classSubjects { get; set; }
         //タイトル
+        [JsonProperty("title")]
         public string title { get; set; }
         //状態
+        [JsonProperty("status")]
         public string status { get; set; }
         //提出期間
+        [JsonProperty("submissionPeriod")]
         public string submissionPeriod { get; set; }
         //最終提出日時
+        [JsonProperty("lastSubmissionTime")]
         public string lastSubmissionTime { get; set; }
         //実施形式
+        [JsonProperty("implementationFormat")]
         public string implementationFormat { get; set; }
         //操作
+        [JsonProperty("operation")]
         public string operation { get; set; }
         //ID
+        [JsonProperty("id")]
         public string id { get; set; }
     }
 
     //小テスト
+    [JsonObject]
     class Quiz
     {
         //授業科目 学期/曜日時限
+        [JsonProperty("classSubjects")]
         public string classSubjects { get; set; }
         //タイトル
+        [JsonProperty("title")]
         public string title { get; set; }
         //状態
+        [JsonProperty("status")]
         public string status { get; set; }
         //提出期間
+        [JsonProperty("submissionPeriod")]
         public string submissionPeriod { get; set; }
         //提出状況
+        [JsonProperty("submissionStatus")]
         public string submissionStatus { get; set; }
         //実施形式
+        [JsonProperty("implementationFormat")]
         public string implementationFormat { get; set; }
         //操作
+        [JsonProperty("operation")]
         public string operation { get; set; }
         //GUI
+        [JsonProperty("invisible")]
         public bool invisible { get; set; }
         //ID
+        [JsonProperty("id")]
         public string id { get; set; }
     }
 
     //授業連絡
+    [JsonObject]
     class ClassContact
     {
         //授業科目 学期/曜日時限
+        [JsonProperty("classSubjects")]
         public string classSubjects { get; set; }
         //担当教員氏名
+        [JsonProperty("responsibleTeacherFullName")]
         public string responsibleTeacherFullName { get; set; }
         //連絡種別
+        [JsonProperty("contactType")]
         public string contactType { get; set; }
         //タイトル
+        [JsonProperty("title")]
         public string title { get; set; }
         //内容
+        [JsonProperty("content")]
         public string content { get; set; }
         //ファイル
+        [JsonProperty("file")]
         public string file { get; set; }
         //ファイルリンク公開
+        [JsonProperty("fileLinkRelease")]
         public string fileLinkRelease { get; set; }
         //参考URL
+        [JsonProperty("referenceURL")]
         public string referenceURL { get; set; }
         //重要度
+        [JsonProperty("severity")]
         public string severity { get; set; }
         //対象日
+        [JsonProperty("targetDate")]
         public string targetDate { get; set; }
         //連絡日時
+        [JsonProperty("contactTime")]
         public string contactTime { get; set; }
         //WEB返信要求
+        [JsonProperty("webReplyRequest")]
         public string webReplyRequest { get; set; }
     }
 
