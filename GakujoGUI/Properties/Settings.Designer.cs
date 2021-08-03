@@ -25,30 +25,6 @@ namespace GakujoGUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string userId {
-            get {
-                return ((string)(this["userId"]));
-            }
-            set {
-                this["userId"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string passWord {
-            get {
-                return ((string)(this["passWord"]));
-            }
-            set {
-                this["passWord"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool autoLogin {
             get {
@@ -68,54 +44,6 @@ namespace GakujoGUI.Properties {
             }
             set {
                 this["classContactFileDownload"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int classContactLimit {
-            get {
-                return ((int)(this["classContactLimit"]));
-            }
-            set {
-                this["classContactLimit"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
-        public int classContactDetail {
-            get {
-                return ((int)(this["classContactDetail"]));
-            }
-            set {
-                this["classContactDetail"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string studentName {
-            get {
-                return ((string)(this["studentName"]));
-            }
-            set {
-                this["studentName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string studentCode {
-            get {
-                return ((string)(this["studentCode"]));
-            }
-            set {
-                this["studentCode"] = value;
             }
         }
         

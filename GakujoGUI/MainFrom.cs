@@ -109,10 +109,11 @@ namespace GakujoGUI
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
             buttonLogin.Enabled = false;
-            gakujoAPI.userId = textBoxUserId.Text;
-            gakujoAPI.passWord = textBoxPassWord.Text;
-            gakujoAPI.studentName = textBoxStudentName.Text;
-            gakujoAPI.studentCode = textBoxStudentCode.Text;
+            gakujoAPI.account.userId = textBoxUserId.Text;
+            gakujoAPI.account.passWord = textBoxPassWord.Text;
+            gakujoAPI.account.studentName = textBoxStudentName.Text;
+            gakujoAPI.account.studentCode = textBoxStudentCode.Text;
+            gakujoAPI.SaveAccount();
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -134,27 +135,38 @@ namespace GakujoGUI
                 textOutputBox.ShowDialog();
             }
             buttonLogin.Enabled = true;
+            gakujoAPI.WriteCookiesToFile("cookies");
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            textBoxUserId.Text = Properties.Settings.Default.userId;
-            textBoxPassWord.Text = Properties.Settings.Default.passWord;
-            textBoxStudentName.Text = Properties.Settings.Default.studentName;
-            textBoxStudentCode.Text = Properties.Settings.Default.studentCode;
             checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
-            Task task = Task.Run(() => LoadJson());
+            gakujoAPI.Set();
+            LoadJson();
             if (checkBoxAutoLogin.Checked)
             {
                 buttonLogin.PerformClick();
             }
-            task.Wait();
         }
 
         private void LoadJson()
         {
+            if (File.Exists("cookies"))
+            {
+                gakujoAPI.ReadCookiesFromFile("cookies");
+            }
+            if (File.Exists("account.json"))
+            {
+                StreamReader streamReader = new StreamReader("account.json", Encoding.UTF8);
+                gakujoAPI.account = JsonConvert.DeserializeObject<GakujoAPI.Account>(streamReader.ReadToEnd());
+                streamReader.Close();
+                textBoxUserId.Text = gakujoAPI.account.userId;
+                textBoxPassWord.Text = gakujoAPI.account.passWord;
+                textBoxStudentCode.Text = gakujoAPI.account.studentCode;
+                textBoxStudentName.Text = gakujoAPI.account.studentName;
+            }
             if (File.Exists("classContact.json"))
             {
                 StreamReader streamReader = new StreamReader("classContact.json", Encoding.UTF8);
@@ -181,7 +193,7 @@ namespace GakujoGUI
         {
             if (!gakujoLogin)
             {
-                return;
+                //return;
             }
             buttonRefreshClassContact.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
@@ -318,7 +330,7 @@ namespace GakujoGUI
         {
             if (!gakujoLogin)
             {
-                return;
+                //return;
             }
             buttonRefreshReport.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
@@ -445,7 +457,7 @@ namespace GakujoGUI
         {
             if (!gakujoLogin)
             {
-                return;
+                //return;
             }
             buttonRefreshQuiz.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
@@ -608,10 +620,7 @@ namespace GakujoGUI
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Properties.Settings.Default.userId = textBoxUserId.Text;
-            Properties.Settings.Default.passWord = textBoxPassWord.Text;
-            Properties.Settings.Default.studentName = textBoxStudentName.Text;
-            Properties.Settings.Default.studentCode = textBoxStudentCode.Text;
+            gakujoAPI.SaveAccount();
             Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
             Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
             Properties.Settings.Default.Save();
