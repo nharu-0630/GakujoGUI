@@ -12,9 +12,18 @@
 
 ### Usage
 
+#### Recommended
+
 1. Releaseのページから該当バージョンをダウンロード
 2. ファイルを展開後、`GakujoGUI.exe`を起動
 3. `静大ID`, `パスワード`, `氏名`, `学籍番号`を入力、ログイン
+
+#### Latest
+
+1. [Code](https://github.com/xyzyxJP/GakujoGUI/archive/refs/heads/main.zip)をダウンロード
+2. ファイルを展開後、`Visual Studio 2019`でコンパイル
+3. `GakujoGUI.exe`を起動
+4. `静大ID`, `パスワード`, `氏名`, `学籍番号`を入力、ログイン
 
 ---
 
@@ -51,3 +60,7 @@
 		- 提出状況
 	- 提出開始
 	- 提出取消
+
+---
+
+[@xyzyxJP](https://twitter.com/xyzyxJP)
