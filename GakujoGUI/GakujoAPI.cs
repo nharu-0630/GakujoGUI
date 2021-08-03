@@ -32,7 +32,14 @@ namespace GakujoAPI
 
         public void Set()
         {
-            cookieContainer = new CookieContainer();
+            if (File.Exists("cookies"))
+            {
+                cookieContainer = ReadCookiesFromFile("cookies");
+            }
+            else
+            {
+                cookieContainer = new CookieContainer();
+            }
             httpClientHandler = new HttpClientHandler();
             httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
             httpClientHandler.CookieContainer = cookieContainer;
@@ -294,7 +301,7 @@ namespace GakujoAPI
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactDetail/goBack");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-            string content = "org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&teacherCode=&schoolYear=" + "2021" + "&semesterCode=" + "1" + "&subjectDispCode=&searchKeyWord=&checkSearchKeywordTeacherUserName=on&checkSearchKeywordSubjectName=on&checkSearchKeywordTitle=on&contactKindCode=&targetDateStart=&targetDateEnd=&reportDateStart=" + schoolYear + "/01/01&reportDateEnd=&requireResponse=&studentCode=&studentName=&tbl_A01_01_length=-1&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A01_01&_screenInfoDisp=true&_scrollTop=0";
+            string content = "org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&teacherCode=&schoolYear=2021&semesterCode=1&subjectDispCode=&searchKeyWord=&checkSearchKeywordTeacherUserName=on&checkSearchKeywordSubjectName=on&checkSearchKeywordTitle=on&contactKindCode=&targetDateStart=&targetDateEnd=&reportDateStart=" + schoolYear + "/01/01&reportDateEnd=&requireResponse=&studentCode=&studentName=&tbl_A01_01_length=-1&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A01_01&_screenInfoDisp=true&_scrollTop=0";
             httpRequestMessage.Content = new StringContent(content);
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -572,12 +579,12 @@ namespace GakujoAPI
             }
         }
 
-        public void ReadCookiesFromFile(string filePath)
+        public CookieContainer ReadCookiesFromFile(string filePath)
         {
             using (Stream stream = File.Open(filePath, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                cookieContainer = (CookieContainer)formatter.Deserialize(stream);
+                return (CookieContainer)formatter.Deserialize(stream);
             }
         }
 

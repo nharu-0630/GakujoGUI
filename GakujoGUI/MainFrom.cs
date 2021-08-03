@@ -143,8 +143,8 @@ namespace GakujoGUI
             Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
-            gakujoAPI.Set();
             LoadJson();
+            gakujoAPI.Set();
             if (checkBoxAutoLogin.Checked)
             {
                 buttonLogin.PerformClick();
@@ -153,10 +153,6 @@ namespace GakujoGUI
 
         private void LoadJson()
         {
-            if (File.Exists("cookies"))
-            {
-                gakujoAPI.ReadCookiesFromFile("cookies");
-            }
             if (File.Exists("account.json"))
             {
                 StreamReader streamReader = new StreamReader("account.json", Encoding.UTF8);
