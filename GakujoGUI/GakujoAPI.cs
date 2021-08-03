@@ -495,6 +495,28 @@ namespace GakujoAPI
             return true;
         }
 
+        public string GetReportDetail(IProgress<double> progress, string reportId)
+        {
+            progress.Report(100 * 0 / 1);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmitRef?submitStatusCode=01");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&reportId=" + reportId + "&hidSchoolYear=&hidSemesterCode=&hidSubjectCode=&hidClassCode=&entranceDiv=&backPath=&schoolYear=" + DateTime.Now.Year + "&semesterCode=1&subjectDispCode=&operationFormat=1&operationFormat=2&searchList_length=10&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A02_01_G&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            progress.Report(100 * 1 / 1);
+            apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
+            htmlDocument.GetElementbyId("accordionInformation").Remove();
+            return htmlDocument.DocumentNode.SelectSingleNode("/html/body/div[2]/div[1]/div/form").InnerHtml;
+        }
+
         public bool SubmitReport(IProgress<double> progress, string reportId, string[] fileArray, string comment)
         {
             progress.Report(100 * 0 / 4);

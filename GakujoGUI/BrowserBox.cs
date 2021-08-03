@@ -15,8 +15,7 @@ namespace GakujoGUI
 {
     public partial class BrowserBox : MaterialForm
     {
-        public string apacheToken;
-        public string inputFile;
+        public string inputHtml;
 
         public BrowserBox()
         {
@@ -27,11 +26,25 @@ namespace GakujoGUI
             materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        public DialogResult Set(string url)
+        public void SetUrl(string message, string url)
         {
-            DialogResult dialogResult = DialogResult.None;
+            Text = message;
             webView2.Source = new Uri(url);
-            return dialogResult;
+        }
+
+        public void SetHtml(string message, string html)
+        {
+            Text = message;
+            inputHtml = html;
+        }
+
+        private async void BrowserBox_Load(object sender, EventArgs e)
+        {
+            if (inputHtml != null)
+            {
+                await webView2.EnsureCoreWebView2Async();
+                webView2.NavigateToString(inputHtml);
+            }
         }
     }
 }

@@ -27,12 +27,10 @@ namespace GakujoGUI
             materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        public DialogResult Set(string message, string caption)
+        public void Set(string message, string caption)
         {
-            DialogResult dialogResult = DialogResult.None;
             Text = message;
             label.Text = caption;
-            return dialogResult;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

@@ -28,23 +28,10 @@ namespace GakujoGUI
             materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        public DialogResult Set(string message, string html)
+        public void Set(string message, string html)
         {
-            DialogResult dialogResult = DialogResult.None;
             Text = message;
             inputHtml = html;
-            return dialogResult;
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
-        }
-
-        private void buttonFile_DragEnter(object sender, DragEventArgs e)
-        {
-            e.Effect = DragDropEffects.All;
         }
 
         private async void QuizForm_Load(object sender, EventArgs e)

@@ -24,9 +24,8 @@ namespace GakujoGUI
             materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        public DialogResult Set(string message, string caption, MessageBoxButtons messageBoxButtons)
+        public void Set(string message, string caption, MessageBoxButtons messageBoxButtons)
         {
-            DialogResult dialogResult = DialogResult.None;
             Text = message;
             label.Text = caption;
             switch (messageBoxButtons)
@@ -42,7 +41,6 @@ namespace GakujoGUI
                     AcceptButton = buttonOk;
                     break;
             }
-            return dialogResult;
         }
 
         private void buttonYes_Click(object sender, EventArgs e)

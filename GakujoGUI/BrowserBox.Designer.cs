@@ -59,6 +59,7 @@ namespace GakujoGUI
             this.Name = "BrowserBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Title";
+            this.Load += new System.EventHandler(this.BrowserBox_Load);
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).EndInit();
             this.ResumeLayout(false);
 

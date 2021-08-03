@@ -272,7 +272,7 @@ namespace GakujoGUI
                                 classContactList = classContactList;
                             }
                             break;
-                        case DialogResult.No:
+                        default:
                             return;
                     }
                 }
@@ -350,7 +350,12 @@ namespace GakujoGUI
             }
             int selectIndex = listViewHitTestInfo.Item.Index;
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 6 && (reportList[selectIndex].operation == "提出開始" || reportList[selectIndex].operation == "提出取消"))
+
+            if (columnIndex == 2)
+            {
+                listViewReport.Cursor = Cursors.Hand;
+            }
+            else if (columnIndex == 6 && (reportList[selectIndex].operation == "提出開始" || reportList[selectIndex].operation == "提出取消"))
             {
                 listViewReport.Cursor = Cursors.Hand;
             }
@@ -370,7 +375,25 @@ namespace GakujoGUI
             Point point = listViewReport.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewReport.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 6 && reportList[selectIndex].operation == "提出開始")
+            if (columnIndex == 2)
+            {
+                string reportHtml = "";
+                using (ProgressBox progressBox = new ProgressBox())
+                {
+                    progressBox.Set("GakujoGUI", "");
+                    progressBox.Show();
+                    Progress<double> progress = new Progress<double>(progressBox.Update);
+                    reportHtml = Task.Run(() => gakujoAPI.GetReportDetail(progress, reportList[selectIndex].id)).Result;
+                    progressBox.Close();
+                }
+                reportHtml = reportHtml.Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('reportSubmit');\"><span class=\"btn-side\"><span class=\"icon-answer\">提出開始</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "");
+                using (BrowserBox browserBox = new BrowserBox())
+                {
+                    browserBox.SetHtml("GakujoGUI", reportHtml);
+                    browserBox.ShowDialog();
+                }
+            }
+            else if (columnIndex == 6 && reportList[selectIndex].operation == "提出開始")
             {
                 using (FileTextInputBox fileTextInputBox = new FileTextInputBox())
                 {
