@@ -145,8 +145,6 @@ namespace GakujoGUI
             textBoxStudentCode.Text = Properties.Settings.Default.studentCode;
             checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
-            textBoxClassContactLimit.Text = Properties.Settings.Default.classContactLimit.ToString();
-            textBoxClassContactDetail.Text = Properties.Settings.Default.classContactDetail.ToString();
             Task task = Task.Run(() => LoadJson());
             if (checkBoxAutoLogin.Checked)
             {
@@ -191,31 +189,23 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                classContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, int.Parse(textBoxClassContactLimit.Text), int.Parse(textBoxClassContactDetail.Text), checkBoxClassContactFileDownload.Checked, downloadPath));
+                GakujoAPI.ClassContact classContact = new GakujoAPI.ClassContact { classSubjects = "", title = "", contactTime = "" }; ;
+                if (classContactList.Count != 0)
+                {
+                    classContact = classContactList[0];
+                }
+                List<GakujoAPI.ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, checkBoxClassContactFileDownload.Checked, downloadPath, classContact));
+                tempClassContactList.AddRange(classContactList);
+                classContactList = tempClassContactList;
                 progressBox.Close();
             }
+            classContactList = classContactList;
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
                 textOutputBox.Set("GakujoGUI", classContactList.Count + "件の授業連絡を取得しました。", MessageBoxButtons.OK);
                 textOutputBox.ShowDialog();
             }
             buttonRefreshClassContact.Enabled = true;
-        }
-
-        private void textBoxClassContactLimit_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBoxClassContactDetail_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
-            {
-                e.Handled = true;
-            }
         }
 
         private void FileButton_Click(object sender, EventArgs e)
@@ -279,6 +269,7 @@ namespace GakujoGUI
                                 GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
                                 classContactList[selectIndex] = classContact;
+                                classContactList = classContactList;
                             }
                             break;
                         case DialogResult.No:
@@ -600,8 +591,6 @@ namespace GakujoGUI
             Properties.Settings.Default.studentCode = textBoxStudentCode.Text;
             Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
             Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
-            Properties.Settings.Default.classContactLimit = int.Parse(textBoxClassContactLimit.Text);
-            Properties.Settings.Default.classContactDetail = int.Parse(textBoxClassContactDetail.Text);
             Properties.Settings.Default.Save();
         }
 

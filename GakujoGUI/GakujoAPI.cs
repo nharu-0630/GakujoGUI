@@ -239,7 +239,7 @@ namespace GakujoAPI
             return quizList;
         }
 
-        public List<ClassContact> GetClassContactList(IProgress<double> progress, int limitCount = 0, int detailCount = 10, bool fileDownload = true, string downloadPath = "download/")
+        public List<ClassContact> GetClassContactList(IProgress<double> progress, bool fileDownload, string downloadPath, ClassContact lastClassContact)
         {
             progress.Report(100 * 0 / 2);
             List<ClassContact> classContactList = new List<ClassContact> { };
@@ -258,12 +258,8 @@ namespace GakujoAPI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             progress.Report(100 * 1 / 2);
             apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
-            if (limitCount == 0)
-            {
-                limitCount = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count;
-            }
-            limitCount = Math.Min(htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count, limitCount);
-            for (int i = 0; i < limitCount; i++)
+            int limitCount = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            for (int i = 0; i < htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
                 ClassContact classContact = new ClassContact();
@@ -273,76 +269,82 @@ namespace GakujoAPI
                 classContact.title = HttpUtility.HtmlDecode(htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].SelectSingleNode("a").InnerText).Trim();
                 classContact.targetDate = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[5].InnerText.Trim();
                 classContact.contactTime = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[6].InnerText.Trim();
+                if ((classContact.classSubjects == lastClassContact.classSubjects) && (classContact.title == lastClassContact.title) && (classContact.contactTime == lastClassContact.contactTime))
+                {
+                    break;
+                }
                 classContactList.Add(classContact);
             }
-            if (detailCount == 0)
-            {
-                detailCount = classContactList.Count;
-            }
-            detailCount = Math.Min(classContactList.Count, detailCount);
-            for (int i = 0; i < detailCount; i++)
-            {
-                progress.Report((100 * 1 / 2) + (50 * i / detailCount));
-                httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactList/goDetail/" + i);
-                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactDetail/goBack");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-                httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&teacherCode=&schoolYear=2021&semesterCode=1&subjectDispCode=&searchKeyWord=&checkSearchKeywordTeacherUserName=on&checkSearchKeywordSubjectName=on&checkSearchKeywordTitle=on&contactKindCode=&targetDateStart=&targetDateEnd=&reportDateStart=" + DateTime.Now.Year + "/01/01&reportDateEnd=&requireResponse=&studentCode=&studentName=&tbl_A01_01_length=-1&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A01_01&_screenInfoDisp=true&_scrollTop=0");
-                httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-                httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                htmlDocument = new HtmlDocument();
-                htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-                apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
-                classContactList[i].contactType = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[0].SelectSingleNode("td").InnerText;
-                classContactList[i].content = HttpUtility.HtmlDecode(htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td").InnerText);
-                classContactList[i].content = System.Text.RegularExpressions.Regex.Replace(classContactList[i].content, "[\\r\\n]+", Environment.NewLine, System.Text.RegularExpressions.RegexOptions.Multiline);
-                classContactList[i].file = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td").InnerText;
-                classContactList[i].fileLinkRelease = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td").InnerText;
-                classContactList[i].referenceURL = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[5].SelectSingleNode("td").InnerText;
-                classContactList[i].severity = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[6].SelectSingleNode("td").InnerText;
-                classContactList[i].webReplyRequest = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[8].SelectSingleNode("td").InnerText;
-                if (htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div") != null)
-                {
-                    string file = "";
-                    foreach (var item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div"))
-                    {
-                        if (fileDownload)
-                        {
-                            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadDownload/fileDownLoad?EXCLUDE_SET=&prefix=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[0].Replace("fileDownLoad('", "").Replace("'", "") + "&no=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("');", "").Replace("'", "").Trim() + "&EXCLUDE_SET=");
-                            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-                            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
-                            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-                            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactList/goDetail/" + i);
-                            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-                            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&prefix=default&sequence=&webspaceTabDisplayFlag=&screenName=&fileNameAutonumberFlag=&fileNameDisplayFlag=");
-                            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-                            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                            var stream = httpResponse.Content.ReadAsStreamAsync().Result;
-                            if (!Directory.Exists(downloadPath))
-                            {
-                                Directory.CreateDirectory(downloadPath);
-                            }
-                            using (FileStream fileStream = File.Create(downloadPath + item.SelectSingleNode("a").InnerText.Trim()))
-                            {
-                                stream.Seek(0, SeekOrigin.Begin);
-                                stream.CopyTo(fileStream);
-                            }
-                        }
-                        file += item.SelectSingleNode("a").InnerText.Trim() + Environment.NewLine;
-                    }
-                    classContactList[i].file = file;
-                }
-                else
-                {
-                    classContactList[i].file = "";
-                }
-            }
+            #region
+            //if (detailCount == 0)
+            //{
+            //    detailCount = classContactList.Count;
+            //}
+            //detailCount = Math.Min(classContactList.Count, detailCount);
+            //for (int i = 0; i < detailCount; i++)
+            //{
+            //    progress.Report((100 * 1 / 2) + (50 * i / detailCount));
+            //    httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactList/goDetail/" + i);
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactDetail/goBack");
+            //    httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            //    httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&teacherCode=&schoolYear=2021&semesterCode=1&subjectDispCode=&searchKeyWord=&checkSearchKeywordTeacherUserName=on&checkSearchKeywordSubjectName=on&checkSearchKeywordTitle=on&contactKindCode=&targetDateStart=&targetDateEnd=&reportDateStart=" + DateTime.Now.Year + "/01/01&reportDateEnd=&requireResponse=&studentCode=&studentName=&tbl_A01_01_length=-1&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A01_01&_screenInfoDisp=true&_scrollTop=0");
+            //    httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            //    httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            //    htmlDocument = new HtmlDocument();
+            //    htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            //    apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
+            //    classContactList[i].contactType = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[0].SelectSingleNode("td").InnerText;
+            //    classContactList[i].content = HttpUtility.HtmlDecode(htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td").InnerText);
+            //    classContactList[i].content = System.Text.RegularExpressions.Regex.Replace(classContactList[i].content, "[\\r\\n]+", Environment.NewLine, System.Text.RegularExpressions.RegexOptions.Multiline);
+            //    classContactList[i].file = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td").InnerText;
+            //    classContactList[i].fileLinkRelease = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td").InnerText;
+            //    classContactList[i].referenceURL = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[5].SelectSingleNode("td").InnerText;
+            //    classContactList[i].severity = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[6].SelectSingleNode("td").InnerText;
+            //    classContactList[i].webReplyRequest = htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[8].SelectSingleNode("td").InnerText;
+            //    if (htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div") != null)
+            //    {
+            //        string file = "";
+            //        foreach (var item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div"))
+            //        {
+            //            if (fileDownload)
+            //            {
+            //                httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadDownload/fileDownLoad?EXCLUDE_SET=&prefix=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[0].Replace("fileDownLoad('", "").Replace("'", "") + "&no=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("');", "").Replace("'", "").Trim() + "&EXCLUDE_SET=");
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactList/goDetail/" + i);
+            //                httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            //                httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + apacheToken + "&prefix=default&sequence=&webspaceTabDisplayFlag=&screenName=&fileNameAutonumberFlag=&fileNameDisplayFlag=");
+            //                httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            //                httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            //                var stream = httpResponse.Content.ReadAsStreamAsync().Result;
+            //                if (!Directory.Exists(downloadPath))
+            //                {
+            //                    Directory.CreateDirectory(downloadPath);
+            //                }
+            //                using (FileStream fileStream = File.Create(downloadPath + item.SelectSingleNode("a").InnerText.Trim()))
+            //                {
+            //                    stream.Seek(0, SeekOrigin.Begin);
+            //                    stream.CopyTo(fileStream);
+            //                }
+            //            }
+            //            file += item.SelectSingleNode("a").InnerText.Trim() + Environment.NewLine;
+            //        }
+            //        classContactList[i].file = file;
+            //    }
+            //    else
+            //    {
+            //        classContactList[i].file = "";
+            //    }
+            //}
+            #endregion
             progress.Report(100 * 2 / 2);
             return classContactList;
         }

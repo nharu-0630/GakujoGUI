@@ -42,8 +42,6 @@ namespace GakujoGUI
             this.textBoxUserId = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.tabPageClassContact = new System.Windows.Forms.TabPage();
             this.splitContainerClassContact = new System.Windows.Forms.SplitContainer();
-            this.textBoxClassContactDetail = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.textBoxClassContactLimit = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.checkBoxClassContactFileDownload = new MaterialSkin.Controls.MaterialCheckBox();
             this.buttonRefreshClassContact = new MaterialSkin.Controls.MaterialRaisedButton();
             this.listViewClassContact = new MaterialSkin.Controls.MaterialListView();
@@ -139,6 +137,7 @@ namespace GakujoGUI
             this.textBoxStudentCode.SelectionStart = 0;
             this.textBoxStudentCode.Size = new System.Drawing.Size(250, 23);
             this.textBoxStudentCode.TabIndex = 4;
+            this.textBoxStudentCode.TabStop = false;
             this.textBoxStudentCode.UseSystemPasswordChar = false;
             // 
             // textBoxStudentName
@@ -155,6 +154,7 @@ namespace GakujoGUI
             this.textBoxStudentName.SelectionStart = 0;
             this.textBoxStudentName.Size = new System.Drawing.Size(250, 23);
             this.textBoxStudentName.TabIndex = 3;
+            this.textBoxStudentName.TabStop = false;
             this.textBoxStudentName.UseSystemPasswordChar = false;
             // 
             // webView21
@@ -236,6 +236,7 @@ namespace GakujoGUI
             this.textBoxPassWord.SelectionStart = 0;
             this.textBoxPassWord.Size = new System.Drawing.Size(250, 23);
             this.textBoxPassWord.TabIndex = 2;
+            this.textBoxPassWord.TabStop = false;
             this.textBoxPassWord.UseSystemPasswordChar = false;
             // 
             // textBoxUserId
@@ -252,6 +253,7 @@ namespace GakujoGUI
             this.textBoxUserId.SelectionStart = 0;
             this.textBoxUserId.Size = new System.Drawing.Size(250, 23);
             this.textBoxUserId.TabIndex = 1;
+            this.textBoxUserId.TabStop = false;
             this.textBoxUserId.UseSystemPasswordChar = false;
             // 
             // tabPageClassContact
@@ -274,8 +276,6 @@ namespace GakujoGUI
             // 
             // splitContainerClassContact.Panel1
             // 
-            this.splitContainerClassContact.Panel1.Controls.Add(this.textBoxClassContactDetail);
-            this.splitContainerClassContact.Panel1.Controls.Add(this.textBoxClassContactLimit);
             this.splitContainerClassContact.Panel1.Controls.Add(this.checkBoxClassContactFileDownload);
             this.splitContainerClassContact.Panel1.Controls.Add(this.buttonRefreshClassContact);
             this.splitContainerClassContact.Panel1.Controls.Add(this.listViewClassContact);
@@ -288,42 +288,6 @@ namespace GakujoGUI
             this.splitContainerClassContact.Size = new System.Drawing.Size(762, 313);
             this.splitContainerClassContact.SplitterDistance = 156;
             this.splitContainerClassContact.TabIndex = 11;
-            // 
-            // textBoxClassContactDetail
-            // 
-            this.textBoxClassContactDetail.Depth = 0;
-            this.textBoxClassContactDetail.Hint = "詳細件数";
-            this.textBoxClassContactDetail.Location = new System.Drawing.Point(286, 10);
-            this.textBoxClassContactDetail.MaxLength = 32767;
-            this.textBoxClassContactDetail.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textBoxClassContactDetail.Name = "textBoxClassContactDetail";
-            this.textBoxClassContactDetail.PasswordChar = '\0';
-            this.textBoxClassContactDetail.SelectedText = "";
-            this.textBoxClassContactDetail.SelectionLength = 0;
-            this.textBoxClassContactDetail.SelectionStart = 0;
-            this.textBoxClassContactDetail.Size = new System.Drawing.Size(80, 23);
-            this.textBoxClassContactDetail.TabIndex = 4;
-            this.textBoxClassContactDetail.Text = "10";
-            this.textBoxClassContactDetail.UseSystemPasswordChar = false;
-            this.textBoxClassContactDetail.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxClassContactDetail_KeyPress);
-            // 
-            // textBoxClassContactLimit
-            // 
-            this.textBoxClassContactLimit.Depth = 0;
-            this.textBoxClassContactLimit.Hint = "一覧件数";
-            this.textBoxClassContactLimit.Location = new System.Drawing.Point(200, 10);
-            this.textBoxClassContactLimit.MaxLength = 32767;
-            this.textBoxClassContactLimit.MouseState = MaterialSkin.MouseState.HOVER;
-            this.textBoxClassContactLimit.Name = "textBoxClassContactLimit";
-            this.textBoxClassContactLimit.PasswordChar = '\0';
-            this.textBoxClassContactLimit.SelectedText = "";
-            this.textBoxClassContactLimit.SelectionLength = 0;
-            this.textBoxClassContactLimit.SelectionStart = 0;
-            this.textBoxClassContactLimit.Size = new System.Drawing.Size(80, 23);
-            this.textBoxClassContactLimit.TabIndex = 3;
-            this.textBoxClassContactLimit.Text = "0";
-            this.textBoxClassContactLimit.UseSystemPasswordChar = false;
-            this.textBoxClassContactLimit.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxClassContactLimit_KeyPress);
             // 
             // checkBoxClassContactFileDownload
             // 
@@ -756,8 +720,6 @@ namespace GakujoGUI
         private System.Windows.Forms.Label labelClassContactTitle;
         private MaterialSkin.Controls.MaterialFlatButton buttonFile;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxClassContactFileDownload;
-        private MaterialSkin.Controls.MaterialSingleLineTextField textBoxClassContactLimit;
-        private MaterialSkin.Controls.MaterialSingleLineTextField textBoxClassContactDetail;
         private MaterialSkin.Controls.MaterialFlatButton buttonTwitter;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxAutoLogin;
         private System.Windows.Forms.ColumnHeader columnVisible2;
