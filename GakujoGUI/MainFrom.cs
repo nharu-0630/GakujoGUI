@@ -25,6 +25,8 @@ namespace GakujoGUI
             materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
         }
 
+        #region 変数
+
         private GakujoAPI.GakujoAPI gakujoAPI = new GakujoAPI.GakujoAPI();
         private List<GakujoAPI.ClassContact> _classContactList = new List<GakujoAPI.ClassContact> { };
         private List<GakujoAPI.ClassContact> classContactList
@@ -102,6 +104,8 @@ namespace GakujoGUI
         private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
         private bool gakujoLogin = false;
 
+        #endregion
+
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
             buttonLogin.Enabled = false;
@@ -173,6 +177,8 @@ namespace GakujoGUI
             }
         }
 
+        #region 授業連絡
+
         private async void buttonRefreshClassContact_Click(object sender, EventArgs e)
         {
             if (!gakujoLogin)
@@ -196,56 +202,48 @@ namespace GakujoGUI
             buttonRefreshClassContact.Enabled = true;
         }
 
-        private async void buttonRefreshReport_Click(object sender, EventArgs e)
+        private void textBoxClassContactLimit_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!gakujoLogin)
+            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
             {
-                return;
+                e.Handled = true;
             }
-            buttonRefreshReport.Enabled = false;
-            using (ProgressBox progressBox = new ProgressBox())
-            {
-                progressBox.Set("GakujoGUI", "");
-                progressBox.Show();
-                Progress<double> progress = new Progress<double>(progressBox.Update);
-                reportList = await Task.Run(() => gakujoAPI.GetReportList(progress, 0));
-                StreamWriter streamWriter = new StreamWriter("report.json", false, Encoding.UTF8);
-                streamWriter.WriteLine(JsonConvert.SerializeObject(reportList, Formatting.None));
-                streamWriter.Close();
-                progressBox.Close();
-            }
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", reportList.Count + "件のレポートを取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
-            }
-            buttonRefreshReport.Enabled = true;
         }
 
-        private async void buttonRefreshQuiz_Click(object sender, EventArgs e)
+        private void textBoxClassContactDetail_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!gakujoLogin)
+            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void FileButton_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(downloadPath + ((Button)sender)))
+            {
+                Process.Start(downloadPath + ((Button)sender).Text);
+            }
+        }
+
+        private void listViewClassContact_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = listViewClassContact.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewClassContact.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
             {
                 return;
             }
-            buttonRefreshQuiz.Enabled = false;
-            using (ProgressBox progressBox = new ProgressBox())
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (columnIndex == 2 || columnIndex == 3)
             {
-                progressBox.Set("GakujoGUI", "");
-                progressBox.Show();
-                Progress<double> progress = new Progress<double>(progressBox.Update);
-                quizList = await Task.Run(() => gakujoAPI.GetQuizList(progress, 0));
-                StreamWriter streamWriter = new StreamWriter("quiz.json", false, Encoding.UTF8);
-                streamWriter.WriteLine(JsonConvert.SerializeObject(quizList, Formatting.None));
-                streamWriter.Close();
-                progressBox.Close();
+                listViewClassContact.Cursor = Cursors.Hand;
             }
-            using (TextOutputBox textOutputBox = new TextOutputBox())
+            else
             {
-                textOutputBox.Set("GakujoGUI", quizList.Count + "件の小テストを取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
+                listViewClassContact.Cursor = Cursors.Default;
             }
-            buttonRefreshQuiz.Enabled = true;
         }
 
         private async void listViewClassContact_MouseClick(object sender, MouseEventArgs e)
@@ -321,11 +319,53 @@ namespace GakujoGUI
             }
         }
 
-        private void FileButton_Click(object sender, EventArgs e)
+        #endregion
+
+        #region レポート
+
+        private async void buttonRefreshReport_Click(object sender, EventArgs e)
         {
-            if (File.Exists(downloadPath + ((Button)sender)))
+            if (!gakujoLogin)
             {
-                Process.Start(downloadPath + ((Button)sender).Text);
+                return;
+            }
+            buttonRefreshReport.Enabled = false;
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                reportList = await Task.Run(() => gakujoAPI.GetReportList(progress, 0));
+                StreamWriter streamWriter = new StreamWriter("report.json", false, Encoding.UTF8);
+                streamWriter.WriteLine(JsonConvert.SerializeObject(reportList, Formatting.None));
+                streamWriter.Close();
+                progressBox.Close();
+            }
+            using (TextOutputBox textOutputBox = new TextOutputBox())
+            {
+                textOutputBox.Set("GakujoGUI", reportList.Count + "件のレポートを取得しました。", MessageBoxButtons.OK);
+                textOutputBox.ShowDialog();
+            }
+            buttonRefreshReport.Enabled = true;
+        }
+
+        private void listViewReport_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = listViewReport.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewReport.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
+            {
+                return;
+            }
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (columnIndex == 6 && (reportList[selectIndex].operation == "提出開始" || reportList[selectIndex].operation == "提出取消"))
+            {
+                listViewReport.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                listViewReport.Cursor = Cursors.Default;
             }
         }
 
@@ -380,6 +420,56 @@ namespace GakujoGUI
                         }
                     }
                 }
+            }
+        }
+
+        #endregion
+
+        #region 小テスト
+
+        private async void buttonRefreshQuiz_Click(object sender, EventArgs e)
+        {
+            if (!gakujoLogin)
+            {
+                return;
+            }
+            buttonRefreshQuiz.Enabled = false;
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                quizList = await Task.Run(() => gakujoAPI.GetQuizList(progress, 0));
+                StreamWriter streamWriter = new StreamWriter("quiz.json", false, Encoding.UTF8);
+                streamWriter.WriteLine(JsonConvert.SerializeObject(quizList, Formatting.None));
+                streamWriter.Close();
+                progressBox.Close();
+            }
+            using (TextOutputBox textOutputBox = new TextOutputBox())
+            {
+                textOutputBox.Set("GakujoGUI", quizList.Count + "件の小テストを取得しました。", MessageBoxButtons.OK);
+                textOutputBox.ShowDialog();
+            }
+            buttonRefreshQuiz.Enabled = true;
+        }
+
+        private void listViewQuiz_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = listViewQuiz.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
+            {
+                return;
+            }
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if ((columnIndex == 7 && (quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始" || quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出取消")) || (columnIndex == 1))
+            {
+                listViewQuiz.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                listViewQuiz.Cursor = Cursors.Default;
             }
         }
 
@@ -468,100 +558,6 @@ namespace GakujoGUI
             }
         }
 
-        private void textBoxClassContactLimit_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBoxClassContactDetail_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void listViewClassContact_MouseMove(object sender, MouseEventArgs e)
-        {
-            Point point = listViewClassContact.PointToClient(MousePosition);
-            ListViewHitTestInfo listViewHitTestInfo = listViewClassContact.HitTest(point);
-            if (listViewHitTestInfo.Item == null)
-            {
-                return;
-            }
-            int selectIndex = listViewHitTestInfo.Item.Index;
-            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 2 || columnIndex == 3)
-            {
-                listViewClassContact.Cursor = Cursors.Hand;
-            }
-            else
-            {
-                listViewClassContact.Cursor = Cursors.Default;
-            }
-        }
-
-        private void listViewReport_MouseMove(object sender, MouseEventArgs e)
-        {
-            Point point = listViewReport.PointToClient(MousePosition);
-            ListViewHitTestInfo listViewHitTestInfo = listViewReport.HitTest(point);
-            if (listViewHitTestInfo.Item == null)
-            {
-                return;
-            }
-            int selectIndex = listViewHitTestInfo.Item.Index;
-            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if (columnIndex == 6 && (reportList[selectIndex].operation == "提出開始" || reportList[selectIndex].operation == "提出取消"))
-            {
-                listViewReport.Cursor = Cursors.Hand;
-            }
-            else
-            {
-                listViewReport.Cursor = Cursors.Default;
-            }
-        }
-
-        private void listViewQuiz_MouseMove(object sender, MouseEventArgs e)
-        {
-            Point point = listViewQuiz.PointToClient(MousePosition);
-            ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
-            if (listViewHitTestInfo.Item == null)
-            {
-                return;
-            }
-            int selectIndex = listViewHitTestInfo.Item.Index;
-            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if ((columnIndex == 7 && (quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始" || quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出取消")) || (columnIndex == 1))
-            {
-                listViewQuiz.Cursor = Cursors.Hand;
-            }
-            else
-            {
-                listViewQuiz.Cursor = Cursors.Default;
-            }
-        }
-
-        private void buttonTwitter_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://twitter.com/xyzyxJP");
-        }
-
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Properties.Settings.Default.userId = textBoxUserId.Text;
-            Properties.Settings.Default.passWord = textBoxPassWord.Text;
-            Properties.Settings.Default.studentName = textBoxStudentName.Text;
-            Properties.Settings.Default.studentCode = textBoxStudentCode.Text;
-            Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
-            Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
-            Properties.Settings.Default.classContactLimit = int.Parse(textBoxClassContactLimit.Text);
-            Properties.Settings.Default.classContactDetail = int.Parse(textBoxClassContactDetail.Text);
-            Properties.Settings.Default.Save();
-        }
-
         private void checkBoxAllVisible_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxAllVisible.Checked)
@@ -588,5 +584,26 @@ namespace GakujoGUI
                 }
             }
         }
+
+        #endregion
+
+        private void buttonTwitter_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://twitter.com/xyzyxJP");
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.userId = textBoxUserId.Text;
+            Properties.Settings.Default.passWord = textBoxPassWord.Text;
+            Properties.Settings.Default.studentName = textBoxStudentName.Text;
+            Properties.Settings.Default.studentCode = textBoxStudentCode.Text;
+            Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
+            Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
+            Properties.Settings.Default.classContactLimit = int.Parse(textBoxClassContactLimit.Text);
+            Properties.Settings.Default.classContactDetail = int.Parse(textBoxClassContactDetail.Text);
+            Properties.Settings.Default.Save();
+        }
+
     }
 }
