@@ -101,7 +101,32 @@ namespace GakujoGUI
                 }
             }
         }
-        private List<MaterialFlatButton> fileButtonList = new List<MaterialFlatButton> { };
+        private List<GakujoAPI.SchoolContact> _schoolContactList = new List<GakujoAPI.SchoolContact> { };
+        private List<GakujoAPI.SchoolContact> schoolContactList
+        {
+            get
+            {
+                return _schoolContactList;
+            }
+            set
+            {
+                _schoolContactList = value;
+                try
+                {
+                    StreamWriter streamWriter = new StreamWriter("schoolContact.json", false, Encoding.UTF8);
+                    streamWriter.WriteLine(JsonConvert.SerializeObject(schoolContactList, Formatting.None));
+                    streamWriter.Close();
+                }
+                catch { }
+                listViewSchoolContact.Items.Clear();
+                foreach (GakujoAPI.SchoolContact schoolContact in schoolContactList)
+                {
+                    listViewSchoolContact.Items.Add(new ListViewItem(new string[] { "", schoolContact.category, schoolContact.title, schoolContact.content, schoolContact.contactTime }));
+                }
+            }
+        }
+        private List<MaterialFlatButton> buttonClassContactFileList = new List<MaterialFlatButton> { };
+        private List<MaterialFlatButton> buttonSchoolContactFileList = new List<MaterialFlatButton> { };
         private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
         private bool gakujoLogin = false;
 
@@ -169,6 +194,12 @@ namespace GakujoGUI
                 quizList = JsonConvert.DeserializeObject<List<GakujoAPI.Quiz>>(streamReader.ReadToEnd());
                 streamReader.Close();
             }
+            if (File.Exists("schoolContact.json"))
+            {
+                StreamReader streamReader = new StreamReader("schoolContact.json", Encoding.UTF8);
+                schoolContactList = JsonConvert.DeserializeObject<List<GakujoAPI.SchoolContact>>(streamReader.ReadToEnd());
+                streamReader.Close();
+            }
         }
 
         #region 授業連絡
@@ -206,7 +237,7 @@ namespace GakujoGUI
 
         private void FileButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(downloadPath + ((Button)sender)))
+            if (File.Exists(downloadPath + ((Button)sender).Text))
             {
                 Process.Start(downloadPath + ((Button)sender).Text);
             }
@@ -279,11 +310,11 @@ namespace GakujoGUI
             }
             labelClassContactTitle.Text = classContactList[selectIndex].title;
             labelClassContactContent.Text = classContactList[selectIndex].content;
-            foreach (MaterialFlatButton flatButton in fileButtonList)
+            foreach (MaterialFlatButton flatButton in buttonClassContactFileList)
             {
                 flatButton.Dispose();
             }
-            fileButtonList.Clear();
+            buttonClassContactFileList.Clear();
             if (classContactList[selectIndex].file != "")
             {
                 System.IO.StringReader stringReader = new System.IO.StringReader(classContactList[selectIndex].file);
@@ -294,18 +325,18 @@ namespace GakujoGUI
                         Text = stringReader.ReadLine(),
                         Anchor = (AnchorStyles.Bottom | AnchorStyles.Left)
                     };
-                    if (fileButtonList.Count == 0)
+                    if (buttonClassContactFileList.Count == 0)
                     {
-                        fileButton.Location = buttonFile.Location;
+                        fileButton.Location = buttonClassContactFile.Location;
                     }
                     else
                     {
-                        fileButton.Location = new Point(fileButtonList[fileButtonList.Count - 1].Location.X + fileButtonList[fileButtonList.Count - 1].Size.Width, fileButtonList[fileButtonList.Count - 1].Location.Y);
+                        fileButton.Location = new Point(buttonClassContactFileList[buttonClassContactFileList.Count - 1].Location.X + buttonClassContactFileList[buttonClassContactFileList.Count - 1].Size.Width, buttonClassContactFileList[buttonClassContactFileList.Count - 1].Location.Y);
                     }
                     fileButton.Click += FileButton_Click;
                     splitContainerClassContact.Panel2.Controls.Add(fileButton);
                     fileButton.BringToFront();
-                    fileButtonList.Add(fileButton);
+                    buttonClassContactFileList.Add(fileButton);
                 }
             }
         }
@@ -627,6 +658,139 @@ namespace GakujoGUI
                 foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
                 {
                     listViewQuiz.Items.Add(new ListViewItem(new string[] { "", "非表示", quiz.classSubjects, quiz.title, quiz.status, quiz.submissionPeriod, quiz.submissionStatus, quiz.operation }));
+                }
+            }
+        }
+
+        #endregion
+
+        #region 学内連絡
+
+        private async void buttonRefreshSchoolContact_Click(object sender, EventArgs e)
+        {
+            if (!gakujoLogin)
+            {
+                return;
+            }
+            buttonRefreshSchoolContact.Enabled = false;
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                GakujoAPI.SchoolContact schoolContact = new GakujoAPI.SchoolContact { title = "", contactTime = "" }; ;
+                if (schoolContactList.Count != 0)
+                {
+                    schoolContact = schoolContactList[0];
+                }
+                List<GakujoAPI.SchoolContact> tempSchoolContactList = await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, checkBoxSchoolContactFileDownload.Checked, downloadPath, schoolContact));
+                tempSchoolContactList.AddRange(schoolContactList);
+                schoolContactList = tempSchoolContactList;
+                progressBox.Close();
+            }
+            schoolContactList = schoolContactList;
+            using (TextOutputBox textOutputBox = new TextOutputBox())
+            {
+                textOutputBox.Set("GakujoGUI", schoolContactList.Count + "件の学内連絡を取得しました。", MessageBoxButtons.OK);
+                textOutputBox.ShowDialog();
+            }
+            buttonRefreshSchoolContact.Enabled = true;
+        }
+
+        private void listViewSchoolContact_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = listViewSchoolContact.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewSchoolContact.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
+            {
+                return;
+            }
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (columnIndex == 2 || columnIndex == 3)
+            {
+                listViewSchoolContact.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                listViewSchoolContact.Cursor = Cursors.Default;
+            }
+        }
+
+        private async void listViewSchoolContact_MouseClick(object sender, MouseEventArgs e)
+        {
+            Point point = listViewSchoolContact.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewSchoolContact.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
+            {
+                return;
+            }
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (listViewSchoolContact.SelectedItems.Count != 1 || (columnIndex != 2 && columnIndex != 3))
+            {
+                return;
+            }
+            if (schoolContactList[selectIndex].content != null)
+            {
+            }
+            else
+            {
+                if (!gakujoLogin)
+                {
+                    return;
+                }
+                using (TextOutputBox textOutputBox = new TextOutputBox())
+                {
+                    textOutputBox.Set("GakujoGUI", "詳細を取得しますか。", MessageBoxButtons.YesNo);
+                    switch (textOutputBox.ShowDialog())
+                    {
+                        case DialogResult.Yes:
+                            using (ProgressBox progressBox = new ProgressBox())
+                            {
+                                progressBox.Set("GakujoGUI", "");
+                                progressBox.Show();
+                                Progress<double> progress = new Progress<double>(progressBox.Update);
+                                GakujoAPI.SchoolContact SchoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
+                                progressBox.Close();
+                                schoolContactList[selectIndex] = SchoolContact;
+                                schoolContactList = schoolContactList;
+                            }
+                            break;
+                        default:
+                            return;
+                    }
+                }
+            }
+            labelSchoolContactTitle.Text = schoolContactList[selectIndex].title;
+            labelSchoolContactContent.Text = schoolContactList[selectIndex].content;
+            foreach (MaterialFlatButton flatButton in buttonSchoolContactFileList)
+            {
+                flatButton.Dispose();
+            }
+            buttonSchoolContactFileList.Clear();
+            if (schoolContactList[selectIndex].file != "")
+            {
+                System.IO.StringReader stringReader = new System.IO.StringReader(schoolContactList[selectIndex].file);
+                while (stringReader.Peek() > -1)
+                {
+                    MaterialFlatButton fileButton = new MaterialFlatButton
+                    {
+                        Text = stringReader.ReadLine(),
+                        Anchor = (AnchorStyles.Bottom | AnchorStyles.Left)
+                    };
+                    if (buttonSchoolContactFileList.Count == 0)
+                    {
+                        fileButton.Location = buttonSchoolContactFile.Location;
+                    }
+                    else
+                    {
+                        fileButton.Location = new Point(buttonSchoolContactFileList[buttonSchoolContactFileList.Count - 1].Location.X + buttonSchoolContactFileList[buttonSchoolContactFileList.Count - 1].Size.Width, buttonSchoolContactFileList[buttonSchoolContactFileList.Count - 1].Location.Y);
+                    }
+                    fileButton.Click += FileButton_Click;
+                    splitContainerSchoolContact.Panel2.Controls.Add(fileButton);
+                    fileButton.BringToFront();
+                    buttonSchoolContactFileList.Add(fileButton);
                 }
             }
         }

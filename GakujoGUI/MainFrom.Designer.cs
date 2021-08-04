@@ -49,7 +49,7 @@ namespace GakujoGUI
             this.columnTitle0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnContent0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnContactTime0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonFile = new MaterialSkin.Controls.MaterialFlatButton();
+            this.buttonClassContactFile = new MaterialSkin.Controls.MaterialFlatButton();
             this.labelClassContactTitle = new System.Windows.Forms.Label();
             this.labelClassContactContent = new System.Windows.Forms.TextBox();
             this.tabPageReport = new System.Windows.Forms.TabPage();
@@ -74,6 +74,19 @@ namespace GakujoGUI
             this.columnSubmissionPeriod2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnSubmissionStatus2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnOperation2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPageSchoolContact = new System.Windows.Forms.TabPage();
+            this.splitContainerSchoolContact = new System.Windows.Forms.SplitContainer();
+            this.checkBoxSchoolContactFileDownload = new MaterialSkin.Controls.MaterialCheckBox();
+            this.buttonRefreshSchoolContact = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.listViewSchoolContact = new MaterialSkin.Controls.MaterialListView();
+            this.columnEmpty3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnCategory3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnTitle3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnContent3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnContactTime3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonSchoolContactFile = new MaterialSkin.Controls.MaterialFlatButton();
+            this.labelSchoolContactTitle = new System.Windows.Forms.Label();
+            this.labelSchoolContactContent = new System.Windows.Forms.TextBox();
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
@@ -85,6 +98,11 @@ namespace GakujoGUI
             this.splitContainerClassContact.SuspendLayout();
             this.tabPageReport.SuspendLayout();
             this.tabPageQuiz.SuspendLayout();
+            this.tabPageSchoolContact.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSchoolContact)).BeginInit();
+            this.splitContainerSchoolContact.Panel1.SuspendLayout();
+            this.splitContainerSchoolContact.Panel2.SuspendLayout();
+            this.splitContainerSchoolContact.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl
@@ -96,6 +114,7 @@ namespace GakujoGUI
             this.materialTabControl.Controls.Add(this.tabPageClassContact);
             this.materialTabControl.Controls.Add(this.tabPageReport);
             this.materialTabControl.Controls.Add(this.tabPageQuiz);
+            this.materialTabControl.Controls.Add(this.tabPageSchoolContact);
             this.materialTabControl.Depth = 0;
             this.materialTabControl.Location = new System.Drawing.Point(12, 93);
             this.materialTabControl.MouseState = MaterialSkin.MouseState.HOVER;
@@ -264,7 +283,7 @@ namespace GakujoGUI
             // 
             // splitContainerClassContact.Panel2
             // 
-            this.splitContainerClassContact.Panel2.Controls.Add(this.buttonFile);
+            this.splitContainerClassContact.Panel2.Controls.Add(this.buttonClassContactFile);
             this.splitContainerClassContact.Panel2.Controls.Add(this.labelClassContactTitle);
             this.splitContainerClassContact.Panel2.Controls.Add(this.labelClassContactContent);
             this.splitContainerClassContact.Size = new System.Drawing.Size(762, 313);
@@ -358,23 +377,23 @@ namespace GakujoGUI
             this.columnContactTime0.Text = "連絡日時";
             this.columnContactTime0.Width = 120;
             // 
-            // buttonFile
+            // buttonClassContactFile
             // 
-            this.buttonFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFile.AutoSize = true;
-            this.buttonFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonFile.Depth = 0;
-            this.buttonFile.Icon = null;
-            this.buttonFile.Location = new System.Drawing.Point(3, 117);
-            this.buttonFile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonFile.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonFile.Name = "buttonFile";
-            this.buttonFile.Primary = false;
-            this.buttonFile.Size = new System.Drawing.Size(63, 36);
-            this.buttonFile.TabIndex = 8;
-            this.buttonFile.Text = "ファイル";
-            this.buttonFile.UseVisualStyleBackColor = true;
-            this.buttonFile.Visible = false;
+            this.buttonClassContactFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonClassContactFile.AutoSize = true;
+            this.buttonClassContactFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonClassContactFile.Depth = 0;
+            this.buttonClassContactFile.Icon = null;
+            this.buttonClassContactFile.Location = new System.Drawing.Point(3, 117);
+            this.buttonClassContactFile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonClassContactFile.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonClassContactFile.Name = "buttonClassContactFile";
+            this.buttonClassContactFile.Primary = false;
+            this.buttonClassContactFile.Size = new System.Drawing.Size(63, 36);
+            this.buttonClassContactFile.TabIndex = 8;
+            this.buttonClassContactFile.Text = "ファイル";
+            this.buttonClassContactFile.UseVisualStyleBackColor = true;
+            this.buttonClassContactFile.Visible = false;
             // 
             // labelClassContactTitle
             // 
@@ -616,6 +635,172 @@ namespace GakujoGUI
             this.columnOperation2.Text = "操作";
             this.columnOperation2.Width = 120;
             // 
+            // tabPageSchoolContact
+            // 
+            this.tabPageSchoolContact.Controls.Add(this.splitContainerSchoolContact);
+            this.tabPageSchoolContact.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSchoolContact.Name = "tabPageSchoolContact";
+            this.tabPageSchoolContact.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSchoolContact.Size = new System.Drawing.Size(768, 319);
+            this.tabPageSchoolContact.TabIndex = 5;
+            this.tabPageSchoolContact.Text = "学内連絡";
+            this.tabPageSchoolContact.UseVisualStyleBackColor = true;
+            // 
+            // splitContainerSchoolContact
+            // 
+            this.splitContainerSchoolContact.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSchoolContact.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerSchoolContact.Name = "splitContainerSchoolContact";
+            this.splitContainerSchoolContact.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerSchoolContact.Panel1
+            // 
+            this.splitContainerSchoolContact.Panel1.Controls.Add(this.checkBoxSchoolContactFileDownload);
+            this.splitContainerSchoolContact.Panel1.Controls.Add(this.buttonRefreshSchoolContact);
+            this.splitContainerSchoolContact.Panel1.Controls.Add(this.listViewSchoolContact);
+            // 
+            // splitContainerSchoolContact.Panel2
+            // 
+            this.splitContainerSchoolContact.Panel2.Controls.Add(this.buttonSchoolContactFile);
+            this.splitContainerSchoolContact.Panel2.Controls.Add(this.labelSchoolContactTitle);
+            this.splitContainerSchoolContact.Panel2.Controls.Add(this.labelSchoolContactContent);
+            this.splitContainerSchoolContact.Size = new System.Drawing.Size(762, 313);
+            this.splitContainerSchoolContact.SplitterDistance = 156;
+            this.splitContainerSchoolContact.TabIndex = 12;
+            // 
+            // checkBoxSchoolContactFileDownload
+            // 
+            this.checkBoxSchoolContactFileDownload.AutoSize = true;
+            this.checkBoxSchoolContactFileDownload.BackColor = System.Drawing.Color.White;
+            this.checkBoxSchoolContactFileDownload.Depth = 0;
+            this.checkBoxSchoolContactFileDownload.Font = new System.Drawing.Font("Roboto", 10F);
+            this.checkBoxSchoolContactFileDownload.Location = new System.Drawing.Point(57, 6);
+            this.checkBoxSchoolContactFileDownload.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxSchoolContactFileDownload.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.checkBoxSchoolContactFileDownload.MouseState = MaterialSkin.MouseState.HOVER;
+            this.checkBoxSchoolContactFileDownload.Name = "checkBoxSchoolContactFileDownload";
+            this.checkBoxSchoolContactFileDownload.Ripple = true;
+            this.checkBoxSchoolContactFileDownload.Size = new System.Drawing.Size(140, 30);
+            this.checkBoxSchoolContactFileDownload.TabIndex = 2;
+            this.checkBoxSchoolContactFileDownload.Text = "ファイルダウンロード";
+            this.checkBoxSchoolContactFileDownload.UseVisualStyleBackColor = false;
+            // 
+            // buttonRefreshSchoolContact
+            // 
+            this.buttonRefreshSchoolContact.AutoSize = true;
+            this.buttonRefreshSchoolContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonRefreshSchoolContact.Depth = 0;
+            this.buttonRefreshSchoolContact.Icon = null;
+            this.buttonRefreshSchoolContact.Location = new System.Drawing.Point(3, 3);
+            this.buttonRefreshSchoolContact.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonRefreshSchoolContact.Name = "buttonRefreshSchoolContact";
+            this.buttonRefreshSchoolContact.Primary = true;
+            this.buttonRefreshSchoolContact.Size = new System.Drawing.Size(51, 36);
+            this.buttonRefreshSchoolContact.TabIndex = 1;
+            this.buttonRefreshSchoolContact.Text = "更新";
+            this.buttonRefreshSchoolContact.UseVisualStyleBackColor = true;
+            this.buttonRefreshSchoolContact.Click += new System.EventHandler(this.buttonRefreshSchoolContact_Click);
+            // 
+            // listViewSchoolContact
+            // 
+            this.listViewSchoolContact.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewSchoolContact.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listViewSchoolContact.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnEmpty3,
+            this.columnCategory3,
+            this.columnTitle3,
+            this.columnContent3,
+            this.columnContactTime3});
+            this.listViewSchoolContact.Cursor = System.Windows.Forms.Cursors.Default;
+            this.listViewSchoolContact.Depth = 0;
+            this.listViewSchoolContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.listViewSchoolContact.FullRowSelect = true;
+            this.listViewSchoolContact.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewSchoolContact.HideSelection = false;
+            this.listViewSchoolContact.Location = new System.Drawing.Point(0, 45);
+            this.listViewSchoolContact.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.listViewSchoolContact.MouseState = MaterialSkin.MouseState.OUT;
+            this.listViewSchoolContact.MultiSelect = false;
+            this.listViewSchoolContact.Name = "listViewSchoolContact";
+            this.listViewSchoolContact.OwnerDraw = true;
+            this.listViewSchoolContact.Size = new System.Drawing.Size(762, 108);
+            this.listViewSchoolContact.TabIndex = 5;
+            this.listViewSchoolContact.UseCompatibleStateImageBehavior = false;
+            this.listViewSchoolContact.View = System.Windows.Forms.View.Details;
+            this.listViewSchoolContact.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolContact_MouseClick);
+            this.listViewSchoolContact.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolContact_MouseMove);
+            // 
+            // columnEmpty3
+            // 
+            this.columnEmpty3.Width = 0;
+            // 
+            // columnCategory3
+            // 
+            this.columnCategory3.Text = "カテゴリ";
+            this.columnCategory3.Width = 100;
+            // 
+            // columnTitle3
+            // 
+            this.columnTitle3.Text = "タイトル";
+            this.columnTitle3.Width = 280;
+            // 
+            // columnContent3
+            // 
+            this.columnContent3.Text = "内容";
+            this.columnContent3.Width = 240;
+            // 
+            // columnContactTime3
+            // 
+            this.columnContactTime3.Text = "連絡日時";
+            this.columnContactTime3.Width = 120;
+            // 
+            // buttonSchoolContactFile
+            // 
+            this.buttonSchoolContactFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSchoolContactFile.AutoSize = true;
+            this.buttonSchoolContactFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSchoolContactFile.BackColor = System.Drawing.Color.White;
+            this.buttonSchoolContactFile.Depth = 0;
+            this.buttonSchoolContactFile.Icon = null;
+            this.buttonSchoolContactFile.Location = new System.Drawing.Point(3, 117);
+            this.buttonSchoolContactFile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonSchoolContactFile.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonSchoolContactFile.Name = "buttonSchoolContactFile";
+            this.buttonSchoolContactFile.Primary = false;
+            this.buttonSchoolContactFile.Size = new System.Drawing.Size(63, 36);
+            this.buttonSchoolContactFile.TabIndex = 8;
+            this.buttonSchoolContactFile.Text = "ファイル";
+            this.buttonSchoolContactFile.UseVisualStyleBackColor = false;
+            this.buttonSchoolContactFile.Visible = false;
+            // 
+            // labelSchoolContactTitle
+            // 
+            this.labelSchoolContactTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSchoolContactTitle.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelSchoolContactTitle.Location = new System.Drawing.Point(3, 0);
+            this.labelSchoolContactTitle.Name = "labelSchoolContactTitle";
+            this.labelSchoolContactTitle.Size = new System.Drawing.Size(756, 20);
+            this.labelSchoolContactTitle.TabIndex = 6;
+            // 
+            // labelSchoolContactContent
+            // 
+            this.labelSchoolContactContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSchoolContactContent.BackColor = System.Drawing.Color.White;
+            this.labelSchoolContactContent.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.labelSchoolContactContent.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelSchoolContactContent.Location = new System.Drawing.Point(3, 23);
+            this.labelSchoolContactContent.Multiline = true;
+            this.labelSchoolContactContent.Name = "labelSchoolContactContent";
+            this.labelSchoolContactContent.ReadOnly = true;
+            this.labelSchoolContactContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.labelSchoolContactContent.Size = new System.Drawing.Size(756, 85);
+            this.labelSchoolContactContent.TabIndex = 7;
+            // 
             // materialTabSelector
             // 
             this.materialTabSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -658,6 +843,13 @@ namespace GakujoGUI
             this.tabPageReport.PerformLayout();
             this.tabPageQuiz.ResumeLayout(false);
             this.tabPageQuiz.PerformLayout();
+            this.tabPageSchoolContact.ResumeLayout(false);
+            this.splitContainerSchoolContact.Panel1.ResumeLayout(false);
+            this.splitContainerSchoolContact.Panel1.PerformLayout();
+            this.splitContainerSchoolContact.Panel2.ResumeLayout(false);
+            this.splitContainerSchoolContact.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSchoolContact)).EndInit();
+            this.splitContainerSchoolContact.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -700,7 +892,7 @@ namespace GakujoGUI
         private System.Windows.Forms.SplitContainer splitContainerClassContact;
         private System.Windows.Forms.TextBox labelClassContactContent;
         private System.Windows.Forms.Label labelClassContactTitle;
-        private MaterialSkin.Controls.MaterialFlatButton buttonFile;
+        private MaterialSkin.Controls.MaterialFlatButton buttonClassContactFile;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxClassContactFileDownload;
         private MaterialSkin.Controls.MaterialFlatButton buttonTwitter;
         private System.Windows.Forms.ColumnHeader columnVisible2;
@@ -708,6 +900,19 @@ namespace GakujoGUI
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
         private MaterialSkin.Controls.MaterialSingleLineTextField textBoxStudentCode;
         private MaterialSkin.Controls.MaterialSingleLineTextField textBoxStudentName;
+        private System.Windows.Forms.TabPage tabPageSchoolContact;
+        private System.Windows.Forms.SplitContainer splitContainerSchoolContact;
+        private MaterialSkin.Controls.MaterialRaisedButton buttonRefreshSchoolContact;
+        private MaterialSkin.Controls.MaterialListView listViewSchoolContact;
+        private System.Windows.Forms.ColumnHeader columnEmpty3;
+        private System.Windows.Forms.ColumnHeader columnCategory3;
+        private System.Windows.Forms.ColumnHeader columnTitle3;
+        private System.Windows.Forms.ColumnHeader columnContent3;
+        private System.Windows.Forms.ColumnHeader columnContactTime3;
+        private System.Windows.Forms.Label labelSchoolContactTitle;
+        private System.Windows.Forms.TextBox labelSchoolContactContent;
+        private MaterialSkin.Controls.MaterialCheckBox checkBoxSchoolContactFileDownload;
+        private MaterialSkin.Controls.MaterialFlatButton buttonSchoolContactFile;
     }
 }
 
