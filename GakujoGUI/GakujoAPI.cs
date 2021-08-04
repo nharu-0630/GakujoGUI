@@ -30,8 +30,9 @@ namespace GakujoAPI
         static string schoolYear = "2021";
         static string semesterCode = "1";
 
-        public void Set()
+        public bool SetCookies(IProgress<double> progress)
         {
+            progress.Report(100 * 0 / 2);
             if (File.Exists("cookies"))
             {
                 cookieContainer = ReadCookiesFromFile("cookies");
@@ -40,10 +41,13 @@ namespace GakujoAPI
             {
                 cookieContainer = new CookieContainer();
             }
+            progress.Report(100 * 1 / 2);
             httpClientHandler = new HttpClientHandler();
             httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
             httpClientHandler.CookieContainer = cookieContainer;
             httpClient = new HttpClient(httpClientHandler);
+            progress.Report(100 * 2 / 2);
+            return ConnectionCheck(progress);
         }
 
         public bool Login(IProgress<double> progress)
@@ -550,6 +554,38 @@ namespace GakujoAPI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 1);
+            return true;
+        }
+
+        public bool ConnectionCheck(IProgress<double> progress)
+        {
+            progress.Report(100 * 0 / 2);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/home/home/initialize");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&headTitle=ホーム&menuCode=Z07&nextPath=/home/home/initialize&_screenIdentifier=&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 2);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            if (htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input") == null)
+            {
+                cookieContainer = new CookieContainer();
+                httpClientHandler = new HttpClientHandler();
+                httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
+                httpClientHandler.CookieContainer = cookieContainer;
+                httpClient = new HttpClient(httpClientHandler);
+                progress.Report(100 * 2 / 2);
+                return false;
+            }
+            account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
+            progress.Report(100 * 2 / 2);
             return true;
         }
 

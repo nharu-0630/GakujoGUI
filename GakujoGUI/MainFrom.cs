@@ -138,19 +138,6 @@ namespace GakujoGUI
             gakujoAPI.WriteCookiesToFile("cookies");
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
-            checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
-            LoadJson();
-            gakujoAPI.Set();
-            if (checkBoxAutoLogin.Checked)
-            {
-                buttonLogin.PerformClick();
-            }
-        }
-
         private void LoadJson()
         {
             if (File.Exists("account.json"))
@@ -189,7 +176,7 @@ namespace GakujoGUI
         {
             if (!gakujoLogin)
             {
-                //return;
+                return;
             }
             buttonRefreshClassContact.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
@@ -263,6 +250,10 @@ namespace GakujoGUI
             }
             else
             {
+                if (!gakujoLogin)
+                {
+                    return;
+                }
                 using (TextOutputBox textOutputBox = new TextOutputBox())
                 {
                     textOutputBox.Set("GakujoGUI", "詳細を取得しますか。", MessageBoxButtons.YesNo);
@@ -326,7 +317,7 @@ namespace GakujoGUI
         {
             if (!gakujoLogin)
             {
-                //return;
+                return;
             }
             buttonRefreshReport.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
@@ -383,6 +374,10 @@ namespace GakujoGUI
             Point point = listViewReport.PointToClient(MousePosition);
             ListViewHitTestInfo listViewHitTestInfo = listViewReport.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (!gakujoLogin)
+            {
+                return;
+            }
             if (columnIndex == 2)
             {
                 string reportHtml = "";
@@ -453,7 +448,7 @@ namespace GakujoGUI
         {
             if (!gakujoLogin)
             {
-                //return;
+                return;
             }
             buttonRefreshQuiz.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
@@ -506,6 +501,10 @@ namespace GakujoGUI
             ListViewHitTestInfo listViewHitTestInfo = listViewQuiz.HitTest(point);
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
             List<GakujoAPI.Quiz> tempQuizList = quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToList();
+            if (!gakujoLogin)
+            {
+                return;
+            }
             if (columnIndex == 7 && tempQuizList[selectIndex].operation == "提出開始")
             {
                 using (QuizForm quizForm = new QuizForm())
@@ -614,7 +613,7 @@ namespace GakujoGUI
             Process.Start("https://twitter.com/xyzyxJP");
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void MainFrom_FormClosed(object sender, FormClosedEventArgs e)
         {
             gakujoAPI.SaveAccount();
             Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
@@ -622,5 +621,38 @@ namespace GakujoGUI
             Properties.Settings.Default.Save();
         }
 
+        private async void MainFrom_Shown(object sender, EventArgs e)
+        {
+            Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
+            checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
+            LoadJson();
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                gakujoLogin = await Task.Run(() => gakujoAPI.SetCookies(progress));
+                progressBox.Close();
+            }
+            using (TextOutputBox textOutputBox = new TextOutputBox())
+            {
+                if (gakujoLogin)
+                {
+                    textOutputBox.Set("GakujoGUI", "キャッシュログインに成功しました。", MessageBoxButtons.OK);
+                    textOutputBox.ShowDialog();
+                    return;
+                }
+                else
+                {
+                    textOutputBox.Set("GakujoGUI", "キャッシュログインに失敗しました。", MessageBoxButtons.OK);
+                    textOutputBox.ShowDialog();
+                }
+            }
+            if (checkBoxAutoLogin.Checked)
+            {
+                buttonLogin.PerformClick();
+            }
+        }
     }
 }
