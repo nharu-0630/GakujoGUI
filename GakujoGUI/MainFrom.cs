@@ -297,15 +297,7 @@ namespace GakujoGUI
                                 progressBox.Set("GakujoGUI", "");
                                 progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
-
-                                GakujoAPI.ClassContact classContact = new GakujoAPI.ClassContact { classSubjects = "", title = "", contactTime = "" }; ;
-                                if (classContactList.Count != 0)
-                                {
-                                    classContact = classContactList[0];
-                                }
-                                await Task.Run(() => gakujoAPI.GetClassContactList(progress, checkBoxClassContactFileDownload.Checked, downloadPath, classContact));
-
-                                classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
+                                GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
                                 classContactList[selectIndex] = classContact;
                                 classContactList = classContactList;
@@ -759,15 +751,7 @@ namespace GakujoGUI
                                 progressBox.Set("GakujoGUI", "");
                                 progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
-
-                                GakujoAPI.SchoolContact schoolContact = new GakujoAPI.SchoolContact { title = "", contactTime = "" }; ;
-                                if (schoolContactList.Count != 0)
-                                {
-                                    schoolContact = schoolContactList[0];
-                                }
-                                await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, checkBoxSchoolContactFileDownload.Checked, downloadPath, schoolContact));
-
-                                schoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
+                                GakujoAPI.SchoolContact schoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
                                 schoolContactList[selectIndex] = schoolContact;
                                 schoolContactList = schoolContactList;
