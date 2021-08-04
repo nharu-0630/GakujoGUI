@@ -35,7 +35,6 @@ namespace GakujoGUI
             this.textBoxStudentCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.textBoxStudentName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
-            this.checkBoxAutoLogin = new MaterialSkin.Controls.MaterialCheckBox();
             this.buttonTwitter = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonLogin = new MaterialSkin.Controls.MaterialRaisedButton();
             this.textBoxPassWord = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -112,7 +111,6 @@ namespace GakujoGUI
             this.tabPageLogin.Controls.Add(this.textBoxStudentCode);
             this.tabPageLogin.Controls.Add(this.textBoxStudentName);
             this.tabPageLogin.Controls.Add(this.webView21);
-            this.tabPageLogin.Controls.Add(this.checkBoxAutoLogin);
             this.tabPageLogin.Controls.Add(this.buttonTwitter);
             this.tabPageLogin.Controls.Add(this.buttonLogin);
             this.tabPageLogin.Controls.Add(this.textBoxPassWord);
@@ -171,22 +169,6 @@ namespace GakujoGUI
             this.webView21.TabIndex = 0;
             this.webView21.TabStop = false;
             this.webView21.ZoomFactor = 1D;
-            // 
-            // checkBoxAutoLogin
-            // 
-            this.checkBoxAutoLogin.AutoSize = true;
-            this.checkBoxAutoLogin.Depth = 0;
-            this.checkBoxAutoLogin.Font = new System.Drawing.Font("Roboto", 10F);
-            this.checkBoxAutoLogin.Location = new System.Drawing.Point(79, 122);
-            this.checkBoxAutoLogin.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBoxAutoLogin.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.checkBoxAutoLogin.MouseState = MaterialSkin.MouseState.HOVER;
-            this.checkBoxAutoLogin.Name = "checkBoxAutoLogin";
-            this.checkBoxAutoLogin.Ripple = true;
-            this.checkBoxAutoLogin.Size = new System.Drawing.Size(105, 30);
-            this.checkBoxAutoLogin.TabIndex = 5;
-            this.checkBoxAutoLogin.Text = "自動ログイン";
-            this.checkBoxAutoLogin.UseVisualStyleBackColor = true;
             // 
             // buttonTwitter
             // 
@@ -721,7 +703,6 @@ namespace GakujoGUI
         private MaterialSkin.Controls.MaterialFlatButton buttonFile;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxClassContactFileDownload;
         private MaterialSkin.Controls.MaterialFlatButton buttonTwitter;
-        private MaterialSkin.Controls.MaterialCheckBox checkBoxAutoLogin;
         private System.Windows.Forms.ColumnHeader columnVisible2;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxAllVisible;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;

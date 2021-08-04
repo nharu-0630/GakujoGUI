@@ -641,7 +641,6 @@ namespace GakujoGUI
         private void MainFrom_FormClosed(object sender, FormClosedEventArgs e)
         {
             gakujoAPI.SaveAccount();
-            Properties.Settings.Default.autoLogin = checkBoxAutoLogin.Checked;
             Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
             Properties.Settings.Default.Save();
         }
@@ -649,7 +648,6 @@ namespace GakujoGUI
         private async void MainFrom_Shown(object sender, EventArgs e)
         {
             Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            checkBoxAutoLogin.Checked = Properties.Settings.Default.autoLogin;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             LoadJson();
             using (ProgressBox progressBox = new ProgressBox())
@@ -666,17 +664,12 @@ namespace GakujoGUI
                 {
                     textOutputBox.Set("GakujoGUI", "キャッシュログインに成功しました。", MessageBoxButtons.OK);
                     textOutputBox.ShowDialog();
-                    return;
                 }
                 else
                 {
                     textOutputBox.Set("GakujoGUI", "キャッシュログインに失敗しました。", MessageBoxButtons.OK);
                     textOutputBox.ShowDialog();
                 }
-            }
-            if (checkBoxAutoLogin.Checked)
-            {
-                buttonLogin.PerformClick();
             }
         }
 
