@@ -2,7 +2,7 @@
 
 ![Affairs System](https://raw.githubusercontent.com/xyzyxJP/GakujoGUI/main/GakujoGUI/As_Icon.ico)
 
-`GakujoGUI`は静岡大学の学務情報システムをGUIで操作するためのソフトウェアアプリケーションです。
+`GakujoGUI`は静岡大学の学務情報システムをGUIで操作するためのソフトウェアアプリケーション
 
 ## Documentation
 
@@ -36,6 +36,27 @@
 
 - `cookies`, `apacheToken`をもとに、ログイン状態を再現し、学務情報システムのホーム画面の取得を行う
 - クッキーの期限が切れている場合やログイン状態が上書きされた場合などは、ログインできない
+
+### 保存データ
+
+#### ログイン情報
+
+`静大ID`, `パスワード`, `氏名`, `学籍番号`を`account.json`に保存
+
+```
+{"userId":"\l{2}\d{6}","passWord":"[\u\l\d]{1,}","studentName":"山田　太郎","studentCode":"\d{8}","apacheToken":"[\u\l\d]{32}"}
+```
+
+#### クッキー
+
+`httpClientHandler`の`CookieContainer`を`cookies`に保存
+
+#### 授業連絡, レポート, 小テスト, 学内連絡
+
+- 授業連絡 `classContact.json`
+- レポート `report.json`
+- 小テスト `quiz.json`
+- 学内連絡 `schoolContact.json`
 
 ---
 
