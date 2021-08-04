@@ -49,7 +49,8 @@
 
 #### クッキー
 
-`httpClientHandler`の`CookieContainer`を`cookies`に保存
+- `httpClientHandler`の`CookieContainer`を`cookies`に保存
+- `apacheToken`については`account.json`に保存
 
 #### 授業連絡, レポート, 小テスト, 学内連絡
 
