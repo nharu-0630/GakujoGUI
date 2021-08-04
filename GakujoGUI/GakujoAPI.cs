@@ -52,7 +52,7 @@ namespace GakujoAPI
 
         public bool Login(IProgress<double> progress)
         {
-            progress.Report(100 * 0 / 9);
+            progress.Report(100 * 0 / 10);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -60,7 +60,7 @@ namespace GakujoAPI
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            progress.Report(100 * 1 / 9);
+            progress.Report(100 * 1 / 10);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/login/preLogin/preLogin"); httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "application/json, text/javascript, */*; q=0.01");
             httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
@@ -70,7 +70,7 @@ namespace GakujoAPI
             httpRequestMessage.Content = new StringContent("mistakeChecker=0");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            progress.Report(100 * 2 / 9);
+            progress.Report(100 * 2 / 10);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/UI/jsp/topPage/topPage.jsp?_=" + (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html, */*; q=0.01");
@@ -78,7 +78,7 @@ namespace GakujoAPI
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            progress.Report(100 * 3 / 9);
+            progress.Report(100 * 3 / 10);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/shibbolethlogin/shibbolethLogin/initLogin/sso");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -90,7 +90,7 @@ namespace GakujoAPI
             httpRequestMessage.Content = new StringContent("selectLocale=ja&mistakeChecker=0&EXCLUDE_SET=");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            progress.Report(100 * 4 / 9);
+            progress.Report(100 * 4 / 10);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://idp.shizuoka.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s1");
             httpResponse.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpResponse.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -99,7 +99,7 @@ namespace GakujoAPI
             httpResponse.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/");
             httpResponse.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            progress.Report(100 * 5 / 9);
+            progress.Report(100 * 5 / 10);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://idp.shizuoka.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s1");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -113,7 +113,7 @@ namespace GakujoAPI
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             if (HttpUtility.HtmlDecode(httpResponse.Content.ReadAsStringAsync().Result).Contains("ユーザ名またはパスワードが正しくありません。"))
             {
-                progress.Report(100 * 9 / 9);
+                progress.Report(100 * 10 / 10);
                 return false;
             }
             else
@@ -125,7 +125,7 @@ namespace GakujoAPI
                 string SAMLResponse = htmlDocument.DocumentNode.SelectNodes("/html/body/form/div/input[2]")[0].Attributes["value"].Value;
                 relayState = Uri.EscapeDataString(relayState);
                 SAMLResponse = Uri.EscapeDataString(SAMLResponse);
-                progress.Report(100 * 6 / 9);
+                progress.Report(100 * 6 / 10);
                 httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/Shibboleth.sso/SAML2/POST");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -137,7 +137,7 @@ namespace GakujoAPI
                 httpRequestMessage.Content = new StringContent("RelayState=" + relayState + "&SAMLResponse=" + SAMLResponse);
                 httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
                 httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                progress.Report(100 * 7 / 9);
+                progress.Report(100 * 7 / 10);
                 httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/shibbolethlogin/shibbolethLogin/initLogin/sso");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -146,7 +146,7 @@ namespace GakujoAPI
                 httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://idp.shizuoka.ac.jp/");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
                 httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                progress.Report(100 * 8 / 9);
+                progress.Report(100 * 8 / 10);
                 httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/home/home/initialize");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -163,7 +163,22 @@ namespace GakujoAPI
                 account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
                 //studentName = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/div/div/div/ul[2]/li/a/span/span")[0].InnerText;
                 //studentName = studentName.Substring(0, studentName.Length - 2);
-                progress.Report(100 * 9 / 9);
+                progress.Report(100 * 9 / 10);
+                httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+                httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+                httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+                httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+                httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&headTitle=授業連絡一覧&menuCode=A01&nextPath=/classcontact/classContactList/initialize");
+                httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+                httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+                htmlDocument = new HtmlDocument();
+                htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+                account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
+                progress.Report(100 * 10 / 10);
             }
             return true;
         }
@@ -559,7 +574,7 @@ namespace GakujoAPI
 
         public bool ConnectionCheck(IProgress<double> progress)
         {
-            progress.Report(100 * 0 / 2);
+            progress.Report(100 * 0 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
@@ -571,7 +586,7 @@ namespace GakujoAPI
             httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&headTitle=ホーム&menuCode=Z07&nextPath=/home/home/initialize&_screenIdentifier=&_screenInfoDisp=&_scrollTop=0");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-            progress.Report(100 * 1 / 2);
+            progress.Report(100 * 1 / 3);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             if (htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input") == null)
@@ -581,11 +596,26 @@ namespace GakujoAPI
                 httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
                 httpClientHandler.CookieContainer = cookieContainer;
                 httpClient = new HttpClient(httpClientHandler);
-                progress.Report(100 * 2 / 2);
+                progress.Report(100 * 3 / 3);
                 return false;
             }
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
-            progress.Report(100 * 2 / 2);
+            progress.Report(100 * 2 / 3);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&headTitle=授業連絡一覧&menuCode=A01&nextPath=/classcontact/classContactList/initialize");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
+            progress.Report(100 * 3 / 3);
             return true;
         }
 
