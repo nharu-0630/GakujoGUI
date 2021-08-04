@@ -11,6 +11,7 @@ using System.Linq;
 using System.IO;
 using Newtonsoft.Json;
 using System.Text;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace GakujoGUI
 {
@@ -480,7 +481,7 @@ namespace GakujoGUI
             }
             int selectIndex = listViewHitTestInfo.Item.Index;
             int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
-            if ((columnIndex == 7 && (quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始" || quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出取消")) || (columnIndex == 1))
+            if ((columnIndex == 7 && (quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出開始" || quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToArray()[selectIndex].operation == "提出取消")) || (columnIndex == 1) || (columnIndex == 3))
             {
                 listViewQuiz.Cursor = Cursors.Hand;
             }
@@ -577,6 +578,30 @@ namespace GakujoGUI
                     }
                 }
             }
+            else if (columnIndex == 3)
+            {
+                string quizHtml = "";
+                using (ProgressBox progressBox = new ProgressBox())
+                {
+                    progressBox.Set("GakujoGUI", "");
+                    progressBox.Show();
+                    Progress<double> progress = new Progress<double>(progressBox.Update);
+                    quizHtml = Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex].id)).Result;
+                    HtmlDocument htmlDocument = new HtmlDocument();
+                    htmlDocument.LoadHtml(quizHtml);
+                    htmlDocument.DocumentNode.SelectSingleNode("div[2]").Remove();
+                    htmlDocument.DocumentNode.SelectSingleNode("div[2]").Remove();
+                    htmlDocument.DocumentNode.SelectSingleNode("p").Remove();
+                    quizHtml = htmlDocument.DocumentNode.OuterHtml;
+                    progressBox.Close();
+                }
+
+                using (BrowserBox browserBox = new BrowserBox())
+                {
+                    browserBox.SetHtml("GakujoGUI", quizHtml);
+                    browserBox.ShowDialog();
+                }
+            }
         }
 
         private void checkBoxAllVisible_CheckedChanged(object sender, EventArgs e)
@@ -654,5 +679,6 @@ namespace GakujoGUI
                 buttonLogin.PerformClick();
             }
         }
+
     }
 }
