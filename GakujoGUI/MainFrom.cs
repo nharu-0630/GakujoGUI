@@ -806,6 +806,7 @@ namespace GakujoGUI
         {
             gakujoAPI.SaveAccount();
             Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
+            Properties.Settings.Default.schoolContactFileDownload = checkBoxSchoolContactFileDownload.Checked;
             Properties.Settings.Default.Save();
         }
 
@@ -813,6 +814,7 @@ namespace GakujoGUI
         {
             Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
+            checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
             LoadJson();
             using (ProgressBox progressBox = new ProgressBox())
             {

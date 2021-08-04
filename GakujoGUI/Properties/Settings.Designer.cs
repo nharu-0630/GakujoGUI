@@ -46,5 +46,17 @@ namespace GakujoGUI.Properties {
                 this["UpgradeRequired"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool schoolContactFileDownload {
+            get {
+                return ((bool)(this["schoolContactFileDownload"]));
+            }
+            set {
+                this["schoolContactFileDownload"] = value;
+            }
+        }
     }
 }
