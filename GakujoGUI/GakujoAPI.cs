@@ -161,8 +161,6 @@ namespace GakujoAPI
                 htmlDocument = new HtmlDocument();
                 htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
                 account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
-                //studentName = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/div/div/div/ul[2]/li/a/span/span")[0].InnerText;
-                //studentName = studentName.Substring(0, studentName.Length - 2);
                 progress.Report(100 * 9 / 9);
             }
             return ConnectionCheck(progress);
@@ -498,6 +496,62 @@ namespace GakujoAPI
             }
             progress.Report(100 * 3 / 3);
             return schoolContact;
+        }
+
+        public List<ClassSharedFile> GetClassSharedFileList(IProgress<double> progress, bool fileDownload, string downloadPath, ClassSharedFile lastClassSharedFile)
+        {
+            progress.Report(100 * 0 / 2);
+            List<ClassSharedFile> classSharedFileList = new List<ClassSharedFile> { };
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&headTitle=授業共有ファイル&menuCode=A08&nextPath=/classfile/classFile/initialize");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            progress.Report(100 * 1 / 2);
+            account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
+            int limitCount = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            for (int i = 0; i < htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
+            {
+                //tdIndex
+                progress.Report((100 * 1 / 2) + (50 * i / limitCount));
+                ClassSharedFile classSharedFile = new ClassSharedFile();
+                classSharedFile.classSubjects = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].InnerText.Replace("\r", "").Replace("\n", "").Trim();
+                classSharedFile.classSubjects = System.Text.RegularExpressions.Regex.Replace(classSharedFile.classSubjects, @"\s+", " ");
+                classSharedFile.title = HttpUtility.HtmlDecode(htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[2].SelectSingleNode("a").InnerText).Trim();
+                classSharedFile.size = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].InnerText;
+                classSharedFile.updateTime = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[4].InnerText;
+                if ((classSharedFile.title == lastClassSharedFile.title) && (classSharedFile.updateTime == lastClassSharedFile.updateTime))
+                {
+                    break;
+                }
+                classSharedFileList.Add(classSharedFile);
+            }
+            progress.Report(100 * 2 / 2);
+            return classSharedFileList;
+        }
+
+        public ClassSharedFile GetClassSharedFile(IProgress<double> progress, ClassSharedFile classSharedFile, int indexCount, bool fileDownload = true, string downloadPath = "download/")
+        {
+            //using (var httpClient = new HttpClient(handler))
+            //{
+            //    using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/classfile/classFile/showClassFileDetail?EXCLUDE_SET=&org.apache.struts.taglib.html.TOKEN=***&selectIndex=0&_screenIdentifier=SC_A08_01&_screenInfoDisp=true&_searchConditionDisp.accordionSearchCondition=false&_scrollTop=0"))
+            //    {
+            //        request.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            //        request.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            //        request.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            //        request.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+            //        request.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            //        var response = await httpClient.SendAsync(request);
+            //    }
+            //}
         }
 
         public string GetQuizDetail(IProgress<double> progress, string testId)
@@ -931,4 +985,32 @@ namespace GakujoAPI
         [JsonProperty("id")]
         public string id { get; set; }
     }
+
+    //授業共有ファイル
+    [JsonObject]
+    class ClassSharedFile
+    {
+        //授業科目 学期/曜日時限
+        [JsonProperty("classSubjects")]
+        public string classSubjects { get; set; }
+        //タイトル
+        [JsonProperty("title")]
+        public string title { get; set; }
+        //サイズ
+        [JsonProperty("size")]
+        public string size { get; set; }
+        //ファイル
+        [JsonProperty("file")]
+        public string file { get; set; }
+        //ファイル説明
+        [JsonProperty("fileDescription")]
+        public string fileDescription { get; set; }
+        //公開期間
+        [JsonProperty("publicPeriod")]
+        public string publicPeriod { get; set; }
+        //更新日時
+        [JsonProperty("updateTime")]
+        public string updateTime { get; set; }
+    }
+
 }
