@@ -538,21 +538,21 @@ namespace GakujoAPI
             return classSharedFileList;
         }
 
-        public ClassSharedFile GetClassSharedFile(IProgress<double> progress, ClassSharedFile classSharedFile, int indexCount, bool fileDownload = true, string downloadPath = "download/")
-        {
-            //using (var httpClient = new HttpClient(handler))
-            //{
-            //    using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/classfile/classFile/showClassFileDetail?EXCLUDE_SET=&org.apache.struts.taglib.html.TOKEN=***&selectIndex=0&_screenIdentifier=SC_A08_01&_screenInfoDisp=true&_searchConditionDisp.accordionSearchCondition=false&_scrollTop=0"))
-            //    {
-            //        request.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            //        request.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
-            //        request.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-            //        request.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            //        request.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-            //        var response = await httpClient.SendAsync(request);
-            //    }
-            //}
-        }
+        //public ClassSharedFile GetClassSharedFile(IProgress<double> progress, ClassSharedFile classSharedFile, int indexCount, bool fileDownload = true, string downloadPath = "download/")
+        //{
+        //    //using (var httpClient = new HttpClient(handler))
+        //    //{
+        //    //    using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/classfile/classFile/showClassFileDetail?EXCLUDE_SET=&org.apache.struts.taglib.html.TOKEN=***&selectIndex=0&_screenIdentifier=SC_A08_01&_screenInfoDisp=true&_searchConditionDisp.accordionSearchCondition=false&_scrollTop=0"))
+        //    //    {
+        //    //        request.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+        //    //        request.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+        //    //        request.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+        //    //        request.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
+        //    //        request.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+        //    //        var response = await httpClient.SendAsync(request);
+        //    //    }
+        //    //}
+        //}
 
         public string GetQuizDetail(IProgress<double> progress, string testId)
         {
