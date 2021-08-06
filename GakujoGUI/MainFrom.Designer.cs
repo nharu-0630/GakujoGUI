@@ -88,6 +88,8 @@ namespace GakujoGUI
             this.labelSchoolContactTitle = new System.Windows.Forms.Label();
             this.labelSchoolContactContent = new System.Windows.Forms.TextBox();
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
+            this.tabPageClassSharedFile = new System.Windows.Forms.TabPage();
+            this.tabPageSchoolSharedFile = new System.Windows.Forms.TabPage();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
@@ -115,6 +117,8 @@ namespace GakujoGUI
             this.materialTabControl.Controls.Add(this.tabPageReport);
             this.materialTabControl.Controls.Add(this.tabPageQuiz);
             this.materialTabControl.Controls.Add(this.tabPageSchoolContact);
+            this.materialTabControl.Controls.Add(this.tabPageClassSharedFile);
+            this.materialTabControl.Controls.Add(this.tabPageSchoolSharedFile);
             this.materialTabControl.Depth = 0;
             this.materialTabControl.Location = new System.Drawing.Point(12, 93);
             this.materialTabControl.MouseState = MaterialSkin.MouseState.HOVER;
@@ -644,10 +648,10 @@ namespace GakujoGUI
             this.tabPageSchoolContact.Size = new System.Drawing.Size(768, 319);
             this.tabPageSchoolContact.TabIndex = 5;
             this.tabPageSchoolContact.Text = "学内連絡";
-            this.tabPageSchoolContact.UseVisualStyleBackColor = true;
             // 
             // splitContainerSchoolContact
             // 
+            this.splitContainerSchoolContact.BackColor = System.Drawing.Color.White;
             this.splitContainerSchoolContact.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainerSchoolContact.Location = new System.Drawing.Point(3, 3);
             this.splitContainerSchoolContact.Name = "splitContainerSchoolContact";
@@ -815,6 +819,25 @@ namespace GakujoGUI
             this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
             // 
+            // tabPageClassSharedFile
+            // 
+            this.tabPageClassSharedFile.BackColor = System.Drawing.Color.White;
+            this.tabPageClassSharedFile.Location = new System.Drawing.Point(4, 22);
+            this.tabPageClassSharedFile.Name = "tabPageClassSharedFile";
+            this.tabPageClassSharedFile.Size = new System.Drawing.Size(768, 319);
+            this.tabPageClassSharedFile.TabIndex = 6;
+            this.tabPageClassSharedFile.Text = "授業共有ファイル";
+            // 
+            // tabPageSchoolSharedFile
+            // 
+            this.tabPageSchoolSharedFile.BackColor = System.Drawing.Color.White;
+            this.tabPageSchoolSharedFile.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSchoolSharedFile.Name = "tabPageSchoolSharedFile";
+            this.tabPageSchoolSharedFile.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSchoolSharedFile.Size = new System.Drawing.Size(768, 319);
+            this.tabPageSchoolSharedFile.TabIndex = 7;
+            this.tabPageSchoolSharedFile.Text = "学内共有ファイル";
+            // 
             // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -913,6 +936,8 @@ namespace GakujoGUI
         private System.Windows.Forms.TextBox labelSchoolContactContent;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxSchoolContactFileDownload;
         private MaterialSkin.Controls.MaterialFlatButton buttonSchoolContactFile;
+        private System.Windows.Forms.TabPage tabPageClassSharedFile;
+        private System.Windows.Forms.TabPage tabPageSchoolSharedFile;
     }
 }
 

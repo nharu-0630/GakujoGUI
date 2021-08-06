@@ -221,7 +221,7 @@ namespace GakujoGUI
                 {
                     classContact = classContactList[0];
                 }
-                List<GakujoAPI.ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, checkBoxClassContactFileDownload.Checked, downloadPath, classContact));
+                List<GakujoAPI.ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, classContact));
                 tempClassContactList.AddRange(classContactList);
                 classContactList = tempClassContactList;
                 progressBox.Close();
@@ -683,7 +683,7 @@ namespace GakujoGUI
                 {
                     schoolContact = schoolContactList[0];
                 }
-                List<GakujoAPI.SchoolContact> tempSchoolContactList = await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, checkBoxSchoolContactFileDownload.Checked, downloadPath, schoolContact));
+                List<GakujoAPI.SchoolContact> tempSchoolContactList = await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, schoolContact));
                 tempSchoolContactList.AddRange(schoolContactList);
                 schoolContactList = tempSchoolContactList;
                 progressBox.Close();
