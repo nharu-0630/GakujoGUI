@@ -96,22 +96,22 @@ namespace GakujoGUI
             this.columnClassSubjects4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnTitle4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnFileDescription4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnUpdateTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUpdateTime4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.buttonClassSharedFileFile = new MaterialSkin.Controls.MaterialFlatButton();
             this.labelClassSharedFileTitle = new System.Windows.Forms.Label();
             this.labelClassSharedFileFileDescription = new System.Windows.Forms.TextBox();
             this.tabPageSchoolSharedFile = new System.Windows.Forms.TabPage();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.materialRaisedButton2 = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialListView2 = new MaterialSkin.Controls.MaterialListView();
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.materialFlatButton2 = new MaterialSkin.Controls.MaterialFlatButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.splitContainerSchoolSharedFile = new System.Windows.Forms.SplitContainer();
+            this.buttonRefreshSchoolSharedFile = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.listViewSchoolSharedFile = new MaterialSkin.Controls.MaterialListView();
+            this.columnEmpty5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnCategory5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnTitle5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnFileDescription5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnUpdateTime5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonSchoolSharedFileFile = new MaterialSkin.Controls.MaterialFlatButton();
+            this.labelSchoolSharedFileTitle = new System.Windows.Forms.Label();
+            this.labelSchoolSharedFileFileDescription = new System.Windows.Forms.TextBox();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
@@ -133,10 +133,10 @@ namespace GakujoGUI
             this.splitContainerClassSharedFile.Panel2.SuspendLayout();
             this.splitContainerClassSharedFile.SuspendLayout();
             this.tabPageSchoolSharedFile.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSchoolSharedFile)).BeginInit();
+            this.splitContainerSchoolSharedFile.Panel1.SuspendLayout();
+            this.splitContainerSchoolSharedFile.Panel2.SuspendLayout();
+            this.splitContainerSchoolSharedFile.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl
@@ -773,6 +773,7 @@ namespace GakujoGUI
             // 
             // columnEmpty3
             // 
+            this.columnEmpty3.Text = "";
             this.columnEmpty3.Width = 0;
             // 
             // columnCategory3
@@ -910,7 +911,7 @@ namespace GakujoGUI
             this.columnClassSubjects4,
             this.columnTitle4,
             this.columnFileDescription4,
-            this.columnUpdateTime});
+            this.columnUpdateTime4});
             this.listViewClassSharedFile.Cursor = System.Windows.Forms.Cursors.Default;
             this.listViewClassSharedFile.Depth = 0;
             this.listViewClassSharedFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
@@ -932,6 +933,7 @@ namespace GakujoGUI
             // 
             // columnEmpty4
             // 
+            this.columnEmpty4.Text = "";
             this.columnEmpty4.Width = 0;
             // 
             // columnClassSubjects4
@@ -949,10 +951,10 @@ namespace GakujoGUI
             this.columnFileDescription4.Text = "ファイル説明";
             this.columnFileDescription4.Width = 240;
             // 
-            // columnUpdateTime
+            // columnUpdateTime4
             // 
-            this.columnUpdateTime.Text = "更新日時";
-            this.columnUpdateTime.Width = 120;
+            this.columnUpdateTime4.Text = "更新日時";
+            this.columnUpdateTime4.Width = 120;
             // 
             // buttonClassSharedFileFile
             // 
@@ -1001,7 +1003,7 @@ namespace GakujoGUI
             // 
             // tabPageSchoolSharedFile
             // 
-            this.tabPageSchoolSharedFile.Controls.Add(this.splitContainer2);
+            this.tabPageSchoolSharedFile.Controls.Add(this.splitContainerSchoolSharedFile);
             this.tabPageSchoolSharedFile.Location = new System.Drawing.Point(4, 22);
             this.tabPageSchoolSharedFile.Name = "tabPageSchoolSharedFile";
             this.tabPageSchoolSharedFile.Padding = new System.Windows.Forms.Padding(3);
@@ -1009,140 +1011,144 @@ namespace GakujoGUI
             this.tabPageSchoolSharedFile.TabIndex = 7;
             this.tabPageSchoolSharedFile.Text = "学内共有ファイル";
             // 
-            // splitContainer2
+            // splitContainerSchoolSharedFile
             // 
-            this.splitContainer2.BackColor = System.Drawing.Color.White;
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainerSchoolSharedFile.BackColor = System.Drawing.Color.White;
+            this.splitContainerSchoolSharedFile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerSchoolSharedFile.Location = new System.Drawing.Point(3, 3);
+            this.splitContainerSchoolSharedFile.Name = "splitContainerSchoolSharedFile";
+            this.splitContainerSchoolSharedFile.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer2.Panel1
+            // splitContainerSchoolSharedFile.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.materialRaisedButton2);
-            this.splitContainer2.Panel1.Controls.Add(this.materialListView2);
+            this.splitContainerSchoolSharedFile.Panel1.Controls.Add(this.buttonRefreshSchoolSharedFile);
+            this.splitContainerSchoolSharedFile.Panel1.Controls.Add(this.listViewSchoolSharedFile);
             // 
-            // splitContainer2.Panel2
+            // splitContainerSchoolSharedFile.Panel2
             // 
-            this.splitContainer2.Panel2.Controls.Add(this.materialFlatButton2);
-            this.splitContainer2.Panel2.Controls.Add(this.label2);
-            this.splitContainer2.Panel2.Controls.Add(this.textBox2);
-            this.splitContainer2.Size = new System.Drawing.Size(762, 313);
-            this.splitContainer2.SplitterDistance = 156;
-            this.splitContainer2.TabIndex = 12;
+            this.splitContainerSchoolSharedFile.Panel2.Controls.Add(this.buttonSchoolSharedFileFile);
+            this.splitContainerSchoolSharedFile.Panel2.Controls.Add(this.labelSchoolSharedFileTitle);
+            this.splitContainerSchoolSharedFile.Panel2.Controls.Add(this.labelSchoolSharedFileFileDescription);
+            this.splitContainerSchoolSharedFile.Size = new System.Drawing.Size(762, 313);
+            this.splitContainerSchoolSharedFile.SplitterDistance = 156;
+            this.splitContainerSchoolSharedFile.TabIndex = 12;
             // 
-            // materialRaisedButton2
+            // buttonRefreshSchoolSharedFile
             // 
-            this.materialRaisedButton2.AutoSize = true;
-            this.materialRaisedButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton2.Depth = 0;
-            this.materialRaisedButton2.Icon = null;
-            this.materialRaisedButton2.Location = new System.Drawing.Point(3, 3);
-            this.materialRaisedButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton2.Name = "materialRaisedButton2";
-            this.materialRaisedButton2.Primary = true;
-            this.materialRaisedButton2.Size = new System.Drawing.Size(51, 36);
-            this.materialRaisedButton2.TabIndex = 1;
-            this.materialRaisedButton2.Text = "更新";
-            this.materialRaisedButton2.UseVisualStyleBackColor = true;
+            this.buttonRefreshSchoolSharedFile.AutoSize = true;
+            this.buttonRefreshSchoolSharedFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonRefreshSchoolSharedFile.Depth = 0;
+            this.buttonRefreshSchoolSharedFile.Icon = null;
+            this.buttonRefreshSchoolSharedFile.Location = new System.Drawing.Point(3, 3);
+            this.buttonRefreshSchoolSharedFile.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonRefreshSchoolSharedFile.Name = "buttonRefreshSchoolSharedFile";
+            this.buttonRefreshSchoolSharedFile.Primary = true;
+            this.buttonRefreshSchoolSharedFile.Size = new System.Drawing.Size(51, 36);
+            this.buttonRefreshSchoolSharedFile.TabIndex = 1;
+            this.buttonRefreshSchoolSharedFile.Text = "更新";
+            this.buttonRefreshSchoolSharedFile.UseVisualStyleBackColor = true;
+            this.buttonRefreshSchoolSharedFile.Click += new System.EventHandler(this.buttonRefreshSchoolSharedFile_Click);
             // 
-            // materialListView2
+            // listViewSchoolSharedFile
             // 
-            this.materialListView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listViewSchoolSharedFile.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.materialListView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.materialListView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10});
-            this.materialListView2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialListView2.Depth = 0;
-            this.materialListView2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.materialListView2.FullRowSelect = true;
-            this.materialListView2.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.materialListView2.HideSelection = false;
-            this.materialListView2.Location = new System.Drawing.Point(0, 45);
-            this.materialListView2.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialListView2.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialListView2.MultiSelect = false;
-            this.materialListView2.Name = "materialListView2";
-            this.materialListView2.OwnerDraw = true;
-            this.materialListView2.Size = new System.Drawing.Size(762, 108);
-            this.materialListView2.TabIndex = 5;
-            this.materialListView2.UseCompatibleStateImageBehavior = false;
-            this.materialListView2.View = System.Windows.Forms.View.Details;
+            this.listViewSchoolSharedFile.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listViewSchoolSharedFile.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnEmpty5,
+            this.columnCategory5,
+            this.columnTitle5,
+            this.columnFileDescription5,
+            this.columnUpdateTime5});
+            this.listViewSchoolSharedFile.Cursor = System.Windows.Forms.Cursors.Default;
+            this.listViewSchoolSharedFile.Depth = 0;
+            this.listViewSchoolSharedFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.listViewSchoolSharedFile.FullRowSelect = true;
+            this.listViewSchoolSharedFile.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listViewSchoolSharedFile.HideSelection = false;
+            this.listViewSchoolSharedFile.Location = new System.Drawing.Point(0, 45);
+            this.listViewSchoolSharedFile.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.listViewSchoolSharedFile.MouseState = MaterialSkin.MouseState.OUT;
+            this.listViewSchoolSharedFile.MultiSelect = false;
+            this.listViewSchoolSharedFile.Name = "listViewSchoolSharedFile";
+            this.listViewSchoolSharedFile.OwnerDraw = true;
+            this.listViewSchoolSharedFile.Size = new System.Drawing.Size(762, 108);
+            this.listViewSchoolSharedFile.TabIndex = 5;
+            this.listViewSchoolSharedFile.UseCompatibleStateImageBehavior = false;
+            this.listViewSchoolSharedFile.View = System.Windows.Forms.View.Details;
+            this.listViewSchoolSharedFile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolSharedFile_MouseClick);
+            this.listViewSchoolSharedFile.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolSharedFile_MouseMove);
             // 
-            // columnHeader6
+            // columnEmpty5
             // 
-            this.columnHeader6.Width = 0;
+            this.columnEmpty5.Text = "";
+            this.columnEmpty5.Width = 0;
             // 
-            // columnHeader7
+            // columnCategory5
             // 
-            this.columnHeader7.Text = "カテゴリ";
-            this.columnHeader7.Width = 100;
+            this.columnCategory5.Text = "カテゴリ";
+            this.columnCategory5.Width = 100;
             // 
-            // columnHeader8
+            // columnTitle5
             // 
-            this.columnHeader8.Text = "タイトル";
-            this.columnHeader8.Width = 280;
+            this.columnTitle5.Text = "タイトル";
+            this.columnTitle5.Width = 280;
             // 
-            // columnHeader9
+            // columnFileDescription5
             // 
-            this.columnHeader9.Text = "内容";
-            this.columnHeader9.Width = 240;
+            this.columnFileDescription5.Text = "ファイル説明";
+            this.columnFileDescription5.Width = 240;
             // 
-            // columnHeader10
+            // columnUpdateTime5
             // 
-            this.columnHeader10.Text = "連絡日時";
-            this.columnHeader10.Width = 120;
+            this.columnUpdateTime5.Text = "更新日時";
+            this.columnUpdateTime5.Width = 120;
             // 
-            // materialFlatButton2
+            // buttonSchoolSharedFileFile
             // 
-            this.materialFlatButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.materialFlatButton2.AutoSize = true;
-            this.materialFlatButton2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialFlatButton2.BackColor = System.Drawing.Color.White;
-            this.materialFlatButton2.Depth = 0;
-            this.materialFlatButton2.Icon = null;
-            this.materialFlatButton2.Location = new System.Drawing.Point(3, 117);
-            this.materialFlatButton2.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.materialFlatButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialFlatButton2.Name = "materialFlatButton2";
-            this.materialFlatButton2.Primary = false;
-            this.materialFlatButton2.Size = new System.Drawing.Size(63, 36);
-            this.materialFlatButton2.TabIndex = 8;
-            this.materialFlatButton2.Text = "ファイル";
-            this.materialFlatButton2.UseVisualStyleBackColor = false;
-            this.materialFlatButton2.Visible = false;
+            this.buttonSchoolSharedFileFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSchoolSharedFileFile.AutoSize = true;
+            this.buttonSchoolSharedFileFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSchoolSharedFileFile.BackColor = System.Drawing.Color.White;
+            this.buttonSchoolSharedFileFile.Depth = 0;
+            this.buttonSchoolSharedFileFile.Icon = null;
+            this.buttonSchoolSharedFileFile.Location = new System.Drawing.Point(3, 117);
+            this.buttonSchoolSharedFileFile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonSchoolSharedFileFile.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonSchoolSharedFileFile.Name = "buttonSchoolSharedFileFile";
+            this.buttonSchoolSharedFileFile.Primary = false;
+            this.buttonSchoolSharedFileFile.Size = new System.Drawing.Size(63, 36);
+            this.buttonSchoolSharedFileFile.TabIndex = 8;
+            this.buttonSchoolSharedFileFile.Text = "ファイル";
+            this.buttonSchoolSharedFileFile.UseVisualStyleBackColor = false;
+            this.buttonSchoolSharedFileFile.Visible = false;
             // 
-            // label2
+            // labelSchoolSharedFileTitle
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelSchoolSharedFileTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(756, 20);
-            this.label2.TabIndex = 6;
+            this.labelSchoolSharedFileTitle.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelSchoolSharedFileTitle.Location = new System.Drawing.Point(3, 0);
+            this.labelSchoolSharedFileTitle.Name = "labelSchoolSharedFileTitle";
+            this.labelSchoolSharedFileTitle.Size = new System.Drawing.Size(756, 20);
+            this.labelSchoolSharedFileTitle.TabIndex = 6;
             // 
-            // textBox2
+            // labelSchoolSharedFileFileDescription
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelSchoolSharedFileFileDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.BackColor = System.Drawing.Color.White;
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.textBox2.Location = new System.Drawing.Point(3, 23);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(756, 85);
-            this.textBox2.TabIndex = 7;
+            this.labelSchoolSharedFileFileDescription.BackColor = System.Drawing.Color.White;
+            this.labelSchoolSharedFileFileDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.labelSchoolSharedFileFileDescription.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.labelSchoolSharedFileFileDescription.Location = new System.Drawing.Point(3, 23);
+            this.labelSchoolSharedFileFileDescription.Multiline = true;
+            this.labelSchoolSharedFileFileDescription.Name = "labelSchoolSharedFileFileDescription";
+            this.labelSchoolSharedFileFileDescription.ReadOnly = true;
+            this.labelSchoolSharedFileFileDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.labelSchoolSharedFileFileDescription.Size = new System.Drawing.Size(756, 85);
+            this.labelSchoolSharedFileFileDescription.TabIndex = 7;
             // 
             // MainFrom
             // 
@@ -1187,12 +1193,12 @@ namespace GakujoGUI
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerClassSharedFile)).EndInit();
             this.splitContainerClassSharedFile.ResumeLayout(false);
             this.tabPageSchoolSharedFile.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel1.PerformLayout();
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            this.splitContainer2.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
+            this.splitContainerSchoolSharedFile.Panel1.ResumeLayout(false);
+            this.splitContainerSchoolSharedFile.Panel1.PerformLayout();
+            this.splitContainerSchoolSharedFile.Panel2.ResumeLayout(false);
+            this.splitContainerSchoolSharedFile.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerSchoolSharedFile)).EndInit();
+            this.splitContainerSchoolSharedFile.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1264,22 +1270,22 @@ namespace GakujoGUI
         private System.Windows.Forms.ColumnHeader columnClassSubjects4;
         private System.Windows.Forms.ColumnHeader columnTitle4;
         private System.Windows.Forms.ColumnHeader columnFileDescription4;
-        private System.Windows.Forms.ColumnHeader columnUpdateTime;
+        private System.Windows.Forms.ColumnHeader columnUpdateTime4;
         private MaterialSkin.Controls.MaterialFlatButton buttonClassSharedFileFile;
         private System.Windows.Forms.Label labelClassSharedFileTitle;
         private System.Windows.Forms.TextBox labelClassSharedFileFileDescription;
         private System.Windows.Forms.TabPage tabPageSchoolSharedFile;
-        private System.Windows.Forms.SplitContainer splitContainer2;
-        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton2;
-        private MaterialSkin.Controls.MaterialListView materialListView2;
-        private System.Windows.Forms.ColumnHeader columnHeader6;
-        private System.Windows.Forms.ColumnHeader columnHeader7;
-        private System.Windows.Forms.ColumnHeader columnHeader8;
-        private System.Windows.Forms.ColumnHeader columnHeader9;
-        private System.Windows.Forms.ColumnHeader columnHeader10;
-        private MaterialSkin.Controls.MaterialFlatButton materialFlatButton2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.SplitContainer splitContainerSchoolSharedFile;
+        private MaterialSkin.Controls.MaterialRaisedButton buttonRefreshSchoolSharedFile;
+        private MaterialSkin.Controls.MaterialListView listViewSchoolSharedFile;
+        private System.Windows.Forms.ColumnHeader columnEmpty5;
+        private System.Windows.Forms.ColumnHeader columnCategory5;
+        private System.Windows.Forms.ColumnHeader columnTitle5;
+        private System.Windows.Forms.ColumnHeader columnFileDescription5;
+        private System.Windows.Forms.ColumnHeader columnUpdateTime5;
+        private MaterialSkin.Controls.MaterialFlatButton buttonSchoolSharedFileFile;
+        private System.Windows.Forms.Label labelSchoolSharedFileTitle;
+        private System.Windows.Forms.TextBox labelSchoolSharedFileFileDescription;
     }
 }
 
