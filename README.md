@@ -1,3 +1,4 @@
+
 # GakujoGUI
 
 ![Affairs System](https://raw.githubusercontent.com/xyzyxJP/GakujoGUI/main/GakujoGUI/As_Icon.ico)
@@ -52,12 +53,14 @@
 - `httpClientHandler`の`CookieContainer`を`cookies`に保存
 - `apacheToken`については`account.json`に保存
 
-##### 授業連絡, レポート, 小テスト, 学内連絡
+##### 授業連絡, レポート, 小テスト, 学内連絡, 授業共有ファイル, 学内共有ファイル
 
 - 授業連絡 `classContact.json`
 - レポート `report.json`
 - 小テスト `quiz.json`
 - 学内連絡 `schoolContact.json`
+- 授業共有ファイル `classSharedFile.json`
+- 学内共有ファイル `schoolSharedFile.json`
 
 ---
 
@@ -99,6 +102,22 @@
 		- カテゴリ
 		- タイトル
 		- 連絡日時
+	- 詳細表示
+		- 内容
+		- ファイル
+- 授業共有ファイル
+	- 一覧表示
+		- 授業科目
+		- タイトル
+		- 更新日時
+	- 詳細表示
+		- 内容
+		- ファイル
+- 学内共有ファイル
+	- 一覧表示
+		- カテゴリ
+		- タイトル
+		- 更新日時
 	- 詳細表示
 		- 内容
 		- ファイル
