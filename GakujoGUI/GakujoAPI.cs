@@ -954,6 +954,100 @@ namespace GakujoAPI
             return true;
         }
 
+        public bool SetAcademicAffairsSystem(IProgress<double> progress)
+        {
+            progress.Report(100 * 0 / 2);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/preLogin.do");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 2);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/kyoumu/sso/loginStudent.do");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/home/systemCooperationLink/initializeShibboleth?renkeiType=kyoumu");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpRequestMessage.Content = new StringContent("loginID=");
+            httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            progress.Report(100 * 2 / 2);
+            return true;
+        }
+
+        public string GetResultInformation(IProgress<double> progress)
+        {
+            SetAcademicAffairsSystem(progress);
+            progress.Report(100 * 0 / 1);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/seisekiSearchStudentInit.do?mainMenuCode=008&parentMenuCode=007");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 1);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
+        }
+        
+
+        public string GetCreditAcquisitionInformation(IProgress<double> progress)
+        {
+            SetAcademicAffairsSystem(progress);
+            progress.Report(100 * 0 / 1);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/taniShuutokuJouhouSearchInit.do?mainMenuCode=009&parentMenuCode=007");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 1);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[3]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
+        }
+        
+
+        public string GetCurriculumInformation(IProgress<double> progress)
+        {
+            SetAcademicAffairsSystem(progress);
+            progress.Report(100 * 0 / 1);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/curriculumReference.do?mainMenuCode=010&parentMenuCode=007");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 1);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]").Remove();
+            return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
+        }
+
         public IEnumerable<Cookie> GetCookies(IProgress<double> progress)
         {
             Hashtable k = (Hashtable)cookieContainer.GetType().GetField("m_domainTable", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(cookieContainer);

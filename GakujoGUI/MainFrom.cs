@@ -1166,5 +1166,54 @@ namespace GakujoGUI
         }
 
         #endregion
+
+        #region 教務システム
+
+        private async void buttonResultInformation_Click(object sender, EventArgs e)
+        {
+            string html = "";
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                html = await Task.Run(() => gakujoAPI.GetResultInformation(progress));
+                await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
+                progressBox.Close();
+            }
+            webView2AcademicAffairsSystem.NavigateToString(html);
+        }
+
+        private async void buttonCreditAcquisitionInformation_Click(object sender, EventArgs e)
+        {
+            string html = "";
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                html = await Task.Run(() => gakujoAPI.GetCreditAcquisitionInformation(progress));
+                await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
+                progressBox.Close();
+            }
+            webView2AcademicAffairsSystem.NavigateToString(html);
+        }
+
+        private async void buttonCurriculumInformation_Click(object sender, EventArgs e)
+        {
+            string html = "";
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                html = await Task.Run(() => gakujoAPI.GetCurriculumInformation(progress));
+                await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
+                progressBox.Close();
+            }
+            webView2AcademicAffairsSystem.NavigateToString(html);
+        }
+
+        #endregion
     }
 }
