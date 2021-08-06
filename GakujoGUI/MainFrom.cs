@@ -125,8 +125,33 @@ namespace GakujoGUI
                 }
             }
         }
+        private List<GakujoAPI.ClassSharedFile> _classSharedFileList = new List<GakujoAPI.ClassSharedFile> { };
+        private List<GakujoAPI.ClassSharedFile> classSharedFileList
+        {
+            get
+            {
+                return _classSharedFileList;
+            }
+            set
+            {
+                _classSharedFileList = value;
+                try
+                {
+                    StreamWriter streamWriter = new StreamWriter("classSharedFile.json", false, Encoding.UTF8);
+                    streamWriter.WriteLine(JsonConvert.SerializeObject(classSharedFileList, Formatting.None));
+                    streamWriter.Close();
+                }
+                catch { }
+                listViewClassSharedFile.Items.Clear();
+                foreach (GakujoAPI.ClassSharedFile classSharedFile in classSharedFileList)
+                {
+                    listViewClassSharedFile.Items.Add(new ListViewItem(new string[] { "", classSharedFile.classSubjects, classSharedFile.title, classSharedFile.fileDescription, classSharedFile.updateTime }));
+                }
+            }
+        }
         private List<MaterialFlatButton> buttonClassContactFileList = new List<MaterialFlatButton> { };
         private List<MaterialFlatButton> buttonSchoolContactFileList = new List<MaterialFlatButton> { };
+        private List<MaterialFlatButton> buttonClassSharedFileFileList = new List<MaterialFlatButton> { };
         private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
         private bool gakujoLogin = false;
 
@@ -199,6 +224,54 @@ namespace GakujoGUI
                 StreamReader streamReader = new StreamReader("schoolContact.json", Encoding.UTF8);
                 schoolContactList = JsonConvert.DeserializeObject<List<GakujoAPI.SchoolContact>>(streamReader.ReadToEnd());
                 streamReader.Close();
+            }
+            if (File.Exists("classSharedFile.json"))
+            {
+                StreamReader streamReader = new StreamReader("classSharedFile.json", Encoding.UTF8);
+                classSharedFileList = JsonConvert.DeserializeObject<List<GakujoAPI.ClassSharedFile>>(streamReader.ReadToEnd());
+                streamReader.Close();
+            }
+        }
+
+        private void buttonTwitter_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://twitter.com/xyzyxJP");
+        }
+
+        private void MainFrom_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            gakujoAPI.SaveAccount();
+            Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
+            Properties.Settings.Default.schoolContactFileDownload = checkBoxSchoolContactFileDownload.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        private async void MainFrom_Shown(object sender, EventArgs e)
+        {
+            Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
+            checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
+            LoadJson();
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                gakujoLogin = await Task.Run(() => gakujoAPI.SetCookies(progress));
+                progressBox.Close();
+            }
+            using (TextOutputBox textOutputBox = new TextOutputBox())
+            {
+                if (gakujoLogin)
+                {
+                    textOutputBox.Set("GakujoGUI", "キャッシュログインに成功しました。", MessageBoxButtons.OK);
+                    textOutputBox.ShowDialog();
+                }
+                else
+                {
+                    textOutputBox.Set("GakujoGUI", "キャッシュログインに失敗しました。", MessageBoxButtons.OK);
+                    textOutputBox.ShowDialog();
+                }
             }
         }
 
@@ -797,47 +870,137 @@ namespace GakujoGUI
 
         #endregion
 
-        private void buttonTwitter_Click(object sender, EventArgs e)
-        {
-            Process.Start("https://twitter.com/xyzyxJP");
-        }
+        #region 授業共有ファイル
 
-        private void MainFrom_FormClosed(object sender, FormClosedEventArgs e)
+        private async void buttonRefreshClassSharedFile_Click(object sender, EventArgs e)
         {
-            gakujoAPI.SaveAccount();
-            Properties.Settings.Default.classContactFileDownload = checkBoxClassContactFileDownload.Checked;
-            Properties.Settings.Default.schoolContactFileDownload = checkBoxSchoolContactFileDownload.Checked;
-            Properties.Settings.Default.Save();
-        }
-
-        private async void MainFrom_Shown(object sender, EventArgs e)
-        {
-            Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
-            checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
-            LoadJson();
+            if (!gakujoLogin)
+            {
+                return;
+            }
+            buttonRefreshClassSharedFile.Enabled = false;
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                gakujoLogin = await Task.Run(() => gakujoAPI.SetCookies(progress));
+                GakujoAPI.ClassSharedFile classSharedFile = new GakujoAPI.ClassSharedFile { classSubjects = "", title = "" }; ;
+                if (classSharedFileList.Count != 0)
+                {
+                    classSharedFile = classSharedFileList[0];
+                }
+                List<GakujoAPI.ClassSharedFile> tempClassSharedFileList = await Task.Run(() => gakujoAPI.GetClassSharedFileList(progress, classSharedFile));
+                tempClassSharedFileList.AddRange(classSharedFileList);
+                classSharedFileList = tempClassSharedFileList;
                 progressBox.Close();
             }
+            classSharedFileList = classSharedFileList;
             using (TextOutputBox textOutputBox = new TextOutputBox())
             {
-                if (gakujoLogin)
+                textOutputBox.Set("GakujoGUI", classSharedFileList.Count + "件の授業共有ファイルを取得しました。", MessageBoxButtons.OK);
+                textOutputBox.ShowDialog();
+            }
+            buttonRefreshClassSharedFile.Enabled = true;
+        }
+
+        private void listViewClassSharedFile_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point point = listViewClassSharedFile.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewClassSharedFile.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
+            {
+                return;
+            }
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (columnIndex == 2 || columnIndex == 3)
+            {
+                listViewClassSharedFile.Cursor = Cursors.Hand;
+            }
+            else
+            {
+                listViewClassSharedFile.Cursor = Cursors.Default;
+            }
+        }
+
+        private async void listViewClassSharedFile_MouseClick(object sender, MouseEventArgs e)
+        {
+            Point point = listViewClassSharedFile.PointToClient(MousePosition);
+            ListViewHitTestInfo listViewHitTestInfo = listViewClassSharedFile.HitTest(point);
+            if (listViewHitTestInfo.Item == null)
+            {
+                return;
+            }
+            int selectIndex = listViewHitTestInfo.Item.Index;
+            int columnIndex = listViewHitTestInfo.Item.SubItems.IndexOf(listViewHitTestInfo.SubItem);
+            if (listViewClassSharedFile.SelectedItems.Count != 1 || (columnIndex != 2 && columnIndex != 3))
+            {
+                return;
+            }
+            if (classSharedFileList[selectIndex].fileDescription != null)
+            {
+            }
+            else
+            {
+                if (!gakujoLogin)
                 {
-                    textOutputBox.Set("GakujoGUI", "キャッシュログインに成功しました。", MessageBoxButtons.OK);
-                    textOutputBox.ShowDialog();
+                    return;
                 }
-                else
+                using (TextOutputBox textOutputBox = new TextOutputBox())
                 {
-                    textOutputBox.Set("GakujoGUI", "キャッシュログインに失敗しました。", MessageBoxButtons.OK);
-                    textOutputBox.ShowDialog();
+                    textOutputBox.Set("GakujoGUI", "詳細を取得しますか。", MessageBoxButtons.YesNo);
+                    switch (textOutputBox.ShowDialog())
+                    {
+                        case DialogResult.Yes:
+                            using (ProgressBox progressBox = new ProgressBox())
+                            {
+                                progressBox.Set("GakujoGUI", "");
+                                progressBox.Show();
+                                Progress<double> progress = new Progress<double>(progressBox.Update);
+                                GakujoAPI.ClassSharedFile classSharedFile = await Task.Run(() => gakujoAPI.GetClassSharedFile(progress, classSharedFileList[selectIndex], selectIndex, true, downloadPath));
+                                progressBox.Close();
+                                classSharedFileList[selectIndex] = classSharedFile;
+                                classSharedFileList = classSharedFileList;
+                            }
+                            break;
+                        default:
+                            return;
+                    }
+                }
+            }
+            labelClassSharedFileTitle.Text = classSharedFileList[selectIndex].title;
+            labelClassSharedFileFileDescription.Text = classSharedFileList[selectIndex].fileDescription;
+            foreach (MaterialFlatButton flatButton in buttonClassSharedFileFileList)
+            {
+                flatButton.Dispose();
+            }
+            buttonClassSharedFileFileList.Clear();
+            if (classSharedFileList[selectIndex].file != "")
+            {
+                System.IO.StringReader stringReader = new System.IO.StringReader(classSharedFileList[selectIndex].file);
+                while (stringReader.Peek() > -1)
+                {
+                    MaterialFlatButton fileButton = new MaterialFlatButton
+                    {
+                        Text = stringReader.ReadLine(),
+                        Anchor = (AnchorStyles.Bottom | AnchorStyles.Left)
+                    };
+                    if (buttonClassSharedFileFileList.Count == 0)
+                    {
+                        fileButton.Location = buttonClassSharedFileFile.Location;
+                    }
+                    else
+                    {
+                        fileButton.Location = new Point(buttonClassSharedFileFileList[buttonClassSharedFileFileList.Count - 1].Location.X + buttonClassSharedFileFileList[buttonClassSharedFileFileList.Count - 1].Size.Width, buttonClassSharedFileFileList[buttonClassSharedFileFileList.Count - 1].Location.Y);
+                    }
+                    fileButton.Click += FileButton_Click;
+                    splitContainerClassSharedFile.Panel2.Controls.Add(fileButton);
+                    fileButton.BringToFront();
+                    buttonClassSharedFileFileList.Add(fileButton);
                 }
             }
         }
 
+        #endregion
     }
 }
