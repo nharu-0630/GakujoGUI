@@ -1,16 +1,15 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.IO;
-using Newtonsoft.Json;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace GakujoGUI
@@ -182,49 +181,7 @@ namespace GakujoGUI
 
         #endregion
 
-        private async void buttonLogin_Click(object sender, EventArgs e)
-        {
-            if (gakujoLogin)
-            {
-                using (TextOutputBox textOutputBox = new TextOutputBox())
-                {
-                    textOutputBox.Set("GakujoGUI", "再ログインしますか。", MessageBoxButtons.YesNo);
-                    switch (textOutputBox.ShowDialog())
-                    {
-                        case DialogResult.No:
-                            return;
-                    }
-                }
-            }
-            buttonLogin.Enabled = false;
-            gakujoAPI.account.userId = textBoxUserId.Text;
-            gakujoAPI.account.passWord = textBoxPassWord.Text;
-            gakujoAPI.account.studentName = textBoxStudentName.Text;
-            gakujoAPI.account.studentCode = textBoxStudentCode.Text;
-            gakujoAPI.SaveAccount();
-            using (ProgressBox progressBox = new ProgressBox())
-            {
-                progressBox.Set("GakujoGUI", "");
-                progressBox.Show();
-                Progress<double> progress = new Progress<double>(progressBox.Update);
-                gakujoLogin = await Task.Run(() => gakujoAPI.Login(progress));
-                progressBox.Close();
-            }
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                if (gakujoLogin)
-                {
-                    textOutputBox.Set("GakujoGUI", "ログインに成功しました。", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    textOutputBox.Set("GakujoGUI", "ログインに失敗しました。", MessageBoxButtons.OK);
-                }
-                textOutputBox.ShowDialog();
-            }
-            gakujoAPI.WriteCookiesToFile("cookies");
-            buttonLogin.Enabled = true;
-        }
+        #region フォーム
 
         private void LoadJson()
         {
@@ -316,6 +273,52 @@ namespace GakujoGUI
                 textOutputBox.ShowDialog();
             }
         }
+
+        private async void buttonLogin_Click(object sender, EventArgs e)
+        {
+            if (gakujoLogin)
+            {
+                using (TextOutputBox textOutputBox = new TextOutputBox())
+                {
+                    textOutputBox.Set("GakujoGUI", "再ログインしますか。", MessageBoxButtons.YesNo);
+                    switch (textOutputBox.ShowDialog())
+                    {
+                        case DialogResult.No:
+                            return;
+                    }
+                }
+            }
+            buttonLogin.Enabled = false;
+            gakujoAPI.account.userId = textBoxUserId.Text;
+            gakujoAPI.account.passWord = textBoxPassWord.Text;
+            gakujoAPI.account.studentName = textBoxStudentName.Text;
+            gakujoAPI.account.studentCode = textBoxStudentCode.Text;
+            gakujoAPI.SaveAccount();
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                gakujoLogin = await Task.Run(() => gakujoAPI.Login(progress));
+                progressBox.Close();
+            }
+            using (TextOutputBox textOutputBox = new TextOutputBox())
+            {
+                if (gakujoLogin)
+                {
+                    textOutputBox.Set("GakujoGUI", "ログインに成功しました。", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    textOutputBox.Set("GakujoGUI", "ログインに失敗しました。", MessageBoxButtons.OK);
+                }
+                textOutputBox.ShowDialog();
+            }
+            gakujoAPI.WriteCookiesToFile("cookies");
+            buttonLogin.Enabled = true;
+        }
+
+        #endregion
 
         #region 授業連絡
 

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-using System.Net.Http;
-using System.Net;
-using System.Net.Http.Headers;
-using System.IO;
-using System.Web;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
-using Newtonsoft.Json;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Web;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace GakujoAPI
 {
@@ -27,8 +24,8 @@ namespace GakujoAPI
 
         public Account account = new Account();
 
-        static string schoolYear = "2021";
-        static string semesterCode = "1";
+        static readonly string schoolYear = "2021";
+        static readonly string semesterCode = "1";
 
         public bool SetCookies(IProgress<double> progress)
         {
@@ -42,9 +39,11 @@ namespace GakujoAPI
                 cookieContainer = new CookieContainer();
             }
             progress.Report(100 * 1 / 2);
-            httpClientHandler = new HttpClientHandler();
-            httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
-            httpClientHandler.CookieContainer = cookieContainer;
+            httpClientHandler = new HttpClientHandler
+            {
+                AutomaticDecompression = ~DecompressionMethods.None,
+                CookieContainer = cookieContainer
+            };
             httpClient = new HttpClient(httpClientHandler);
             progress.Report(100 * 2 / 2);
             return ConnectionCheck(progress);
@@ -950,9 +949,11 @@ namespace GakujoAPI
             if (htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input") == null)
             {
                 cookieContainer = new CookieContainer();
-                httpClientHandler = new HttpClientHandler();
-                httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
-                httpClientHandler.CookieContainer = cookieContainer;
+                httpClientHandler = new HttpClientHandler
+                {
+                    AutomaticDecompression = ~DecompressionMethods.None,
+                    CookieContainer = cookieContainer
+                };
                 httpClient = new HttpClient(httpClientHandler);
                 progress.Report(100 * 1 / 1);
                 return false;
