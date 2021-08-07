@@ -52,6 +52,14 @@ namespace GakujoAPI
 
         public bool Login(IProgress<double> progress)
         {
+            progress.Report(100 * 0 / 2);
+            cookieContainer = new CookieContainer();
+            progress.Report(100 * 1 / 2);
+            httpClientHandler = new HttpClientHandler();
+            httpClientHandler.AutomaticDecompression = ~DecompressionMethods.None;
+            httpClientHandler.CookieContainer = cookieContainer;
+            httpClient = new HttpClient(httpClientHandler);
+            progress.Report(100 * 2 / 2);
             progress.Report(100 * 0 / 9);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
@@ -1003,7 +1011,7 @@ namespace GakujoAPI
             htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
-        
+
         public string GetCreditAcquisitionInformation(IProgress<double> progress)
         {
             SetAcademicAffairsSystem(progress);
@@ -1024,7 +1032,7 @@ namespace GakujoAPI
             htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
-        
+
         public string GetCurriculumInformation(IProgress<double> progress)
         {
             SetAcademicAffairsSystem(progress);

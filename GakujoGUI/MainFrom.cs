@@ -184,6 +184,18 @@ namespace GakujoGUI
 
         private async void buttonLogin_Click(object sender, EventArgs e)
         {
+            if (gakujoLogin)
+            {
+                using (TextOutputBox textOutputBox = new TextOutputBox())
+                {
+                    textOutputBox.Set("GakujoGUI", "再ログインしますか。", MessageBoxButtons.YesNo);
+                    switch (textOutputBox.ShowDialog())
+                    {
+                        case DialogResult.No:
+                            return;
+                    }
+                }
+            }
             buttonLogin.Enabled = false;
             gakujoAPI.account.userId = textBoxUserId.Text;
             gakujoAPI.account.passWord = textBoxPassWord.Text;
@@ -210,8 +222,8 @@ namespace GakujoGUI
                 }
                 textOutputBox.ShowDialog();
             }
-            buttonLogin.Enabled = true;
             gakujoAPI.WriteCookiesToFile("cookies");
+            buttonLogin.Enabled = true;
         }
 
         private void LoadJson()
@@ -296,13 +308,12 @@ namespace GakujoGUI
                 if (gakujoLogin)
                 {
                     textOutputBox.Set("GakujoGUI", "キャッシュログインに成功しました。", MessageBoxButtons.OK);
-                    textOutputBox.ShowDialog();
                 }
                 else
                 {
                     textOutputBox.Set("GakujoGUI", "キャッシュログインに失敗しました。", MessageBoxButtons.OK);
-                    textOutputBox.ShowDialog();
                 }
+                textOutputBox.ShowDialog();
             }
         }
 
