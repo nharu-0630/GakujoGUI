@@ -1171,6 +1171,10 @@ namespace GakujoGUI
 
         private async void buttonResultInformation_Click(object sender, EventArgs e)
         {
+            if (!gakujoLogin)
+            {
+                return;
+            }
             string html = "";
             using (ProgressBox progressBox = new ProgressBox())
             {
@@ -1186,6 +1190,10 @@ namespace GakujoGUI
 
         private async void buttonCreditAcquisitionInformation_Click(object sender, EventArgs e)
         {
+            if (!gakujoLogin)
+            {
+                return;
+            }
             string html = "";
             using (ProgressBox progressBox = new ProgressBox())
             {
@@ -1201,6 +1209,10 @@ namespace GakujoGUI
 
         private async void buttonCurriculumInformation_Click(object sender, EventArgs e)
         {
+            if (!gakujoLogin)
+            {
+                return;
+            }
             string html = "";
             using (ProgressBox progressBox = new ProgressBox())
             {
@@ -1214,6 +1226,34 @@ namespace GakujoGUI
             webView2AcademicAffairsSystem.NavigateToString(html);
         }
 
+        private async void buttonSchoolRegisterInformation_Click(object sender, EventArgs e)
+        {
+            if (!gakujoLogin)
+            {
+                return;
+            }
+            string html = "";
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                html = await Task.Run(() => gakujoAPI.GetSchoolRegisterInformation(progress));
+                await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
+                progressBox.Close();
+            }
+            webView2AcademicAffairsSystem.NavigateToString(html);
+        }
+
+        private void buttonSyllabusReference_Click(object sender, EventArgs e)
+        {
+            using (SyllabusForm syllabusForm = new SyllabusForm())
+            {
+                syllabusForm.ShowDialog();
+            }
+        }
+
         #endregion
+
     }
 }

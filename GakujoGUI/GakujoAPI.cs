@@ -1004,7 +1004,6 @@ namespace GakujoAPI
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
         
-
         public string GetCreditAcquisitionInformation(IProgress<double> progress)
         {
             SetAcademicAffairsSystem(progress);
@@ -1026,7 +1025,6 @@ namespace GakujoAPI
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
         
-
         public string GetCurriculumInformation(IProgress<double> progress)
         {
             SetAcademicAffairsSystem(progress);
@@ -1045,6 +1043,28 @@ namespace GakujoAPI
             htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
             htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
             htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]").Remove();
+            return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
+        }
+
+        public string GetSchoolRegisterInformation(IProgress<double> progress)
+        {
+            SetAcademicAffairsSystem(progress);
+            progress.Report(100 * 0 / 1);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/gakusekiReference.do;jsessionid=HawmBNagCyEvrwalzxcZojHTX8BEuTdc26NgAgeG?mainMenuCode=012&parentMenuCode=011");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 1);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[6]").Remove();
+            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[5]").Remove();
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 

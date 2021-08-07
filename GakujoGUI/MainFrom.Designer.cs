@@ -34,7 +34,7 @@ namespace GakujoGUI
             this.tabPageLogin = new System.Windows.Forms.TabPage();
             this.textBoxStudentCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.textBoxStudentName = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.buttonTwitter = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonLogin = new MaterialSkin.Controls.MaterialRaisedButton();
             this.textBoxPassWord = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -111,15 +111,17 @@ namespace GakujoGUI
             this.buttonSchoolSharedFileFile = new MaterialSkin.Controls.MaterialFlatButton();
             this.labelSchoolSharedFileTitle = new System.Windows.Forms.Label();
             this.labelSchoolSharedFileFileDescription = new System.Windows.Forms.TextBox();
-            this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
             this.tabPageAcademicAffairsSystem = new System.Windows.Forms.TabPage();
-            this.buttonResultInformation = new MaterialSkin.Controls.MaterialFlatButton();
-            this.buttonCreditAcquisitionInformation = new MaterialSkin.Controls.MaterialFlatButton();
-            this.buttonCurriculumInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.webView2AcademicAffairsSystem = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this.buttonCurriculumInformation = new MaterialSkin.Controls.MaterialFlatButton();
+            this.buttonCreditAcquisitionInformation = new MaterialSkin.Controls.MaterialFlatButton();
+            this.buttonResultInformation = new MaterialSkin.Controls.MaterialFlatButton();
+            this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
+            this.buttonSchoolRegisterInformation = new MaterialSkin.Controls.MaterialFlatButton();
+            this.buttonSyllabusReference = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
             this.tabPageClassContact.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerClassContact)).BeginInit();
             this.splitContainerClassContact.Panel1.SuspendLayout();
@@ -173,7 +175,7 @@ namespace GakujoGUI
             this.tabPageLogin.BackColor = System.Drawing.Color.White;
             this.tabPageLogin.Controls.Add(this.textBoxStudentCode);
             this.tabPageLogin.Controls.Add(this.textBoxStudentName);
-            this.tabPageLogin.Controls.Add(this.webView21);
+            this.tabPageLogin.Controls.Add(this.webView2);
             this.tabPageLogin.Controls.Add(this.buttonTwitter);
             this.tabPageLogin.Controls.Add(this.buttonLogin);
             this.tabPageLogin.Controls.Add(this.textBoxPassWord);
@@ -218,20 +220,20 @@ namespace GakujoGUI
             this.textBoxStudentName.TabStop = false;
             this.textBoxStudentName.UseSystemPasswordChar = false;
             // 
-            // webView21
+            // webView2
             // 
-            this.webView21.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.webView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webView21.CreationProperties = null;
-            this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView21.Location = new System.Drawing.Point(259, 0);
-            this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(509, 319);
-            this.webView21.Source = new System.Uri("https://gakujo.shizuoka.ac.jp/UI/jsp/topPage/topPage.jsp", System.UriKind.Absolute);
-            this.webView21.TabIndex = 0;
-            this.webView21.TabStop = false;
-            this.webView21.ZoomFactor = 1D;
+            this.webView2.CreationProperties = null;
+            this.webView2.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView2.Location = new System.Drawing.Point(259, 0);
+            this.webView2.Name = "webView2";
+            this.webView2.Size = new System.Drawing.Size(509, 319);
+            this.webView2.Source = new System.Uri("https://gakujo.shizuoka.ac.jp/UI/jsp/topPage/topPage.jsp", System.UriKind.Absolute);
+            this.webView2.TabIndex = 0;
+            this.webView2.TabStop = false;
+            this.webView2.ZoomFactor = 1D;
             // 
             // buttonTwitter
             // 
@@ -1147,6 +1149,86 @@ namespace GakujoGUI
             this.labelSchoolSharedFileFileDescription.Size = new System.Drawing.Size(756, 85);
             this.labelSchoolSharedFileFileDescription.TabIndex = 7;
             // 
+            // tabPageAcademicAffairsSystem
+            // 
+            this.tabPageAcademicAffairsSystem.BackColor = System.Drawing.Color.White;
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonSyllabusReference);
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonSchoolRegisterInformation);
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.webView2AcademicAffairsSystem);
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonCurriculumInformation);
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonCreditAcquisitionInformation);
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonResultInformation);
+            this.tabPageAcademicAffairsSystem.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAcademicAffairsSystem.Name = "tabPageAcademicAffairsSystem";
+            this.tabPageAcademicAffairsSystem.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAcademicAffairsSystem.Size = new System.Drawing.Size(768, 319);
+            this.tabPageAcademicAffairsSystem.TabIndex = 8;
+            this.tabPageAcademicAffairsSystem.Text = "教務システム";
+            // 
+            // webView2AcademicAffairsSystem
+            // 
+            this.webView2AcademicAffairsSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webView2AcademicAffairsSystem.CreationProperties = null;
+            this.webView2AcademicAffairsSystem.DefaultBackgroundColor = System.Drawing.Color.White;
+            this.webView2AcademicAffairsSystem.Location = new System.Drawing.Point(0, 45);
+            this.webView2AcademicAffairsSystem.Name = "webView2AcademicAffairsSystem";
+            this.webView2AcademicAffairsSystem.Size = new System.Drawing.Size(768, 274);
+            this.webView2AcademicAffairsSystem.TabIndex = 3;
+            this.webView2AcademicAffairsSystem.ZoomFactor = 1D;
+            // 
+            // buttonCurriculumInformation
+            // 
+            this.buttonCurriculumInformation.AutoSize = true;
+            this.buttonCurriculumInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonCurriculumInformation.Depth = 0;
+            this.buttonCurriculumInformation.Icon = null;
+            this.buttonCurriculumInformation.Location = new System.Drawing.Point(209, 0);
+            this.buttonCurriculumInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonCurriculumInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonCurriculumInformation.Name = "buttonCurriculumInformation";
+            this.buttonCurriculumInformation.Primary = false;
+            this.buttonCurriculumInformation.Size = new System.Drawing.Size(86, 36);
+            this.buttonCurriculumInformation.TabIndex = 2;
+            this.buttonCurriculumInformation.Text = "カリキュラム";
+            this.buttonCurriculumInformation.UseVisualStyleBackColor = true;
+            this.buttonCurriculumInformation.Click += new System.EventHandler(this.buttonCurriculumInformation_Click);
+            // 
+            // buttonCreditAcquisitionInformation
+            // 
+            this.buttonCreditAcquisitionInformation.AutoSize = true;
+            this.buttonCreditAcquisitionInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonCreditAcquisitionInformation.Depth = 0;
+            this.buttonCreditAcquisitionInformation.Icon = null;
+            this.buttonCreditAcquisitionInformation.Location = new System.Drawing.Point(89, 0);
+            this.buttonCreditAcquisitionInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonCreditAcquisitionInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonCreditAcquisitionInformation.Name = "buttonCreditAcquisitionInformation";
+            this.buttonCreditAcquisitionInformation.Primary = false;
+            this.buttonCreditAcquisitionInformation.Size = new System.Drawing.Size(112, 36);
+            this.buttonCreditAcquisitionInformation.TabIndex = 1;
+            this.buttonCreditAcquisitionInformation.Text = "単位修得情報";
+            this.buttonCreditAcquisitionInformation.UseVisualStyleBackColor = true;
+            this.buttonCreditAcquisitionInformation.Click += new System.EventHandler(this.buttonCreditAcquisitionInformation_Click);
+            // 
+            // buttonResultInformation
+            // 
+            this.buttonResultInformation.AutoSize = true;
+            this.buttonResultInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonResultInformation.Depth = 0;
+            this.buttonResultInformation.Icon = null;
+            this.buttonResultInformation.Location = new System.Drawing.Point(0, 0);
+            this.buttonResultInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonResultInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonResultInformation.Name = "buttonResultInformation";
+            this.buttonResultInformation.Primary = false;
+            this.buttonResultInformation.Size = new System.Drawing.Size(81, 36);
+            this.buttonResultInformation.TabIndex = 0;
+            this.buttonResultInformation.Text = "成績情報";
+            this.buttonResultInformation.UseVisualStyleBackColor = true;
+            this.buttonResultInformation.Click += new System.EventHandler(this.buttonResultInformation_Click);
+            // 
             // materialTabSelector
             // 
             this.materialTabSelector.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1161,83 +1243,39 @@ namespace GakujoGUI
             this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
             // 
-            // tabPageAcademicAffairsSystem
+            // buttonSchoolRegisterInformation
             // 
-            this.tabPageAcademicAffairsSystem.BackColor = System.Drawing.Color.White;
-            this.tabPageAcademicAffairsSystem.Controls.Add(this.webView2AcademicAffairsSystem);
-            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonCurriculumInformation);
-            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonCreditAcquisitionInformation);
-            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonResultInformation);
-            this.tabPageAcademicAffairsSystem.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAcademicAffairsSystem.Name = "tabPageAcademicAffairsSystem";
-            this.tabPageAcademicAffairsSystem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAcademicAffairsSystem.Size = new System.Drawing.Size(768, 319);
-            this.tabPageAcademicAffairsSystem.TabIndex = 8;
-            this.tabPageAcademicAffairsSystem.Text = "教務システム";
+            this.buttonSchoolRegisterInformation.AutoSize = true;
+            this.buttonSchoolRegisterInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSchoolRegisterInformation.Depth = 0;
+            this.buttonSchoolRegisterInformation.Icon = null;
+            this.buttonSchoolRegisterInformation.Location = new System.Drawing.Point(303, 0);
+            this.buttonSchoolRegisterInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonSchoolRegisterInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonSchoolRegisterInformation.Name = "buttonSchoolRegisterInformation";
+            this.buttonSchoolRegisterInformation.Primary = false;
+            this.buttonSchoolRegisterInformation.Size = new System.Drawing.Size(81, 36);
+            this.buttonSchoolRegisterInformation.TabIndex = 4;
+            this.buttonSchoolRegisterInformation.Text = "学籍情報";
+            this.buttonSchoolRegisterInformation.UseVisualStyleBackColor = true;
+            this.buttonSchoolRegisterInformation.Click += new System.EventHandler(this.buttonSchoolRegisterInformation_Click);
             // 
-            // buttonResultInformation
+            // buttonSyllabusReference
             // 
-            this.buttonResultInformation.AutoSize = true;
-            this.buttonResultInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonResultInformation.Depth = 0;
-            this.buttonResultInformation.Icon = null;
-            this.buttonResultInformation.Location = new System.Drawing.Point(0, 0);
-            this.buttonResultInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonResultInformation.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonResultInformation.Name = "buttonResultInformation";
-            this.buttonResultInformation.Primary = false;
-            this.buttonResultInformation.Size = new System.Drawing.Size(124, 36);
-            this.buttonResultInformation.TabIndex = 0;
-            this.buttonResultInformation.Text = "成績情報の参照";
-            this.buttonResultInformation.UseVisualStyleBackColor = true;
-            this.buttonResultInformation.Click += new System.EventHandler(this.buttonResultInformation_Click);
-            // 
-            // buttonCreditAcquisitionInformation
-            // 
-            this.buttonCreditAcquisitionInformation.AutoSize = true;
-            this.buttonCreditAcquisitionInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonCreditAcquisitionInformation.Depth = 0;
-            this.buttonCreditAcquisitionInformation.Icon = null;
-            this.buttonCreditAcquisitionInformation.Location = new System.Drawing.Point(132, 0);
-            this.buttonCreditAcquisitionInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonCreditAcquisitionInformation.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonCreditAcquisitionInformation.Name = "buttonCreditAcquisitionInformation";
-            this.buttonCreditAcquisitionInformation.Primary = false;
-            this.buttonCreditAcquisitionInformation.Size = new System.Drawing.Size(154, 36);
-            this.buttonCreditAcquisitionInformation.TabIndex = 1;
-            this.buttonCreditAcquisitionInformation.Text = "単位修得情報の参照";
-            this.buttonCreditAcquisitionInformation.UseVisualStyleBackColor = true;
-            this.buttonCreditAcquisitionInformation.Click += new System.EventHandler(this.buttonCreditAcquisitionInformation_Click);
-            // 
-            // buttonCurriculumInformation
-            // 
-            this.buttonCurriculumInformation.AutoSize = true;
-            this.buttonCurriculumInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonCurriculumInformation.Depth = 0;
-            this.buttonCurriculumInformation.Icon = null;
-            this.buttonCurriculumInformation.Location = new System.Drawing.Point(294, 0);
-            this.buttonCurriculumInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonCurriculumInformation.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonCurriculumInformation.Name = "buttonCurriculumInformation";
-            this.buttonCurriculumInformation.Primary = false;
-            this.buttonCurriculumInformation.Size = new System.Drawing.Size(128, 36);
-            this.buttonCurriculumInformation.TabIndex = 2;
-            this.buttonCurriculumInformation.Text = "カリキュラムの参照";
-            this.buttonCurriculumInformation.UseVisualStyleBackColor = true;
-            this.buttonCurriculumInformation.Click += new System.EventHandler(this.buttonCurriculumInformation_Click);
-            // 
-            // webView2AcademicAffairsSystem
-            // 
-            this.webView2AcademicAffairsSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webView2AcademicAffairsSystem.CreationProperties = null;
-            this.webView2AcademicAffairsSystem.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView2AcademicAffairsSystem.Location = new System.Drawing.Point(0, 45);
-            this.webView2AcademicAffairsSystem.Name = "webView2AcademicAffairsSystem";
-            this.webView2AcademicAffairsSystem.Size = new System.Drawing.Size(768, 274);
-            this.webView2AcademicAffairsSystem.TabIndex = 3;
-            this.webView2AcademicAffairsSystem.ZoomFactor = 1D;
+            this.buttonSyllabusReference.AutoSize = true;
+            this.buttonSyllabusReference.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSyllabusReference.Depth = 0;
+            this.buttonSyllabusReference.Icon = null;
+            this.buttonSyllabusReference.Location = new System.Drawing.Point(392, 0);
+            this.buttonSyllabusReference.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonSyllabusReference.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonSyllabusReference.Name = "buttonSyllabusReference";
+            this.buttonSyllabusReference.Primary = false;
+            this.buttonSyllabusReference.Size = new System.Drawing.Size(98, 36);
+            this.buttonSyllabusReference.TabIndex = 5;
+            this.buttonSyllabusReference.Text = "シラバス参照";
+            this.buttonSyllabusReference.UseVisualStyleBackColor = true;
+            this.buttonSyllabusReference.Click += new System.EventHandler(this.buttonSyllabusReference_Click);
             // 
             // MainFrom
             // 
@@ -1255,7 +1293,7 @@ namespace GakujoGUI
             this.materialTabControl.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);
             this.tabPageLogin.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.webView21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.webView2)).EndInit();
             this.tabPageClassContact.ResumeLayout(false);
             this.splitContainerClassContact.Panel1.ResumeLayout(false);
             this.splitContainerClassContact.Panel1.PerformLayout();
@@ -1338,7 +1376,7 @@ namespace GakujoGUI
         private MaterialSkin.Controls.MaterialFlatButton buttonTwitter;
         private System.Windows.Forms.ColumnHeader columnVisible2;
         private MaterialSkin.Controls.MaterialCheckBox checkBoxAllVisible;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView2;
         private MaterialSkin.Controls.MaterialSingleLineTextField textBoxStudentCode;
         private MaterialSkin.Controls.MaterialSingleLineTextField textBoxStudentName;
         private System.Windows.Forms.TabPage tabPageSchoolContact;
@@ -1383,6 +1421,8 @@ namespace GakujoGUI
         private MaterialSkin.Controls.MaterialFlatButton buttonCreditAcquisitionInformation;
         private MaterialSkin.Controls.MaterialFlatButton buttonCurriculumInformation;
         private Microsoft.Web.WebView2.WinForms.WebView2 webView2AcademicAffairsSystem;
+        private MaterialSkin.Controls.MaterialFlatButton buttonSchoolRegisterInformation;
+        private MaterialSkin.Controls.MaterialFlatButton buttonSyllabusReference;
     }
 }
 
