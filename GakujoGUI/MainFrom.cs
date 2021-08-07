@@ -19,10 +19,9 @@ namespace GakujoGUI
         public MainFrom()
         {
             InitializeComponent();
-            var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
         #region 変数
@@ -177,7 +176,27 @@ namespace GakujoGUI
         private List<MaterialFlatButton> buttonClassSharedFileFileList = new List<MaterialFlatButton> { };
         private List<MaterialFlatButton> buttonSchoolSharedFileFileList = new List<MaterialFlatButton> { };
         private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
-        private bool gakujoLogin = false;
+        private MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
+        private bool _gakujoLogin = false;
+        private bool gakujoLogin
+        {
+            get
+            {
+                return _gakujoLogin;
+            }
+            set
+            {
+                _gakujoLogin = value;
+                if (gakujoLogin)
+                {
+                    materialSkinManager.ColorScheme = new ColorScheme(Primary.LightBlue800, Primary.Blue900, Primary.LightBlue500, Accent.LightBlue200, TextShade.WHITE);
+                }
+                else
+                {
+                    materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+                }
+            }
+        }
 
         #endregion
 

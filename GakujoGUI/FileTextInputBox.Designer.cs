@@ -89,6 +89,7 @@ namespace GakujoGUI
             // 
             // label
             // 
+            this.label.BackColor = System.Drawing.Color.Transparent;
             this.label.Depth = 0;
             this.label.Font = new System.Drawing.Font("Roboto", 11F);
             this.label.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
