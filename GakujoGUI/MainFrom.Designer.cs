@@ -112,13 +112,13 @@ namespace GakujoGUI
             this.labelSchoolSharedFileTitle = new System.Windows.Forms.Label();
             this.labelSchoolSharedFileFileDescription = new System.Windows.Forms.TextBox();
             this.tabPageAcademicAffairsSystem = new System.Windows.Forms.TabPage();
+            this.buttonSyllabusReference = new MaterialSkin.Controls.MaterialFlatButton();
+            this.buttonSchoolRegisterInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.webView2AcademicAffairsSystem = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.buttonCurriculumInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonCreditAcquisitionInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonResultInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
-            this.buttonSchoolRegisterInformation = new MaterialSkin.Controls.MaterialFlatButton();
-            this.buttonSyllabusReference = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
@@ -1165,6 +1165,40 @@ namespace GakujoGUI
             this.tabPageAcademicAffairsSystem.TabIndex = 8;
             this.tabPageAcademicAffairsSystem.Text = "教務システム";
             // 
+            // buttonSyllabusReference
+            // 
+            this.buttonSyllabusReference.AutoSize = true;
+            this.buttonSyllabusReference.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSyllabusReference.Depth = 0;
+            this.buttonSyllabusReference.Icon = null;
+            this.buttonSyllabusReference.Location = new System.Drawing.Point(392, 0);
+            this.buttonSyllabusReference.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonSyllabusReference.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonSyllabusReference.Name = "buttonSyllabusReference";
+            this.buttonSyllabusReference.Primary = false;
+            this.buttonSyllabusReference.Size = new System.Drawing.Size(98, 36);
+            this.buttonSyllabusReference.TabIndex = 5;
+            this.buttonSyllabusReference.Text = "シラバス参照";
+            this.buttonSyllabusReference.UseVisualStyleBackColor = true;
+            this.buttonSyllabusReference.Click += new System.EventHandler(this.buttonSyllabusReference_Click);
+            // 
+            // buttonSchoolRegisterInformation
+            // 
+            this.buttonSchoolRegisterInformation.AutoSize = true;
+            this.buttonSchoolRegisterInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonSchoolRegisterInformation.Depth = 0;
+            this.buttonSchoolRegisterInformation.Icon = null;
+            this.buttonSchoolRegisterInformation.Location = new System.Drawing.Point(303, 0);
+            this.buttonSchoolRegisterInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonSchoolRegisterInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonSchoolRegisterInformation.Name = "buttonSchoolRegisterInformation";
+            this.buttonSchoolRegisterInformation.Primary = false;
+            this.buttonSchoolRegisterInformation.Size = new System.Drawing.Size(81, 36);
+            this.buttonSchoolRegisterInformation.TabIndex = 4;
+            this.buttonSchoolRegisterInformation.Text = "学籍情報";
+            this.buttonSchoolRegisterInformation.UseVisualStyleBackColor = true;
+            this.buttonSchoolRegisterInformation.Click += new System.EventHandler(this.buttonSchoolRegisterInformation_Click);
+            // 
             // webView2AcademicAffairsSystem
             // 
             this.webView2AcademicAffairsSystem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1242,40 +1276,6 @@ namespace GakujoGUI
             this.materialTabSelector.TabIndex = 0;
             this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
-            // 
-            // buttonSchoolRegisterInformation
-            // 
-            this.buttonSchoolRegisterInformation.AutoSize = true;
-            this.buttonSchoolRegisterInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonSchoolRegisterInformation.Depth = 0;
-            this.buttonSchoolRegisterInformation.Icon = null;
-            this.buttonSchoolRegisterInformation.Location = new System.Drawing.Point(303, 0);
-            this.buttonSchoolRegisterInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonSchoolRegisterInformation.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonSchoolRegisterInformation.Name = "buttonSchoolRegisterInformation";
-            this.buttonSchoolRegisterInformation.Primary = false;
-            this.buttonSchoolRegisterInformation.Size = new System.Drawing.Size(81, 36);
-            this.buttonSchoolRegisterInformation.TabIndex = 4;
-            this.buttonSchoolRegisterInformation.Text = "学籍情報";
-            this.buttonSchoolRegisterInformation.UseVisualStyleBackColor = true;
-            this.buttonSchoolRegisterInformation.Click += new System.EventHandler(this.buttonSchoolRegisterInformation_Click);
-            // 
-            // buttonSyllabusReference
-            // 
-            this.buttonSyllabusReference.AutoSize = true;
-            this.buttonSyllabusReference.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonSyllabusReference.Depth = 0;
-            this.buttonSyllabusReference.Icon = null;
-            this.buttonSyllabusReference.Location = new System.Drawing.Point(392, 0);
-            this.buttonSyllabusReference.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonSyllabusReference.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonSyllabusReference.Name = "buttonSyllabusReference";
-            this.buttonSyllabusReference.Primary = false;
-            this.buttonSyllabusReference.Size = new System.Drawing.Size(98, 36);
-            this.buttonSyllabusReference.TabIndex = 5;
-            this.buttonSyllabusReference.Text = "シラバス参照";
-            this.buttonSyllabusReference.UseVisualStyleBackColor = true;
-            this.buttonSyllabusReference.Click += new System.EventHandler(this.buttonSyllabusReference_Click);
             // 
             // MainFrom
             // 
