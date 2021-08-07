@@ -397,6 +397,7 @@ namespace GakujoGUI
             this.listViewClassContact.UseCompatibleStateImageBehavior = false;
             this.listViewClassContact.View = System.Windows.Forms.View.Details;
             this.listViewClassContact.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewClassContact_MouseClick);
+            this.listViewClassContact.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewClassContact_MouseDoubleClick);
             this.listViewClassContact.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listViewClassContact_MouseMove);
             // 
             // columnEmpty0
@@ -777,6 +778,7 @@ namespace GakujoGUI
             this.listViewSchoolContact.UseCompatibleStateImageBehavior = false;
             this.listViewSchoolContact.View = System.Windows.Forms.View.Details;
             this.listViewSchoolContact.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolContact_MouseClick);
+            this.listViewSchoolContact.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolContact_MouseDoubleClick);
             this.listViewSchoolContact.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolContact_MouseMove);
             // 
             // columnEmpty3
