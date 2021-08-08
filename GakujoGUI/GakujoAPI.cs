@@ -345,7 +345,7 @@ namespace GakujoAPI
             if (htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div") != null)
             {
                 string file = "";
-                foreach (var item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div"))
+                foreach (HtmlAgilityPack.HtmlNode item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div/div/form/div[3]/div/div/div/table")[0].SelectNodes("tr")[3].SelectSingleNode("td/div").SelectNodes("div"))
                 {
                     if (fileDownload)
                     {
@@ -360,7 +360,7 @@ namespace GakujoAPI
                         httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&prefix=default&sequence=&webspaceTabDisplayFlag=&screenName=&fileNameAutonumberFlag=&fileNameDisplayFlag=");
                         httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
                         httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                        var stream = httpResponse.Content.ReadAsStreamAsync().Result;
+                        Stream stream = httpResponse.Content.ReadAsStreamAsync().Result;
                         if (!Directory.Exists(downloadPath))
                         {
                             Directory.CreateDirectory(downloadPath);
@@ -467,7 +467,7 @@ namespace GakujoAPI
             if (htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form/div[3]/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td/div") != null)
             {
                 string file = "";
-                foreach (var item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form/div[3]/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td/div").SelectNodes("div"))
+                foreach (HtmlAgilityPack.HtmlNode item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form/div[3]/div/div/table")[0].SelectNodes("tr")[4].SelectSingleNode("td/div").SelectNodes("div"))
                 {
                     if (fileDownload)
                     {
@@ -482,7 +482,7 @@ namespace GakujoAPI
                         httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&prefix=default&sequence=&webspaceTabDisplayFlag=&screenName=&fileNameAutonumberFlag=&fileNameDisplayFlag=");
                         httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
                         httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                        var stream = httpResponse.Content.ReadAsStreamAsync().Result;
+                        Stream stream = httpResponse.Content.ReadAsStreamAsync().Result;
                         if (!Directory.Exists(downloadPath))
                         {
                             Directory.CreateDirectory(downloadPath);
@@ -581,7 +581,7 @@ namespace GakujoAPI
             if (htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form[2]/div[2]/div[2]/div/div/div/table[1]")[0].SelectNodes("tr")[1].SelectSingleNode("td/div") != null)
             {
                 string file = "";
-                foreach (var item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form[2]/div[2]/div[2]/div/div/div/table[1]")[0].SelectNodes("tr")[1].SelectSingleNode("td/div").SelectNodes("div"))
+                foreach (HtmlAgilityPack.HtmlNode item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form[2]/div[2]/div[2]/div/div/div/table[1]")[0].SelectNodes("tr")[1].SelectSingleNode("td/div").SelectNodes("div"))
                 {
                     if (fileDownload)
                     {
@@ -596,7 +596,7 @@ namespace GakujoAPI
                         httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&prefix=default&sequence=&webspaceTabDisplayFlag=&screenName=&fileNameAutonumberFlag=&fileNameDisplayFlag=");
                         httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
                         httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                        var stream = httpResponse.Content.ReadAsStreamAsync().Result;
+                        Stream stream = httpResponse.Content.ReadAsStreamAsync().Result;
                         if (!Directory.Exists(downloadPath))
                         {
                             Directory.CreateDirectory(downloadPath);
@@ -698,7 +698,7 @@ namespace GakujoAPI
             if (htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form[2]/div[2]/div[2]/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td/div") != null)
             {
                 string file = "";
-                foreach (var item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form[2]/div[2]/div[2]/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td/div").SelectNodes("div"))
+                foreach (HtmlAgilityPack.HtmlNode item in htmlDocument.DocumentNode.SelectNodes("/html/body/div[2]/div[1]/div/form[2]/div[2]/div[2]/div/div/table")[0].SelectNodes("tr")[2].SelectSingleNode("td/div").SelectNodes("div"))
                 {
                     if (fileDownload)
                     {
@@ -713,7 +713,7 @@ namespace GakujoAPI
                         httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&prefix=default&sequence=&webspaceTabDisplayFlag=&screenName=&fileNameAutonumberFlag=&fileNameDisplayFlag=");
                         httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
                         httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
-                        var stream = httpResponse.Content.ReadAsStreamAsync().Result;
+                        Stream stream = httpResponse.Content.ReadAsStreamAsync().Result;
                         if (!Directory.Exists(downloadPath))
                         {
                             Directory.CreateDirectory(downloadPath);
