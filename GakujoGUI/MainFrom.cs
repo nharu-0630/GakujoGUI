@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using Discord;
 
 namespace GakujoGUI
 {
@@ -26,9 +27,9 @@ namespace GakujoGUI
 
         #region 変数
 
-        private GakujoAPI.GakujoAPI gakujoAPI = new GakujoAPI.GakujoAPI();
-        private List<GakujoAPI.ClassContact> _classContactList = new List<GakujoAPI.ClassContact> { };
-        private List<GakujoAPI.ClassContact> classContactList
+        private GakujoAPI gakujoAPI = new GakujoAPI();
+        private List<ClassContact> _classContactList = new List<ClassContact> { };
+        private List<ClassContact> classContactList
         {
             get
             {
@@ -45,14 +46,14 @@ namespace GakujoGUI
                 }
                 catch { }
                 listViewClassContact.Items.Clear();
-                foreach (GakujoAPI.ClassContact classContact in classContactList)
+                foreach (ClassContact classContact in classContactList)
                 {
                     listViewClassContact.Items.Add(new ListViewItem(new string[] { "", classContact.classSubjects, classContact.title, classContact.content, classContact.contactTime }));
                 }
             }
         }
-        private List<GakujoAPI.Report> _reportList = new List<GakujoAPI.Report> { };
-        private List<GakujoAPI.Report> reportList
+        private List<Report> _reportList = new List<Report> { };
+        private List<Report> reportList
         {
             get
             {
@@ -69,14 +70,14 @@ namespace GakujoGUI
                 }
                 catch { }
                 listViewReport.Items.Clear();
-                foreach (GakujoAPI.Report report in reportList)
+                foreach (Report report in reportList)
                 {
                     listViewReport.Items.Add(new ListViewItem(new string[] { "", report.classSubjects, report.title, report.status, report.submissionPeriod, report.lastSubmissionTime, report.operation }));
                 }
             }
         }
-        private List<GakujoAPI.Quiz> _quizList = new List<GakujoAPI.Quiz> { };
-        private List<GakujoAPI.Quiz> quizList
+        private List<Quiz> _quizList = new List<Quiz> { };
+        private List<Quiz> quizList
         {
             get
             {
@@ -93,14 +94,14 @@ namespace GakujoGUI
                 }
                 catch { }
                 listViewQuiz.Items.Clear();
-                foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
+                foreach (Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
                 {
                     listViewQuiz.Items.Add(new ListViewItem(new string[] { "", "非表示", quiz.classSubjects, quiz.title, quiz.status, quiz.submissionPeriod, quiz.submissionStatus, quiz.operation }));
                 }
             }
         }
-        private List<GakujoAPI.SchoolContact> _schoolContactList = new List<GakujoAPI.SchoolContact> { };
-        private List<GakujoAPI.SchoolContact> schoolContactList
+        private List<SchoolContact> _schoolContactList = new List<SchoolContact> { };
+        private List<SchoolContact> schoolContactList
         {
             get
             {
@@ -117,14 +118,14 @@ namespace GakujoGUI
                 }
                 catch { }
                 listViewSchoolContact.Items.Clear();
-                foreach (GakujoAPI.SchoolContact schoolContact in schoolContactList)
+                foreach (SchoolContact schoolContact in schoolContactList)
                 {
                     listViewSchoolContact.Items.Add(new ListViewItem(new string[] { "", schoolContact.category, schoolContact.title, schoolContact.content, schoolContact.contactTime }));
                 }
             }
         }
-        private List<GakujoAPI.ClassSharedFile> _classSharedFileList = new List<GakujoAPI.ClassSharedFile> { };
-        private List<GakujoAPI.ClassSharedFile> classSharedFileList
+        private List<ClassSharedFile> _classSharedFileList = new List<ClassSharedFile> { };
+        private List<ClassSharedFile> classSharedFileList
         {
             get
             {
@@ -141,14 +142,14 @@ namespace GakujoGUI
                 }
                 catch { }
                 listViewClassSharedFile.Items.Clear();
-                foreach (GakujoAPI.ClassSharedFile classSharedFile in classSharedFileList)
+                foreach (ClassSharedFile classSharedFile in classSharedFileList)
                 {
                     listViewClassSharedFile.Items.Add(new ListViewItem(new string[] { "", classSharedFile.classSubjects, classSharedFile.title, classSharedFile.fileDescription, classSharedFile.updateTime }));
                 }
             }
         }
-        private List<GakujoAPI.SchoolSharedFile> _schoolSharedFileList = new List<GakujoAPI.SchoolSharedFile> { };
-        private List<GakujoAPI.SchoolSharedFile> schoolSharedFileList
+        private List<SchoolSharedFile> _schoolSharedFileList = new List<SchoolSharedFile> { };
+        private List<SchoolSharedFile> schoolSharedFileList
         {
             get
             {
@@ -165,7 +166,7 @@ namespace GakujoGUI
                 }
                 catch { }
                 listViewSchoolSharedFile.Items.Clear();
-                foreach (GakujoAPI.SchoolSharedFile schoolSharedFile in schoolSharedFileList)
+                foreach (SchoolSharedFile schoolSharedFile in schoolSharedFileList)
                 {
                     listViewSchoolSharedFile.Items.Add(new ListViewItem(new string[] { "", schoolSharedFile.category, schoolSharedFile.title, schoolSharedFile.fileDescription, schoolSharedFile.updateTime }));
                 }
@@ -197,6 +198,7 @@ namespace GakujoGUI
                 }
             }
         }
+        private NotifyAPI notifyAPI = new NotifyAPI();
 
         #endregion
 
@@ -207,7 +209,7 @@ namespace GakujoGUI
             if (File.Exists("account.json"))
             {
                 StreamReader streamReader = new StreamReader("account.json", Encoding.UTF8);
-                gakujoAPI.account = JsonConvert.DeserializeObject<GakujoAPI.Account>(streamReader.ReadToEnd());
+                gakujoAPI.account = JsonConvert.DeserializeObject<Account>(streamReader.ReadToEnd());
                 streamReader.Close();
                 textBoxUserId.Text = gakujoAPI.account.userId;
                 textBoxPassWord.Text = gakujoAPI.account.passWord;
@@ -217,38 +219,50 @@ namespace GakujoGUI
             if (File.Exists("classContact.json"))
             {
                 StreamReader streamReader = new StreamReader("classContact.json", Encoding.UTF8);
-                classContactList = JsonConvert.DeserializeObject<List<GakujoAPI.ClassContact>>(streamReader.ReadToEnd());
+                classContactList = JsonConvert.DeserializeObject<List<ClassContact>>(streamReader.ReadToEnd());
                 streamReader.Close();
             }
             if (File.Exists("report.json"))
             {
                 StreamReader streamReader = new StreamReader("report.json", Encoding.UTF8);
-                reportList = JsonConvert.DeserializeObject<List<GakujoAPI.Report>>(streamReader.ReadToEnd());
+                reportList = JsonConvert.DeserializeObject<List<Report>>(streamReader.ReadToEnd());
                 streamReader.Close();
             }
             if (File.Exists("quiz.json"))
             {
                 StreamReader streamReader = new StreamReader("quiz.json", Encoding.UTF8);
-                quizList = JsonConvert.DeserializeObject<List<GakujoAPI.Quiz>>(streamReader.ReadToEnd());
+                quizList = JsonConvert.DeserializeObject<List<Quiz>>(streamReader.ReadToEnd());
                 streamReader.Close();
             }
             if (File.Exists("schoolContact.json"))
             {
                 StreamReader streamReader = new StreamReader("schoolContact.json", Encoding.UTF8);
-                schoolContactList = JsonConvert.DeserializeObject<List<GakujoAPI.SchoolContact>>(streamReader.ReadToEnd());
+                schoolContactList = JsonConvert.DeserializeObject<List<SchoolContact>>(streamReader.ReadToEnd());
                 streamReader.Close();
             }
             if (File.Exists("classSharedFile.json"))
             {
                 StreamReader streamReader = new StreamReader("classSharedFile.json", Encoding.UTF8);
-                classSharedFileList = JsonConvert.DeserializeObject<List<GakujoAPI.ClassSharedFile>>(streamReader.ReadToEnd());
+                classSharedFileList = JsonConvert.DeserializeObject<List<ClassSharedFile>>(streamReader.ReadToEnd());
                 streamReader.Close();
             }
             if (File.Exists("schoolSharedFile.json"))
             {
                 StreamReader streamReader = new StreamReader("schoolSharedFile.json", Encoding.UTF8);
-                schoolSharedFileList = JsonConvert.DeserializeObject<List<GakujoAPI.SchoolSharedFile>>(streamReader.ReadToEnd());
+                schoolSharedFileList = JsonConvert.DeserializeObject<List<SchoolSharedFile>>(streamReader.ReadToEnd());
                 streamReader.Close();
+            }
+        }
+
+        private void LoginNotify()
+        {
+            if (gakujoAPI.account.discordToken != null)
+            {
+                notifyAPI.LoginDiscord(gakujoAPI.account.discordToken, gakujoAPI.account.discordChannel);
+            }
+            if (gakujoAPI.account.todoistToken != null)
+            {
+                notifyAPI.LoginTodoist(gakujoAPI.account.todoistToken);
             }
         }
 
@@ -271,6 +285,7 @@ namespace GakujoGUI
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
             LoadJson();
+            LoginNotify();
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -367,12 +382,21 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                GakujoAPI.ClassContact classContact = new GakujoAPI.ClassContact { classSubjects = "", title = "", contactTime = "" }; ;
+                ClassContact classContact = new ClassContact { classSubjects = "", title = "", contactTime = "" }; ;
                 if (classContactList.Count != 0)
                 {
                     classContact = classContactList[0];
                 }
-                List<GakujoAPI.ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, classContact));
+                List<ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, classContact));
+                //foreach (ClassContact item in tempClassContactList)
+                //{
+                //    EmbedBuilder embedBuilder = new EmbedBuilder()
+                //    {
+                //        Title = item.title,
+                //        //Description = item.content,
+                //    };
+                //    notifyAPI.NotifyDiscord(embedBuilder.Build());
+                //}
                 tempClassContactList.AddRange(classContactList);
                 classContactList = tempClassContactList;
                 progressBox.Close();
@@ -444,7 +468,7 @@ namespace GakujoGUI
                                 progressBox.Set("GakujoGUI", "");
                                 progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                                GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
+                                ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
                                 classContactList[selectIndex] = classContact;
                                 classContactList = classContactList;
@@ -466,8 +490,8 @@ namespace GakujoGUI
             }
             int[] indexArray = new int[2];
             GetListViewSeletColumnIndex(listViewClassContact, indexArray);
-            int selectIndex = indexArray[0]; 
-            int columnIndex = indexArray[1]; 
+            int selectIndex = indexArray[0];
+            int columnIndex = indexArray[1];
             if (columnIndex != 2 && columnIndex != 3)
             {
                 return;
@@ -487,7 +511,7 @@ namespace GakujoGUI
                             progressBox.Set("GakujoGUI", "");
                             progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            GakujoAPI.ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
+                            ClassContact classContact = await Task.Run(() => gakujoAPI.GetClassContact(progress, classContactList[selectIndex], selectIndex, checkBoxClassContactFileDownload.Checked, downloadPath));
                             progressBox.Close();
                             classContactList[selectIndex] = classContact;
                             classContactList = classContactList;
@@ -717,7 +741,7 @@ namespace GakujoGUI
             GetListViewSeletColumnIndex(listViewQuiz, indexArray);
             int selectIndex = indexArray[0];
             int columnIndex = indexArray[1];
-            List<GakujoAPI.Quiz> tempQuizList = quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToList();
+            List<Quiz> tempQuizList = quizList.Where(quiz => (checkBoxAllVisible.Checked || (!quiz.invisible && !checkBoxAllVisible.Checked))).ToList();
             if (!gakujoLogin)
             {
                 return;
@@ -773,7 +797,7 @@ namespace GakujoGUI
                 if (checkBoxAllVisible.Checked)
                 {
                     listViewQuiz.Items.Clear();
-                    foreach (GakujoAPI.Quiz quiz in quizList)
+                    foreach (Quiz quiz in quizList)
                     {
                         if (quiz.invisible)
                         {
@@ -788,7 +812,7 @@ namespace GakujoGUI
                 else
                 {
                     listViewQuiz.Items.Clear();
-                    foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
+                    foreach (Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
                     {
                         listViewQuiz.Items.Add(new ListViewItem(new string[] { "", "非表示", quiz.classSubjects, quiz.title, quiz.status, quiz.submissionPeriod, quiz.submissionStatus, quiz.operation }));
                     }
@@ -825,7 +849,7 @@ namespace GakujoGUI
             if (checkBoxAllVisible.Checked)
             {
                 listViewQuiz.Items.Clear();
-                foreach (GakujoAPI.Quiz quiz in quizList)
+                foreach (Quiz quiz in quizList)
                 {
                     if (quiz.invisible)
                     {
@@ -840,7 +864,7 @@ namespace GakujoGUI
             else
             {
                 listViewQuiz.Items.Clear();
-                foreach (GakujoAPI.Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
+                foreach (Quiz quiz in quizList.Where(quiz => quiz.invisible == false))
                 {
                     listViewQuiz.Items.Add(new ListViewItem(new string[] { "", "非表示", quiz.classSubjects, quiz.title, quiz.status, quiz.submissionPeriod, quiz.submissionStatus, quiz.operation }));
                 }
@@ -863,12 +887,12 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                GakujoAPI.SchoolContact schoolContact = new GakujoAPI.SchoolContact { title = "", contactTime = "" }; ;
+                SchoolContact schoolContact = new SchoolContact { title = "", contactTime = "" }; ;
                 if (schoolContactList.Count != 0)
                 {
                     schoolContact = schoolContactList[0];
                 }
-                List<GakujoAPI.SchoolContact> tempSchoolContactList = await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, schoolContact));
+                List<SchoolContact> tempSchoolContactList = await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, schoolContact));
                 tempSchoolContactList.AddRange(schoolContactList);
                 schoolContactList = tempSchoolContactList;
                 progressBox.Close();
@@ -932,7 +956,7 @@ namespace GakujoGUI
                                 progressBox.Set("GakujoGUI", "");
                                 progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                                GakujoAPI.SchoolContact schoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
+                                SchoolContact schoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
                                 progressBox.Close();
                                 schoolContactList[selectIndex] = schoolContact;
                                 schoolContactList = schoolContactList;
@@ -975,7 +999,7 @@ namespace GakujoGUI
                             progressBox.Set("GakujoGUI", "");
                             progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            GakujoAPI.SchoolContact schoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
+                            SchoolContact schoolContact = await Task.Run(() => gakujoAPI.GetSchoolContact(progress, schoolContactList[selectIndex], selectIndex, checkBoxSchoolContactFileDownload.Checked, downloadPath));
                             progressBox.Close();
                             schoolContactList[selectIndex] = schoolContact;
                             schoolContactList = schoolContactList;
@@ -1039,12 +1063,12 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                GakujoAPI.ClassSharedFile classSharedFile = new GakujoAPI.ClassSharedFile { classSubjects = "", title = "" }; ;
+                ClassSharedFile classSharedFile = new ClassSharedFile { classSubjects = "", title = "" }; ;
                 if (classSharedFileList.Count != 0)
                 {
                     classSharedFile = classSharedFileList[0];
                 }
-                List<GakujoAPI.ClassSharedFile> tempClassSharedFileList = await Task.Run(() => gakujoAPI.GetClassSharedFileList(progress, classSharedFile));
+                List<ClassSharedFile> tempClassSharedFileList = await Task.Run(() => gakujoAPI.GetClassSharedFileList(progress, classSharedFile));
                 tempClassSharedFileList.AddRange(classSharedFileList);
                 classSharedFileList = tempClassSharedFileList;
                 progressBox.Close();
@@ -1108,7 +1132,7 @@ namespace GakujoGUI
                                 progressBox.Set("GakujoGUI", "");
                                 progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                                GakujoAPI.ClassSharedFile classSharedFile = await Task.Run(() => gakujoAPI.GetClassSharedFile(progress, classSharedFileList[selectIndex], selectIndex, true, downloadPath));
+                                ClassSharedFile classSharedFile = await Task.Run(() => gakujoAPI.GetClassSharedFile(progress, classSharedFileList[selectIndex], selectIndex, true, downloadPath));
                                 progressBox.Close();
                                 classSharedFileList[selectIndex] = classSharedFile;
                                 classSharedFileList = classSharedFileList;
@@ -1168,12 +1192,12 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                GakujoAPI.SchoolSharedFile schoolSharedFile = new GakujoAPI.SchoolSharedFile { category = "", title = "" }; ;
+                SchoolSharedFile schoolSharedFile = new SchoolSharedFile { category = "", title = "" }; ;
                 if (schoolSharedFileList.Count != 0)
                 {
                     schoolSharedFile = schoolSharedFileList[0];
                 }
-                List<GakujoAPI.SchoolSharedFile> tempSchoolSharedFileList = await Task.Run(() => gakujoAPI.GetSchoolSharedFileList(progress, schoolSharedFile));
+                List<SchoolSharedFile> tempSchoolSharedFileList = await Task.Run(() => gakujoAPI.GetSchoolSharedFileList(progress, schoolSharedFile));
                 tempSchoolSharedFileList.AddRange(schoolSharedFileList);
                 schoolSharedFileList = tempSchoolSharedFileList;
                 progressBox.Close();
@@ -1237,7 +1261,7 @@ namespace GakujoGUI
                                 progressBox.Set("GakujoGUI", "");
                                 progressBox.Show();
                                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                                GakujoAPI.SchoolSharedFile schoolSharedFile = await Task.Run(() => gakujoAPI.GetSchoolSharedFile(progress, schoolSharedFileList[selectIndex], selectIndex, true, downloadPath));
+                                SchoolSharedFile schoolSharedFile = await Task.Run(() => gakujoAPI.GetSchoolSharedFile(progress, schoolSharedFileList[selectIndex], selectIndex, true, downloadPath));
                                 progressBox.Close();
                                 schoolSharedFileList[selectIndex] = schoolSharedFile;
                                 schoolSharedFileList = schoolSharedFileList;

@@ -12,7 +12,7 @@ using System.Text;
 using System.Web;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
-namespace GakujoAPI
+namespace GakujoGUI
 {
     class GakujoAPI
     {
@@ -1134,6 +1134,12 @@ namespace GakujoAPI
         public string studentCode;
         [JsonProperty("apacheToken")]
         public string apacheToken;
+        [JsonProperty("discordToken")]
+        public string discordToken;
+        [JsonProperty("discordChannel")]
+        public ulong discordChannel;
+        [JsonProperty("todoistToken")]
+        public string todoistToken;
 
     }
 

@@ -24,17 +24,17 @@ namespace GakujoGUI
         }
 
 
-        public async void NotifyDiscord(string message)
+        public async void NotifyDiscord(Embed embed)
         {
-            await (discordSocketClient.GetChannel(discordChannelId) as IMessageChannel).SendMessageAsync(message);
+            await (discordSocketClient.GetChannel(discordChannelId) as IMessageChannel).SendMessageAsync("", false, embed);
         }
 
-        private void LoginTodoist(string token)
+        public void LoginTodoist(string token)
         {
             todoistClient = new TodoistClient(token);
         }
 
-        private async void AddTodoistTask(string message)
+        public async void AddTodoistTask(string message)
         {
             await todoistClient.Items.QuickAddAsync(new Todoist.Net.Models.QuickAddItem(message));
         }
