@@ -198,7 +198,6 @@ namespace GakujoGUI
                 }
             }
         }
-        private NotifyAPI notifyAPI = new NotifyAPI();
 
         #endregion
 
@@ -254,18 +253,6 @@ namespace GakujoGUI
             }
         }
 
-        private void LoginNotify()
-        {
-            if (gakujoAPI.account.discordToken != null)
-            {
-                notifyAPI.LoginDiscord(gakujoAPI.account.discordToken, gakujoAPI.account.discordChannel);
-            }
-            if (gakujoAPI.account.todoistToken != null)
-            {
-                notifyAPI.LoginTodoist(gakujoAPI.account.todoistToken);
-            }
-        }
-
         private void buttonTwitter_Click(object sender, EventArgs e)
         {
             Process.Start("https://twitter.com/xyzyxJP");
@@ -285,7 +272,6 @@ namespace GakujoGUI
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
             LoadJson();
-            LoginNotify();
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -388,15 +374,6 @@ namespace GakujoGUI
                     classContact = classContactList[0];
                 }
                 List<ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, classContact));
-                //foreach (ClassContact item in tempClassContactList)
-                //{
-                //    EmbedBuilder embedBuilder = new EmbedBuilder()
-                //    {
-                //        Title = item.title,
-                //        //Description = item.content,
-                //    };
-                //    notifyAPI.NotifyDiscord(embedBuilder.Build());
-                //}
                 tempClassContactList.AddRange(classContactList);
                 classContactList = tempClassContactList;
                 progressBox.Close();

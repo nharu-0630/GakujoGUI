@@ -1134,13 +1134,6 @@ namespace GakujoGUI
         public string studentCode;
         [JsonProperty("apacheToken")]
         public string apacheToken;
-        [JsonProperty("discordToken")]
-        public string discordToken;
-        [JsonProperty("discordChannel")]
-        public ulong discordChannel;
-        [JsonProperty("todoistToken")]
-        public string todoistToken;
-
     }
 
     //レポート
