@@ -991,7 +991,7 @@ namespace GakujoGUI
             return true;
         }
 
-        public string GetResultInformation(IProgress<double> progress)
+        public string GetResultInformation(IProgress<double> progress, bool trim = true)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
@@ -1005,15 +1005,18 @@ namespace GakujoGUI
             progress.Report(100 * 1 / 1);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            if (trim)
+            {
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            }
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
-        public string GetCreditAcquisitionInformation(IProgress<double> progress)
+        public string GetCreditAcquisitionInformation(IProgress<double> progress, bool trim)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
@@ -1027,14 +1030,17 @@ namespace GakujoGUI
             progress.Report(100 * 1 / 1);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[3]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            if (trim)
+            {
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[3]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+            }
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
-        public string GetCurriculumInformation(IProgress<double> progress)
+        public string GetCurriculumInformation(IProgress<double> progress, bool trim)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
@@ -1048,14 +1054,17 @@ namespace GakujoGUI
             progress.Report(100 * 1 / 1);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]").Remove();
+            if (trim)
+            {
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]").Remove();
+            }
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
-        public string GetSchoolRegisterInformation(IProgress<double> progress)
+        public string GetSchoolRegisterInformation(IProgress<double> progress, bool trim)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
@@ -1069,11 +1078,14 @@ namespace GakujoGUI
             progress.Report(100 * 1 / 1);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[6]").Remove();
-            htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[5]").Remove();
+            if (trim)
+            {
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[6]").Remove();
+                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[5]").Remove();
+            }
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
