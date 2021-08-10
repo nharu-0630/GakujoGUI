@@ -1016,7 +1016,7 @@ namespace GakujoGUI
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
-        public string GetCreditAcquisitionInformation(IProgress<double> progress, bool trim)
+        public string GetCreditAcquisitionInformation(IProgress<double> progress, bool trim = true)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
@@ -1040,7 +1040,7 @@ namespace GakujoGUI
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
-        public string GetCurriculumInformation(IProgress<double> progress, bool trim)
+        public string GetCurriculumInformation(IProgress<double> progress, bool trim = true)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
@@ -1064,7 +1064,7 @@ namespace GakujoGUI
             return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
         }
 
-        public string GetSchoolRegisterInformation(IProgress<double> progress, bool trim)
+        public string GetSchoolRegisterInformation(IProgress<double> progress, bool trim = true)
         {
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
