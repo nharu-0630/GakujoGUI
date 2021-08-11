@@ -1298,7 +1298,11 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                html = await Task.Run(() => gakujoAPI.GetResultInformation(progress));
+                //html = await Task.Run(() => gakujoAPI.GetResultInformation(progress));
+                foreach (var item in await Task.Run(() => gakujoAPI.GetResultInformation(progress)))
+                {
+                    html += item.subjectName + " " + item.evaluation + " " + item.subjectGP + Environment.NewLine;
+                }
                 await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
                 progressBox.Close();
             }

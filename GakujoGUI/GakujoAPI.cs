@@ -991,9 +991,10 @@ namespace GakujoGUI
             return true;
         }
 
-        public string GetResultInformation(IProgress<double> progress, bool trim = true)
+        public List<ResultInformation> GetResultInformation(IProgress<double> progress)
         {
             SetAcademicAffairsSystem(progress);
+            List<ResultInformation> resultInformationList = new List<ResultInformation> { };
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/seisekiSearchStudentInit.do?mainMenuCode=008&parentMenuCode=007");
             httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
@@ -1005,15 +1006,27 @@ namespace GakujoGUI
             progress.Report(100 * 1 / 1);
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
-            if (trim)
+            if (htmlDocument.DocumentNode.SelectNodes("/html/body/table[5]/tr/td/table") == null)
             {
-                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[4]").Remove();
-                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
-                htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[1]").Remove();
+                return resultInformationList;
             }
-            return htmlDocument.DocumentNode.SelectSingleNode("/html").InnerHtml;
+            for (int i = 1; i < htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[5]/tr/td/table").SelectNodes("tr").Count; i++)
+            {
+                HtmlAgilityPack.HtmlNode htmlNode = htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[5]/tr/td/table").SelectNodes("tr")[i];
+                ResultInformation resultInformation = new ResultInformation();
+                resultInformation.subjectName = htmlNode.SelectNodes("td")[0].InnerText.Trim();
+                resultInformation.repTeacherName = htmlNode.SelectNodes("td")[1].InnerText.Trim();
+                resultInformation.subjectSection = htmlNode.SelectNodes("td")[2].InnerText.Trim();
+                resultInformation.compulsorySelectionSection = htmlNode.SelectNodes("td")[3].InnerText.Trim();
+                resultInformation.schoolCredit = htmlNode.SelectNodes("td")[4].InnerText.Trim();
+                resultInformation.evaluation = htmlNode.SelectNodes("td")[5].InnerText.Trim();
+                resultInformation.score = htmlNode.SelectNodes("td")[6].InnerText.Trim();
+                resultInformation.subjectGP = htmlNode.SelectNodes("td")[7].InnerText.Trim();
+                resultInformation.acquisitionFiscalYear = htmlNode.SelectNodes("td")[8].InnerText.Trim();
+                resultInformation.reportDate = htmlNode.SelectNodes("td")[9].InnerText.Trim();
+                resultInformationList.Add(resultInformation);
+            }
+            return resultInformationList;
         }
 
         public string GetCreditAcquisitionInformation(IProgress<double> progress, bool trim = true)
@@ -1355,4 +1368,42 @@ namespace GakujoGUI
         public string id { get; set; }
     }
 
+    //成績情報
+    [JsonObject]
+    class ResultInformation
+    {
+        //科目名
+        [JsonProperty("subjectName")]
+        public string subjectName { get; set; }
+        //担当教員名
+        [JsonProperty("repTeacherName")]
+        public string repTeacherName { get; set; }
+        //科目区分
+        [JsonProperty("subjectSection")]
+        public string subjectSection { get; set; }
+        //必修選択区分
+        [JsonProperty("compulsorySelectionSection")]
+        public string compulsorySelectionSection { get; set; }
+        //単位
+        [JsonProperty("schoolCredit")]
+        public string schoolCredit { get; set; }
+        //評価
+        [JsonProperty("evaluation")]
+        public string evaluation { get; set; }
+        //得点
+        [JsonProperty("score")]
+        public string score { get; set; }
+        //科目GP
+        [JsonProperty("subjectGP")]
+        public string subjectGP { get; set; }
+        //取得年度
+        [JsonProperty("acquisitionFiscalYear")]
+        public string acquisitionFiscalYear { get; set; }
+        //報告日
+        [JsonProperty("reportDate")]
+        public string reportDate { get; set; }
+        //試験種別
+        [JsonProperty("testingType")]
+        public string testingType { get; set; }
+    }
 }
