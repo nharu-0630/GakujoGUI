@@ -1299,10 +1299,12 @@ namespace GakujoGUI
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
                 //html = await Task.Run(() => gakujoAPI.GetResultInformation(progress));
+                html = "<table>\n<thead>\n<tr>\n<th>教科名</th>\n<th>担当教員名</th>\n<th>科目区分</th>\n<th>必修選択区分</th>\n<th>単位</th>\n<th>評価</th>\n<th>得点</th>\n<th>科目GP</th>\n<th>取得年度</th>\n<th>報告日</th>\n<th>試験種別</th>\n</tr>\n<tbody>\n";
                 foreach (var item in await Task.Run(() => gakujoAPI.GetResultInformation(progress)))
                 {
-                    html += item.subjectName + " " + item.evaluation + " " + item.subjectGP + Environment.NewLine;
+                    html += "<tr>\n<td>" + item.subjectName + "</td>\n<td>" + item.repTeacherName + "</td>\n<td>" + item.subjectSection + "</td>\n<td>" + item.compulsorySelectionSection + "</td>\n<td>" + item.schoolCredit + "</td>\n<td>" + item.evaluation + "</td>\n<td>" + item.score + "</td>\n<td>" + item.subjectGP + "</td>\n<td>" + item.acquisitionFiscalYear + "</td>\n<td>" + item.reportDate + "</td>\n<td>" + item.testingType + "</td>\n</tr>\n";
                 }
+                html += "</tbody>\n</table>";
                 await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
                 progressBox.Close();
             }
