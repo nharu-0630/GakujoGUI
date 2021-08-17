@@ -248,7 +248,7 @@ namespace GakujoGUI
             this.buttonTwitter.Name = "buttonTwitter";
             this.buttonTwitter.Primary = false;
             this.buttonTwitter.Size = new System.Drawing.Size(92, 36);
-            this.buttonTwitter.TabIndex = 7;
+            this.buttonTwitter.TabIndex = 6;
             this.buttonTwitter.Text = "@xyzyxjp";
             this.buttonTwitter.UseVisualStyleBackColor = true;
             this.buttonTwitter.Click += new System.EventHandler(this.buttonTwitter_Click);
@@ -264,7 +264,7 @@ namespace GakujoGUI
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Primary = true;
             this.buttonLogin.Size = new System.Drawing.Size(66, 36);
-            this.buttonLogin.TabIndex = 6;
+            this.buttonLogin.TabIndex = 5;
             this.buttonLogin.Text = "ログイン";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
@@ -393,7 +393,7 @@ namespace GakujoGUI
             this.listViewClassContact.Name = "listViewClassContact";
             this.listViewClassContact.OwnerDraw = true;
             this.listViewClassContact.Size = new System.Drawing.Size(762, 108);
-            this.listViewClassContact.TabIndex = 5;
+            this.listViewClassContact.TabIndex = 3;
             this.listViewClassContact.UseCompatibleStateImageBehavior = false;
             this.listViewClassContact.View = System.Windows.Forms.View.Details;
             this.listViewClassContact.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewClassContact_MouseClick);
@@ -437,7 +437,7 @@ namespace GakujoGUI
             this.buttonClassContactFile.Name = "buttonClassContactFile";
             this.buttonClassContactFile.Primary = false;
             this.buttonClassContactFile.Size = new System.Drawing.Size(63, 36);
-            this.buttonClassContactFile.TabIndex = 8;
+            this.buttonClassContactFile.TabIndex = 6;
             this.buttonClassContactFile.Text = "ファイル";
             this.buttonClassContactFile.UseVisualStyleBackColor = true;
             this.buttonClassContactFile.Visible = false;
@@ -450,7 +450,7 @@ namespace GakujoGUI
             this.labelClassContactTitle.Location = new System.Drawing.Point(3, 0);
             this.labelClassContactTitle.Name = "labelClassContactTitle";
             this.labelClassContactTitle.Size = new System.Drawing.Size(756, 20);
-            this.labelClassContactTitle.TabIndex = 6;
+            this.labelClassContactTitle.TabIndex = 4;
             // 
             // labelClassContactContent
             // 
@@ -466,7 +466,7 @@ namespace GakujoGUI
             this.labelClassContactContent.ReadOnly = true;
             this.labelClassContactContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.labelClassContactContent.Size = new System.Drawing.Size(756, 85);
-            this.labelClassContactContent.TabIndex = 7;
+            this.labelClassContactContent.TabIndex = 5;
             // 
             // tabPageReport
             // 
@@ -774,7 +774,7 @@ namespace GakujoGUI
             this.listViewSchoolContact.Name = "listViewSchoolContact";
             this.listViewSchoolContact.OwnerDraw = true;
             this.listViewSchoolContact.Size = new System.Drawing.Size(762, 108);
-            this.listViewSchoolContact.TabIndex = 5;
+            this.listViewSchoolContact.TabIndex = 3;
             this.listViewSchoolContact.UseCompatibleStateImageBehavior = false;
             this.listViewSchoolContact.View = System.Windows.Forms.View.Details;
             this.listViewSchoolContact.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolContact_MouseClick);
@@ -820,7 +820,7 @@ namespace GakujoGUI
             this.buttonSchoolContactFile.Name = "buttonSchoolContactFile";
             this.buttonSchoolContactFile.Primary = false;
             this.buttonSchoolContactFile.Size = new System.Drawing.Size(63, 36);
-            this.buttonSchoolContactFile.TabIndex = 8;
+            this.buttonSchoolContactFile.TabIndex = 6;
             this.buttonSchoolContactFile.Text = "ファイル";
             this.buttonSchoolContactFile.UseVisualStyleBackColor = false;
             this.buttonSchoolContactFile.Visible = false;
@@ -833,7 +833,7 @@ namespace GakujoGUI
             this.labelSchoolContactTitle.Location = new System.Drawing.Point(3, 0);
             this.labelSchoolContactTitle.Name = "labelSchoolContactTitle";
             this.labelSchoolContactTitle.Size = new System.Drawing.Size(756, 20);
-            this.labelSchoolContactTitle.TabIndex = 6;
+            this.labelSchoolContactTitle.TabIndex = 4;
             // 
             // labelSchoolContactContent
             // 
@@ -849,7 +849,7 @@ namespace GakujoGUI
             this.labelSchoolContactContent.ReadOnly = true;
             this.labelSchoolContactContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.labelSchoolContactContent.Size = new System.Drawing.Size(756, 85);
-            this.labelSchoolContactContent.TabIndex = 7;
+            this.labelSchoolContactContent.TabIndex = 5;
             // 
             // tabPageClassSharedFile
             // 
@@ -1075,7 +1075,7 @@ namespace GakujoGUI
             this.listViewSchoolSharedFile.Name = "listViewSchoolSharedFile";
             this.listViewSchoolSharedFile.OwnerDraw = true;
             this.listViewSchoolSharedFile.Size = new System.Drawing.Size(762, 108);
-            this.listViewSchoolSharedFile.TabIndex = 5;
+            this.listViewSchoolSharedFile.TabIndex = 2;
             this.listViewSchoolSharedFile.UseCompatibleStateImageBehavior = false;
             this.listViewSchoolSharedFile.View = System.Windows.Forms.View.Details;
             this.listViewSchoolSharedFile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listViewSchoolSharedFile_MouseClick);
@@ -1120,7 +1120,7 @@ namespace GakujoGUI
             this.buttonSchoolSharedFileFile.Name = "buttonSchoolSharedFileFile";
             this.buttonSchoolSharedFileFile.Primary = false;
             this.buttonSchoolSharedFileFile.Size = new System.Drawing.Size(63, 36);
-            this.buttonSchoolSharedFileFile.TabIndex = 8;
+            this.buttonSchoolSharedFileFile.TabIndex = 5;
             this.buttonSchoolSharedFileFile.Text = "ファイル";
             this.buttonSchoolSharedFileFile.UseVisualStyleBackColor = false;
             this.buttonSchoolSharedFileFile.Visible = false;
@@ -1133,7 +1133,7 @@ namespace GakujoGUI
             this.labelSchoolSharedFileTitle.Location = new System.Drawing.Point(3, 0);
             this.labelSchoolSharedFileTitle.Name = "labelSchoolSharedFileTitle";
             this.labelSchoolSharedFileTitle.Size = new System.Drawing.Size(756, 20);
-            this.labelSchoolSharedFileTitle.TabIndex = 6;
+            this.labelSchoolSharedFileTitle.TabIndex = 3;
             // 
             // labelSchoolSharedFileFileDescription
             // 
@@ -1149,7 +1149,7 @@ namespace GakujoGUI
             this.labelSchoolSharedFileFileDescription.ReadOnly = true;
             this.labelSchoolSharedFileFileDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.labelSchoolSharedFileFileDescription.Size = new System.Drawing.Size(756, 85);
-            this.labelSchoolSharedFileFileDescription.TabIndex = 7;
+            this.labelSchoolSharedFileFileDescription.TabIndex = 4;
             // 
             // tabPageAcademicAffairsSystem
             // 
@@ -1211,7 +1211,7 @@ namespace GakujoGUI
             this.webView2AcademicAffairsSystem.Location = new System.Drawing.Point(0, 45);
             this.webView2AcademicAffairsSystem.Name = "webView2AcademicAffairsSystem";
             this.webView2AcademicAffairsSystem.Size = new System.Drawing.Size(768, 274);
-            this.webView2AcademicAffairsSystem.TabIndex = 3;
+            this.webView2AcademicAffairsSystem.TabIndex = 6;
             this.webView2AcademicAffairsSystem.ZoomFactor = 1D;
             // 
             // buttonCurriculumInformation
@@ -1226,7 +1226,7 @@ namespace GakujoGUI
             this.buttonCurriculumInformation.Name = "buttonCurriculumInformation";
             this.buttonCurriculumInformation.Primary = false;
             this.buttonCurriculumInformation.Size = new System.Drawing.Size(86, 36);
-            this.buttonCurriculumInformation.TabIndex = 2;
+            this.buttonCurriculumInformation.TabIndex = 3;
             this.buttonCurriculumInformation.Text = "カリキュラム";
             this.buttonCurriculumInformation.UseVisualStyleBackColor = true;
             this.buttonCurriculumInformation.Click += new System.EventHandler(this.buttonCurriculumInformation_Click);
@@ -1243,7 +1243,7 @@ namespace GakujoGUI
             this.buttonCreditAcquisitionInformation.Name = "buttonCreditAcquisitionInformation";
             this.buttonCreditAcquisitionInformation.Primary = false;
             this.buttonCreditAcquisitionInformation.Size = new System.Drawing.Size(112, 36);
-            this.buttonCreditAcquisitionInformation.TabIndex = 1;
+            this.buttonCreditAcquisitionInformation.TabIndex = 2;
             this.buttonCreditAcquisitionInformation.Text = "単位修得情報";
             this.buttonCreditAcquisitionInformation.UseVisualStyleBackColor = true;
             this.buttonCreditAcquisitionInformation.Click += new System.EventHandler(this.buttonCreditAcquisitionInformation_Click);
@@ -1260,7 +1260,7 @@ namespace GakujoGUI
             this.buttonResultInformation.Name = "buttonResultInformation";
             this.buttonResultInformation.Primary = false;
             this.buttonResultInformation.Size = new System.Drawing.Size(81, 36);
-            this.buttonResultInformation.TabIndex = 0;
+            this.buttonResultInformation.TabIndex = 1;
             this.buttonResultInformation.Text = "成績情報";
             this.buttonResultInformation.UseVisualStyleBackColor = true;
             this.buttonResultInformation.Click += new System.EventHandler(this.buttonResultInformation_Click);
