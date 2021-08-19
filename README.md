@@ -9,7 +9,7 @@
 
 ### Installation
 
-[v2.1.7889.38985](https://github.com/xyzyxJP/GakujoGUI/releases/tag/v2.1.7889.38985)
+[v2.2.7899.25753](https://github.com/xyzyxJP/GakujoGUI/releases/tag/v2.2.7899.25753)
 
 #### Recommended
 
