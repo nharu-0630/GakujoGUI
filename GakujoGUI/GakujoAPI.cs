@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Web;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
+using System.Drawing;
 
 namespace GakujoGUI
 {
@@ -1029,6 +1030,37 @@ namespace GakujoGUI
             return resultInformationList;
         }
 
+        public GPAInDepartment GetGPAInformation(IProgress<double> progress, bool trim = true)
+        {
+            SetAcademicAffairsSystem(progress);
+            progress.Report(100 * 0 / 2);
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/gpa.do");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+            httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
+            httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
+            progress.Report(100 * 1 / 2);
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
+            GPAInDepartment gPAInDepartment = new GPAInDepartment();
+            gPAInDepartment.grade = htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]/tbody/tr/td/table/tbody/tr[1]/td[2]").InnerText;
+            gPAInDepartment.cumulativeGPAValue = htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]/tbody/tr/td/table/tbody/tr[2]/td[2]").InnerText;
+            gPAInDepartment.nowAcademicTermGPAValue = htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]/tbody/tr/td/table/tbody/tr[3]/td[2]").InnerText;
+            gPAInDepartment.lastGPACalculationDate = htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[2]/tbody/tr/td/table/tbody/tr[4]/td[2]").InnerText;
+            using (WebClient webClient = new WebClient())
+            {
+                byte[] vs = webClient.DownloadData(htmlDocument.DocumentNode.SelectSingleNode("/html/body/table[3]/tbody/tr/td/img").Attributes["src"].Value);
+                using (MemoryStream memoryStream = new MemoryStream(vs))
+                {
+                    gPAInDepartment.image = Image.FromStream(memoryStream);
+                }
+            }
+            progress.Report(100 * 2 / 2);
+            return gPAInDepartment;
+        }
+
         public string GetCreditAcquisitionInformation(IProgress<double> progress, bool trim = true)
         {
             SetAcademicAffairsSystem(progress);
@@ -1405,5 +1437,26 @@ namespace GakujoGUI
         //試験種別
         [JsonProperty("testingType")]
         public string testingType { get; set; }
+    }
+
+    //学部内GPA
+    [JsonObject]
+    class GPAInDepartment
+    {
+        //学年
+        [JsonProperty("grade")]
+        public string grade { get; set; }
+        //累積GPA値
+        [JsonProperty("cumulativeGPAValue")]
+        public string cumulativeGPAValue { get; set; }
+        //今学期GPA値
+        [JsonProperty("nowAcademicTermGPAValue")]
+        public string nowAcademicTermGPAValue { get; set; }
+        //最終GPA算出日
+        [JsonProperty("lastGPACalculationDate")]
+        public string lastGPACalculationDate { get; set; }
+        //画像
+        [JsonProperty("image")]
+        public Image image { get; set; }
     }
 }
