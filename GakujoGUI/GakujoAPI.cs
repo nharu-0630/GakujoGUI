@@ -26,7 +26,7 @@ namespace GakujoGUI
         public Account account = new Account();
 
         static readonly string schoolYear = "2021";
-        static readonly string semesterCode = "1";
+        static readonly string semesterCode = "2";
 
         public bool SetCookies(IProgress<double> progress)
         {
@@ -174,7 +174,7 @@ namespace GakujoGUI
             return ConnectionCheck(progress);
         }
 
-        public List<Report> GetReportList(IProgress<double> progress, int limitCount = 0)
+        public List<Report> GetReportList(IProgress<double> progress)
         {
             progress.Report(100 * 0 / 2);
             List<Report> reportList = new List<Report> { };
@@ -193,11 +193,11 @@ namespace GakujoGUI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
-            if (limitCount == 0)
+            int limitCount = 0;
+            if (htmlDocument.GetElementbyId("searchList") != null)
             {
                 limitCount = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count;
             }
-            limitCount = Math.Min(htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count, limitCount);
             for (int i = 0; i < limitCount; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
@@ -217,7 +217,7 @@ namespace GakujoGUI
             return reportList;
         }
 
-        public List<Quiz> GetQuizList(IProgress<double> progress, int limitCount = 0)
+        public List<Quiz> GetQuizList(IProgress<double> progress)
         {
             progress.Report(100 * 0 / 2);
             List<Quiz> quizList = new List<Quiz> { };
@@ -236,11 +236,11 @@ namespace GakujoGUI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
-            if (limitCount == 0)
+            int limitCount = 0;
+            if (htmlDocument.GetElementbyId("searchList") != null)
             {
                 limitCount = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count;
             }
-            limitCount = Math.Min(htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr").Count, limitCount);
             for (int i = 0; i < limitCount; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
@@ -279,8 +279,12 @@ namespace GakujoGUI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
-            int limitCount = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count;
-            for (int i = 0; i < htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
+            int limitCount = 0;
+            if (htmlDocument.GetElementbyId("tbl_A01_01") != null)
+            {
+                limitCount = htmlDocument.GetElementbyId("tbl_A01_01").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            }
+            for (int i = 0; i < limitCount; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
                 ClassContact classContact = new ClassContact();
@@ -403,7 +407,11 @@ namespace GakujoGUI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
-            int limitCount = htmlDocument.GetElementbyId("tbl_commoncontact_rcv").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            int limitCount = 0;
+            if (htmlDocument.GetElementbyId("tbl_commoncontact_rcv") != null)
+            {
+                limitCount = htmlDocument.GetElementbyId("tbl_commoncontact_rcv").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            }
             for (int i = 0; i < htmlDocument.GetElementbyId("tbl_commoncontact_rcv").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
@@ -525,7 +533,11 @@ namespace GakujoGUI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
-            int limitCount = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            int limitCount = 0;
+            if (htmlDocument.GetElementbyId("tbl_classFile") != null)
+            {
+                limitCount = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            }
             for (int i = 0; i < htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
@@ -639,7 +651,11 @@ namespace GakujoGUI
             htmlDocument.LoadHtml(httpResponse.Content.ReadAsStringAsync().Result);
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
-            int limitCount = htmlDocument.GetElementbyId("tbl_commonFileList").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            int limitCount = 0;
+            if (htmlDocument.GetElementbyId("tbl_commonFileList") != null)
+            {
+                limitCount = htmlDocument.GetElementbyId("tbl_commonFileList").SelectSingleNode("tbody").SelectNodes("tr").Count;
+            }
             for (int i = 0; i < htmlDocument.GetElementbyId("tbl_commonFileList").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
