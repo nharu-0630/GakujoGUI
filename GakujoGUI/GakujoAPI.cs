@@ -538,7 +538,7 @@ namespace GakujoGUI
             {
                 limitCount = htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count;
             }
-            for (int i = 0; i < htmlDocument.GetElementbyId("tbl_classFile").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
+            for (int i = 0; i < limitCount; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
                 ClassSharedFile classSharedFile = new ClassSharedFile();
@@ -656,7 +656,7 @@ namespace GakujoGUI
             {
                 limitCount = htmlDocument.GetElementbyId("tbl_commonFileList").SelectSingleNode("tbody").SelectNodes("tr").Count;
             }
-            for (int i = 0; i < htmlDocument.GetElementbyId("tbl_commonFileList").SelectSingleNode("tbody").SelectNodes("tr").Count; i++)
+            for (int i = 0; i < limitCount; i++)
             {
                 progress.Report((100 * 1 / 2) + (50 * i / limitCount));
                 SchoolSharedFile schoolSharedFile = new SchoolSharedFile();
