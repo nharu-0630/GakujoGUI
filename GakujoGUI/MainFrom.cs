@@ -552,7 +552,7 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                reportList = await Task.Run(() => gakujoAPI.GetReportList(progress, 0));
+                reportList = await Task.Run(() => gakujoAPI.GetReportList(progress));
                 StreamWriter streamWriter = new StreamWriter("report.json", false, Encoding.UTF8);
                 streamWriter.WriteLine(JsonConvert.SerializeObject(reportList, Formatting.None));
                 streamWriter.Close();
@@ -678,7 +678,7 @@ namespace GakujoGUI
                 progressBox.Set("GakujoGUI", "");
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
-                quizList = await Task.Run(() => gakujoAPI.GetQuizList(progress, 0));
+                quizList = await Task.Run(() => gakujoAPI.GetQuizList(progress));
                 StreamWriter streamWriter = new StreamWriter("quiz.json", false, Encoding.UTF8);
                 streamWriter.WriteLine(JsonConvert.SerializeObject(quizList, Formatting.None));
                 streamWriter.Close();
