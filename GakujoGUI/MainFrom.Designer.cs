@@ -119,6 +119,7 @@ namespace GakujoGUI
             this.buttonCreditAcquisitionInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonResultInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
+            this.buttonUpdate = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
@@ -173,6 +174,7 @@ namespace GakujoGUI
             // tabPageLogin
             // 
             this.tabPageLogin.BackColor = System.Drawing.Color.White;
+            this.tabPageLogin.Controls.Add(this.buttonUpdate);
             this.tabPageLogin.Controls.Add(this.textBoxStudentCode);
             this.tabPageLogin.Controls.Add(this.textBoxStudentName);
             this.tabPageLogin.Controls.Add(this.webView2);
@@ -1279,6 +1281,24 @@ namespace GakujoGUI
             this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
             // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUpdate.AutoSize = true;
+            this.buttonUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonUpdate.Depth = 0;
+            this.buttonUpdate.Icon = null;
+            this.buttonUpdate.Location = new System.Drawing.Point(165, 277);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonUpdate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Primary = false;
+            this.buttonUpdate.Size = new System.Drawing.Size(88, 36);
+            this.buttonUpdate.TabIndex = 7;
+            this.buttonUpdate.Text = "アップデート";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            // 
             // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1425,6 +1445,7 @@ namespace GakujoGUI
         private Microsoft.Web.WebView2.WinForms.WebView2 webView2AcademicAffairsSystem;
         private MaterialSkin.Controls.MaterialFlatButton buttonSchoolRegisterInformation;
         private MaterialSkin.Controls.MaterialFlatButton buttonSyllabusReference;
+        private MaterialSkin.Controls.MaterialFlatButton buttonUpdate;
     }
 }
 

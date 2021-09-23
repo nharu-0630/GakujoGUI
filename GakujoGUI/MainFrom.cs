@@ -258,6 +258,31 @@ namespace GakujoGUI
             Process.Start("https://twitter.com/xyzyxJP");
         }
 
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            string latestVersion = gakujoAPI.GetLatestVersion();
+            string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            if (latestVersion == currentVersion)
+            {
+                using (TextOutputBox textOutputBox = new TextOutputBox())
+                {
+                    textOutputBox.Set("GakujoGUI", "現在バージョン : " + currentVersion + Environment.NewLine + "GakujoGUIは最新バージョンです", MessageBoxButtons.OK);
+                    textOutputBox.ShowDialog();
+                }
+            }
+            else
+            {
+                using (TextOutputBox textOutputBox = new TextOutputBox())
+                {
+                    textOutputBox.Set("GakujoGUI", "現在バージョン : " + currentVersion + Environment.NewLine + "最新バージョン : " + latestVersion + Environment.NewLine + "新しいバージョンがあります" + Environment.NewLine + "ダウンロードページを開きますか", MessageBoxButtons.YesNo);
+                    if (textOutputBox.ShowDialog() == DialogResult.Yes)
+                    {
+                        Process.Start("https://github.com/xyzyxJP/GakujoGUI/releases/latest");
+                    }
+                }
+            }
+        }
+
         private void MainFrom_FormClosed(object sender, FormClosedEventArgs e)
         {
             gakujoAPI.SaveAccount();

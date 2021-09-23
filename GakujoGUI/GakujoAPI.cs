@@ -1191,6 +1191,14 @@ namespace GakujoGUI
             streamWriter.WriteLine(JsonConvert.SerializeObject(account, Formatting.None));
             streamWriter.Close();
         }
+
+        public string GetLatestVersion()
+        {
+            WebClient webClient = new WebClient();
+            HtmlDocument htmlDocument = new HtmlDocument();
+            htmlDocument.LoadHtml(webClient.DownloadString("https://github.com/xyzyxJP/GakujoGUI/releases/latest"));
+            return htmlDocument.DocumentNode.SelectSingleNode("/html/body/div[4]/div/main/div[2]/div/div[2]/div/div[2]/div[1]/div/div/a").InnerText.Substring(1);
+        }
     }
 
     //アカウント
