@@ -29,9 +29,11 @@ namespace GakujoGUI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrom));
             this.materialTabControl = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPageLogin = new System.Windows.Forms.TabPage();
+            this.buttonUpdate = new MaterialSkin.Controls.MaterialFlatButton();
             this.textBoxStudentCode = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.textBoxStudentName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.webView2 = new Microsoft.Web.WebView2.WinForms.WebView2();
@@ -119,7 +121,11 @@ namespace GakujoGUI
             this.buttonCreditAcquisitionInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonResultInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabSelector = new MaterialSkin.Controls.MaterialTabSelector();
-            this.buttonUpdate = new MaterialSkin.Controls.MaterialFlatButton();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.materialContextMenuStrip = new MaterialSkin.Controls.MaterialContextMenuStrip();
+            this.表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
@@ -147,6 +153,7 @@ namespace GakujoGUI
             this.splitContainerSchoolSharedFile.SuspendLayout();
             this.tabPageAcademicAffairsSystem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2AcademicAffairsSystem)).BeginInit();
+            this.materialContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabControl
@@ -187,6 +194,24 @@ namespace GakujoGUI
             this.tabPageLogin.Size = new System.Drawing.Size(768, 319);
             this.tabPageLogin.TabIndex = 4;
             this.tabPageLogin.Text = "ログイン";
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUpdate.AutoSize = true;
+            this.buttonUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonUpdate.Depth = 0;
+            this.buttonUpdate.Icon = null;
+            this.buttonUpdate.Location = new System.Drawing.Point(165, 277);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonUpdate.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Primary = false;
+            this.buttonUpdate.Size = new System.Drawing.Size(88, 36);
+            this.buttonUpdate.TabIndex = 7;
+            this.buttonUpdate.Text = "アップデート";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // textBoxStudentCode
             // 
@@ -1281,23 +1306,49 @@ namespace GakujoGUI
             this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
             // 
-            // buttonUpdate
+            // notifyIcon
             // 
-            this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUpdate.AutoSize = true;
-            this.buttonUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonUpdate.Depth = 0;
-            this.buttonUpdate.Icon = null;
-            this.buttonUpdate.Location = new System.Drawing.Point(165, 277);
-            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonUpdate.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Primary = false;
-            this.buttonUpdate.Size = new System.Drawing.Size(88, 36);
-            this.buttonUpdate.TabIndex = 7;
-            this.buttonUpdate.Text = "アップデート";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
-            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+            this.notifyIcon.ContextMenuStrip = this.materialContextMenuStrip;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "GakujoGUI";
+            this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
+            // 
+            // materialContextMenuStrip
+            // 
+            this.materialContextMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialContextMenuStrip.Depth = 0;
+            this.materialContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.表示ToolStripMenuItem,
+            this.更新ToolStripMenuItem,
+            this.終了ToolStripMenuItem});
+            this.materialContextMenuStrip.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialContextMenuStrip.Name = "materialContextMenuStrip1";
+            this.materialContextMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.materialContextMenuStrip.Size = new System.Drawing.Size(181, 92);
+            this.materialContextMenuStrip.Click += new System.EventHandler(this.表示ToolStripMenuItem_Click);
+            // 
+            // 表示ToolStripMenuItem
+            // 
+            this.表示ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.表示ToolStripMenuItem.Name = "表示ToolStripMenuItem";
+            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.表示ToolStripMenuItem.Text = "表示";
+            // 
+            // 更新ToolStripMenuItem
+            // 
+            this.更新ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.更新ToolStripMenuItem.Name = "更新ToolStripMenuItem";
+            this.更新ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.更新ToolStripMenuItem.Text = "更新";
+            this.更新ToolStripMenuItem.Click += new System.EventHandler(this.更新ToolStripMenuItem_Click);
+            // 
+            // 終了ToolStripMenuItem
+            // 
+            this.終了ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
+            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.終了ToolStripMenuItem.Text = "終了";
+            this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
             // 
             // MainFrom
             // 
@@ -1312,6 +1363,7 @@ namespace GakujoGUI
             this.Text = "GakujoGUI";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFrom_FormClosed);
             this.Shown += new System.EventHandler(this.MainFrom_Shown);
+            this.SizeChanged += new System.EventHandler(this.MainFrom_SizeChanged);
             this.materialTabControl.ResumeLayout(false);
             this.tabPageLogin.ResumeLayout(false);
             this.tabPageLogin.PerformLayout();
@@ -1351,6 +1403,7 @@ namespace GakujoGUI
             this.tabPageAcademicAffairsSystem.ResumeLayout(false);
             this.tabPageAcademicAffairsSystem.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2AcademicAffairsSystem)).EndInit();
+            this.materialContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1446,6 +1499,11 @@ namespace GakujoGUI
         private MaterialSkin.Controls.MaterialFlatButton buttonSchoolRegisterInformation;
         private MaterialSkin.Controls.MaterialFlatButton buttonSyllabusReference;
         private MaterialSkin.Controls.MaterialFlatButton buttonUpdate;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private MaterialSkin.Controls.MaterialContextMenuStrip materialContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem 表示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 更新ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
     }
 }
 
