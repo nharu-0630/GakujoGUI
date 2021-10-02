@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 using Discord;
+using System.Threading;
 
 namespace GakujoGUI
 {
@@ -198,6 +199,7 @@ namespace GakujoGUI
                 }
             }
         }
+        private bool dialogShow = true;
 
         #endregion
 
@@ -296,6 +298,7 @@ namespace GakujoGUI
             Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
+            dialogShow = Environment.GetCommandLineArgs().Contains("-debug");
             LoadJson();
             using (ProgressBox progressBox = new ProgressBox())
             {
@@ -399,16 +402,19 @@ namespace GakujoGUI
                     classContact = classContactList[0];
                 }
                 List<ClassContact> tempClassContactList = await Task.Run(() => gakujoAPI.GetClassContactList(progress, classContact));
+                progressBox.Close();
+                if (tempClassContactList.Count != 0 && dialogShow)
+                {
+                    using (TextOutputBox textOutputBox = new TextOutputBox())
+                    {
+                        textOutputBox.Set("GakujoGUI", tempClassContactList.Count + "件の授業連絡を取得しました。", MessageBoxButtons.OK);
+                        textOutputBox.ShowDialog();
+                    }
+                }
                 tempClassContactList.AddRange(classContactList);
                 classContactList = tempClassContactList;
-                progressBox.Close();
             }
             classContactList = classContactList;
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", classContactList.Count + "件の授業連絡を取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
-            }
             buttonRefreshClassContact.Enabled = true;
         }
 
@@ -572,6 +578,7 @@ namespace GakujoGUI
                 return;
             }
             buttonRefreshReport.Enabled = false;
+            int lastReportListCount = reportList.Count;
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -582,11 +589,14 @@ namespace GakujoGUI
                 streamWriter.WriteLine(JsonConvert.SerializeObject(reportList, Formatting.None));
                 streamWriter.Close();
                 progressBox.Close();
-            }
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", reportList.Count + "件のレポートを取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
+                if (lastReportListCount != reportList.Count && dialogShow)
+                {
+                    using (TextOutputBox textOutputBox = new TextOutputBox())
+                    {
+                        textOutputBox.Set("GakujoGUI", reportList.Count + "件のレポートを取得しました。", MessageBoxButtons.OK);
+                        textOutputBox.ShowDialog();
+                    }
+                }
             }
             buttonRefreshReport.Enabled = true;
         }
@@ -698,6 +708,7 @@ namespace GakujoGUI
                 return;
             }
             buttonRefreshQuiz.Enabled = false;
+            int lastQuizListCount = quizList.Count;
             using (ProgressBox progressBox = new ProgressBox())
             {
                 progressBox.Set("GakujoGUI", "");
@@ -708,11 +719,14 @@ namespace GakujoGUI
                 streamWriter.WriteLine(JsonConvert.SerializeObject(quizList, Formatting.None));
                 streamWriter.Close();
                 progressBox.Close();
-            }
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", quizList.Count + "件の小テストを取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
+                if (lastQuizListCount != quizList.Count && dialogShow)
+                {
+                    using (TextOutputBox textOutputBox = new TextOutputBox())
+                    {
+                        textOutputBox.Set("GakujoGUI", quizList.Count + "件の小テストを取得しました。", MessageBoxButtons.OK);
+                        textOutputBox.ShowDialog();
+                    }
+                }
             }
             buttonRefreshQuiz.Enabled = true;
         }
@@ -895,16 +909,19 @@ namespace GakujoGUI
                     schoolContact = schoolContactList[0];
                 }
                 List<SchoolContact> tempSchoolContactList = await Task.Run(() => gakujoAPI.GetSchoolContactList(progress, schoolContact));
+                progressBox.Close();
+                if (tempSchoolContactList.Count != 0 && dialogShow)
+                {
+                    using (TextOutputBox textOutputBox = new TextOutputBox())
+                    {
+                        textOutputBox.Set("GakujoGUI", tempSchoolContactList.Count + "件の学内連絡を取得しました。", MessageBoxButtons.OK);
+                        textOutputBox.ShowDialog();
+                    }
+                }
                 tempSchoolContactList.AddRange(schoolContactList);
                 schoolContactList = tempSchoolContactList;
-                progressBox.Close();
             }
             schoolContactList = schoolContactList;
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", schoolContactList.Count + "件の学内連絡を取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
-            }
             buttonRefreshSchoolContact.Enabled = true;
         }
 
@@ -1071,16 +1088,19 @@ namespace GakujoGUI
                     classSharedFile = classSharedFileList[0];
                 }
                 List<ClassSharedFile> tempClassSharedFileList = await Task.Run(() => gakujoAPI.GetClassSharedFileList(progress, classSharedFile));
+                progressBox.Close();
+                if (tempClassSharedFileList.Count != 0 && dialogShow)
+                {
+                    using (TextOutputBox textOutputBox = new TextOutputBox())
+                    {
+                        textOutputBox.Set("GakujoGUI", tempClassSharedFileList.Count + "件の授業共有ファイルを取得しました。", MessageBoxButtons.OK);
+                        textOutputBox.ShowDialog();
+                    }
+                }
                 tempClassSharedFileList.AddRange(classSharedFileList);
                 classSharedFileList = tempClassSharedFileList;
-                progressBox.Close();
             }
             classSharedFileList = classSharedFileList;
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", classSharedFileList.Count + "件の授業共有ファイルを取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
-            }
             buttonRefreshClassSharedFile.Enabled = true;
         }
 
@@ -1200,16 +1220,19 @@ namespace GakujoGUI
                     schoolSharedFile = schoolSharedFileList[0];
                 }
                 List<SchoolSharedFile> tempSchoolSharedFileList = await Task.Run(() => gakujoAPI.GetSchoolSharedFileList(progress, schoolSharedFile));
+                progressBox.Close();
+                if (tempSchoolSharedFileList.Count != 0 && dialogShow)
+                {
+                    using (TextOutputBox textOutputBox = new TextOutputBox())
+                    {
+                        textOutputBox.Set("GakujoGUI", tempSchoolSharedFileList.Count + "件の学内共有ファイルを取得しました。", MessageBoxButtons.OK);
+                        textOutputBox.ShowDialog();
+                    }
+                }
                 tempSchoolSharedFileList.AddRange(schoolSharedFileList);
                 schoolSharedFileList = tempSchoolSharedFileList;
-                progressBox.Close();
             }
             schoolSharedFileList = schoolSharedFileList;
-            using (TextOutputBox textOutputBox = new TextOutputBox())
-            {
-                textOutputBox.Set("GakujoGUI", schoolSharedFileList.Count + "件の学内共有ファイルを取得しました。", MessageBoxButtons.OK);
-                textOutputBox.ShowDialog();
-            }
             buttonRefreshSchoolSharedFile.Enabled = true;
         }
 
@@ -1415,6 +1438,12 @@ namespace GakujoGUI
         private void 更新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             buttonRefreshClassContact_Click(sender, e);
+            buttonRefreshReport_Click(sender, e);
+            buttonRefreshQuiz_Click(sender, e);
+            buttonRefreshSchoolContact_Click(sender, e);
+            WindowState = FormWindowState.Minimized;
+            notifyIcon.Visible = true;
+            Visible = false;
         }
 
         private void 終了ToolStripMenuItem_Click(object sender, EventArgs e)

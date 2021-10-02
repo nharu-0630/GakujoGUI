@@ -1324,21 +1324,21 @@ namespace GakujoGUI
             this.materialContextMenuStrip.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialContextMenuStrip.Name = "materialContextMenuStrip1";
             this.materialContextMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.materialContextMenuStrip.Size = new System.Drawing.Size(181, 92);
+            this.materialContextMenuStrip.Size = new System.Drawing.Size(99, 70);
             this.materialContextMenuStrip.Click += new System.EventHandler(this.表示ToolStripMenuItem_Click);
             // 
             // 表示ToolStripMenuItem
             // 
             this.表示ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.表示ToolStripMenuItem.Name = "表示ToolStripMenuItem";
-            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.表示ToolStripMenuItem.Text = "表示";
             // 
             // 更新ToolStripMenuItem
             // 
             this.更新ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.更新ToolStripMenuItem.Name = "更新ToolStripMenuItem";
-            this.更新ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.更新ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.更新ToolStripMenuItem.Text = "更新";
             this.更新ToolStripMenuItem.Click += new System.EventHandler(this.更新ToolStripMenuItem_Click);
             // 
@@ -1346,7 +1346,7 @@ namespace GakujoGUI
             // 
             this.終了ToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.終了ToolStripMenuItem.Text = "終了";
             this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
             // 
