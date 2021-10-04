@@ -298,7 +298,16 @@ namespace GakujoGUI
             Text += " " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
-            dialogShow = Environment.GetCommandLineArgs().Contains("-debug");
+            string[] argsArray = Environment.GetCommandLineArgs();
+            dialogShow = argsArray.Contains("-debug");
+            if (argsArray.Contains("+year") && argsArray.Length >= Array.IndexOf(argsArray, "+year") + 1)
+            {
+                gakujoAPI.schoolYear = argsArray[Array.IndexOf(argsArray, "+year") + 1];
+            }
+            if (argsArray.Contains("+semester") && argsArray.Length >= Array.IndexOf(argsArray, "+semester") + 1)
+            {
+                gakujoAPI.semesterCode = argsArray[Array.IndexOf(argsArray, "+semester") + 1];
+            }
             LoadJson();
             using (ProgressBox progressBox = new ProgressBox())
             {

@@ -25,8 +25,8 @@ namespace GakujoGUI
 
         public Account account = new Account();
 
-        static readonly string schoolYear = "2021";
-        static readonly string semesterCode = "2";
+        public string schoolYear = "2021";
+        public string semesterCode = "2";
 
         public bool SetCookies(IProgress<double> progress)
         {
