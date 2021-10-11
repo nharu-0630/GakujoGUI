@@ -205,7 +205,10 @@ namespace GakujoGUI
                 report.classSubjects = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[0].InnerText.Replace("\r", "").Replace("\n", "").Trim();
                 report.classSubjects = System.Text.RegularExpressions.Regex.Replace(report.classSubjects, @"\s+", " ");
                 report.title = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").InnerText.Trim();
-                report.id = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("'", "").Trim();
+                report.reportId = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("'", "").Trim();
+                report.schoolYear = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[3].Replace("'", "").Trim();
+                report.subjectCode = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[4].Replace("'", "").Trim();
+                report.classCode = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[1].SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[5].Replace("'", "").Replace(");", "").Trim();
                 report.status = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[2].InnerText.Trim();
                 report.submissionPeriod = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[3].InnerText.Trim();
                 report.lastSubmissionTime = htmlDocument.GetElementbyId("searchList").SelectSingleNode("tbody").SelectNodes("tr")[i].SelectNodes("td")[4].InnerText.Trim();
@@ -831,7 +834,7 @@ namespace GakujoGUI
             return true;
         }
 
-        public string GetReportDetail(IProgress<double> progress, string reportId)
+        public string GetReportDetail(IProgress<double> progress, Report report)
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmitRef?submitStatusCode=01");
@@ -842,7 +845,7 @@ namespace GakujoGUI
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&reportId=" + reportId + "&hidSchoolYear=&hidSemesterCode=&hidSubjectCode=&hidClassCode=&entranceDiv=&backPath=&schoolYear=" + schoolYear + "&semesterCode=" + semesterCode + "&subjectDispCode=&operationFormat=1&operationFormat=2&searchList_length=10&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A02_01_G&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&reportId=" + report.reportId + "&hidSchoolYear=&hidSemesterCode=&hidSubjectCode=&hidClassCode=&entranceDiv=&backPath=&listSchoolYear=" + report.schoolYear + "&listSubjectCode=" + report.subjectCode + "&listClassCode=" + report.classCode + "&schoolYear=" + schoolYear + "&semesterCode=" + semesterCode + "&subjectDispCode=&operationFormat=1&operationFormat=2&searchList_length=10&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A02_01_G&_screenInfoDisp=&_scrollTop=0");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             HtmlDocument htmlDocument = new HtmlDocument();
@@ -926,7 +929,7 @@ namespace GakujoGUI
             return true;
         }
 
-        public bool CancelReport(IProgress<double> progress, string reportId)
+        public bool CancelReport(IProgress<double> progress, Report report)
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/submitCancel");
@@ -937,7 +940,7 @@ namespace GakujoGUI
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/report/student/reportEntry/backScreen");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
-            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&reportId=" + reportId + "&hidSchoolYear=&hidSemesterCode=&hidSubjectCode=&hidClassCode=&entranceDiv=&backPath=&schoolYear=" + schoolYear + "&semesterCode=" + semesterCode + "&subjectDispCode=&operationFormat=1&operationFormat=2&searchList_length=10&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A02_01_G&_screenInfoDisp=&_scrollTop=0");
+            httpRequestMessage.Content = new StringContent("org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&reportId=" + report.reportId + "&hidSchoolYear=&hidSemesterCode=&hidSubjectCode=&hidClassCode=&entranceDiv=&backPath=&listSchoolYear=" + report.schoolYear + "&listSubjectCode=" + report.classCode + "&listClassCode=" + report.classCode + "&schoolYear=" + schoolYear + "&semesterCode=" + semesterCode + "&subjectDispCode=&operationFormat=1&operationFormat=2&searchList_length=10&_searchConditionDisp.accordionSearchCondition=false&_screenIdentifier=SC_A02_01_G&_screenInfoDisp=&_scrollTop=0");
             httpRequestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             HtmlDocument htmlDocument = new HtmlDocument();
@@ -1242,9 +1245,18 @@ namespace GakujoGUI
         //操作
         [JsonProperty("operation")]
         public string operation { get; set; }
-        //ID
-        [JsonProperty("id")]
-        public string id { get; set; }
+        //reportId
+        [JsonProperty("reportId")]
+        public string reportId { get; set; }
+        //schoolYear
+        [JsonProperty("schoolYear")]
+        public string schoolYear { get; set; }
+        //subjectCode
+        [JsonProperty("subjectCode")]
+        public string subjectCode { get; set; }
+        //classCode
+        [JsonProperty("classCode")]
+        public string classCode { get; set; }
     }
 
     //小テスト

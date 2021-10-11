@@ -652,7 +652,7 @@ namespace GakujoGUI
                     progressBox.Set("GakujoGUI", "");
                     progressBox.Show();
                     Progress<double> progress = new Progress<double>(progressBox.Update);
-                    reportHtml = Task.Run(() => gakujoAPI.GetReportDetail(progress, reportList[selectIndex].id)).Result;
+                    reportHtml = Task.Run(() => gakujoAPI.GetReportDetail(progress, reportList[selectIndex])).Result;
                     progressBox.Close();
                 }
                 reportHtml = reportHtml.Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('reportSubmit');\"><span class=\"btn-side\"><span class=\"icon-answer\">提出開始</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "");
@@ -674,7 +674,7 @@ namespace GakujoGUI
                             progressBox.Set("GakujoGUI", "");
                             progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            Task.Run(() => gakujoAPI.SubmitReport(progress, reportList[selectIndex].id, new string[] { fileTextInputBox.inputFile }, fileTextInputBox.inputText));
+                            Task.Run(() => gakujoAPI.SubmitReport(progress, reportList[selectIndex].reportId, new string[] { fileTextInputBox.inputFile }, fileTextInputBox.inputText));
                             progressBox.Close();
                             Enabled = true;
                         }
@@ -698,7 +698,7 @@ namespace GakujoGUI
                             progressBox.Set("GakujoGUI", "");
                             progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            gakujoAPI.CancelReport(progress, reportList[selectIndex].id);
+                            gakujoAPI.CancelReport(progress, reportList[selectIndex]);
                             progressBox.Close();
                         }
                     }
