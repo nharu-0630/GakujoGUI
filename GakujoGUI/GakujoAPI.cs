@@ -376,7 +376,7 @@ namespace GakujoGUI
                         {
                             Directory.CreateDirectory(downloadPath);
                         }
-                        using (FileStream fileStream = File.Create(downloadPath + item.SelectSingleNode("a").InnerText.Trim()))
+                        using (FileStream fileStream = File.Create(Path.Combine(downloadPath, item.SelectSingleNode("a").InnerText.Trim())))
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             stream.CopyTo(fileStream);
@@ -502,7 +502,7 @@ namespace GakujoGUI
                         {
                             Directory.CreateDirectory(downloadPath);
                         }
-                        using (FileStream fileStream = File.Create(downloadPath + item.SelectSingleNode("a").InnerText.Trim()))
+                        using (FileStream fileStream = File.Create(Path.Combine(downloadPath, item.SelectSingleNode("a").InnerText.Trim())))
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             stream.CopyTo(fileStream);
@@ -620,7 +620,7 @@ namespace GakujoGUI
                         {
                             Directory.CreateDirectory(downloadPath);
                         }
-                        using (FileStream fileStream = File.Create(downloadPath + item.SelectSingleNode("a").InnerText.Trim()))
+                        using (FileStream fileStream = File.Create(Path.Combine(downloadPath, item.SelectSingleNode("a").InnerText.Trim())))
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             stream.CopyTo(fileStream);
@@ -741,7 +741,7 @@ namespace GakujoGUI
                         {
                             Directory.CreateDirectory(downloadPath);
                         }
-                        using (FileStream fileStream = File.Create(downloadPath + item.SelectSingleNode("a").InnerText.Trim()))
+                        using (FileStream fileStream = File.Create(Path.Combine(downloadPath, item.SelectSingleNode("a").InnerText.Trim())))
                         {
                             stream.Seek(0, SeekOrigin.Begin);
                             stream.CopyTo(fileStream);

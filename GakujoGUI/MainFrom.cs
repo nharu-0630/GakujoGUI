@@ -453,7 +453,6 @@ namespace GakujoGUI
 
         private void FileButton_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(Path.Combine(downloadPath, ((Button)sender).Text));
             if (File.Exists(Path.Combine(downloadPath, ((Button)sender).Text)))
             {
                 Process.Start(Path.Combine(downloadPath, ((Button)sender).Text));
