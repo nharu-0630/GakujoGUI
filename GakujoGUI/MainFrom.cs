@@ -177,7 +177,8 @@ namespace GakujoGUI
         private List<MaterialFlatButton> buttonSchoolContactFileList = new List<MaterialFlatButton> { };
         private List<MaterialFlatButton> buttonClassSharedFileFileList = new List<MaterialFlatButton> { };
         private List<MaterialFlatButton> buttonSchoolSharedFileFileList = new List<MaterialFlatButton> { };
-        private readonly string downloadPath = Environment.CurrentDirectory + "/download/";
+        private readonly string downloadPath = Path.Combine(Environment.CurrentDirectory, "download");
+        private readonly string logPath = Path.Combine(Environment.CurrentDirectory, "log");
         private MaterialSkinManager materialSkinManager = MaterialSkinManager.Instance;
         private bool _gakujoLogin = false;
         private bool gakujoLogin
@@ -200,6 +201,28 @@ namespace GakujoGUI
             }
         }
         private bool dialogShow = true;
+        private bool _debugMode = false;
+        private bool debugMode
+        {
+            get
+            {
+                return _debugMode;
+            }
+            set
+            {
+                _debugMode = value;
+                if (debugMode)
+                {
+                    DefaultTraceListener defaultTraceListener = (DefaultTraceListener)Debug.Listeners["Default"];
+                    if (!Directory.Exists(logPath))
+                    {
+                        Directory.CreateDirectory(logPath);
+                    }
+                    defaultTraceListener.LogFileName = Path.Combine(logPath, DateTime.Now.ToString("yyyyMMddHHmmssfff") + ".txt");
+                    Debug.WriteLine(downloadPath);
+                }
+            }
+        }
 
         #endregion
 
@@ -299,7 +322,7 @@ namespace GakujoGUI
             checkBoxClassContactFileDownload.Checked = Properties.Settings.Default.classContactFileDownload;
             checkBoxSchoolContactFileDownload.Checked = Properties.Settings.Default.schoolContactFileDownload;
             string[] argsArray = Environment.GetCommandLineArgs();
-            dialogShow = argsArray.Contains("-debug");
+            dialogShow = !argsArray.Contains("-nodialog");
             if (argsArray.Contains("+year") && argsArray.Length >= Array.IndexOf(argsArray, "+year") + 1)
             {
                 gakujoAPI.schoolYear = argsArray[Array.IndexOf(argsArray, "+year") + 1];
@@ -308,6 +331,7 @@ namespace GakujoGUI
             {
                 gakujoAPI.semesterCode = argsArray[Array.IndexOf(argsArray, "+semester") + 1];
             }
+            debugMode = argsArray.Contains("-debug");
             LoadJson();
             using (ProgressBox progressBox = new ProgressBox())
             {
@@ -429,9 +453,19 @@ namespace GakujoGUI
 
         private void FileButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(downloadPath + ((Button)sender).Text))
+            Debug.WriteLine(Path.Combine(downloadPath, ((Button)sender).Text));
+            if (File.Exists(Path.Combine(downloadPath, ((Button)sender).Text)))
             {
-                Process.Start(downloadPath + ((Button)sender).Text);
+                Process.Start(Path.Combine(downloadPath, ((Button)sender).Text));
+            }
+        }
+
+        private void FileButton_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (File.Exists(Path.Combine(downloadPath, ((Button)sender).Text)))
+            {
+                DataObject dataObject = new DataObject(DataFormats.FileDrop, Path.Combine(downloadPath, ((Button)sender).Text));
+                DragDropEffects dragDropEffects = ((Button)sender).DoDragDrop(dataObject, DragDropEffects.Copy);
             }
         }
 
@@ -552,7 +586,7 @@ namespace GakujoGUI
             buttonClassContactFileList.Clear();
             if (classContactList[selectIndex].file != "")
             {
-                System.IO.StringReader stringReader = new System.IO.StringReader(classContactList[selectIndex].file);
+                StringReader stringReader = new StringReader(classContactList[selectIndex].file);
                 while (stringReader.Peek() > -1)
                 {
                     MaterialFlatButton fileButton = new MaterialFlatButton
@@ -569,6 +603,7 @@ namespace GakujoGUI
                         fileButton.Location = new Point(buttonClassContactFileList[buttonClassContactFileList.Count - 1].Location.X + buttonClassContactFileList[buttonClassContactFileList.Count - 1].Size.Width, buttonClassContactFileList[buttonClassContactFileList.Count - 1].Location.Y);
                     }
                     fileButton.Click += FileButton_Click;
+                    //fileButton.MouseDown += FileButton_MouseDown;
                     splitContainerClassContact.Panel2.Controls.Add(fileButton);
                     fileButton.BringToFront();
                     buttonClassContactFileList.Add(fileButton);
@@ -1052,7 +1087,7 @@ namespace GakujoGUI
             buttonSchoolContactFileList.Clear();
             if (schoolContactList[selectIndex].file != "")
             {
-                System.IO.StringReader stringReader = new System.IO.StringReader(schoolContactList[selectIndex].file);
+                StringReader stringReader = new StringReader(schoolContactList[selectIndex].file);
                 while (stringReader.Peek() > -1)
                 {
                     MaterialFlatButton fileButton = new MaterialFlatButton
@@ -1069,6 +1104,7 @@ namespace GakujoGUI
                         fileButton.Location = new Point(buttonSchoolContactFileList[buttonSchoolContactFileList.Count - 1].Location.X + buttonSchoolContactFileList[buttonSchoolContactFileList.Count - 1].Size.Width, buttonSchoolContactFileList[buttonSchoolContactFileList.Count - 1].Location.Y);
                     }
                     fileButton.Click += FileButton_Click;
+                    //fileButton.MouseDown += FileButton_MouseDown;
                     splitContainerSchoolContact.Panel2.Controls.Add(fileButton);
                     fileButton.BringToFront();
                     buttonSchoolContactFileList.Add(fileButton);
@@ -1184,7 +1220,7 @@ namespace GakujoGUI
             buttonClassSharedFileFileList.Clear();
             if (classSharedFileList[selectIndex].file != "")
             {
-                System.IO.StringReader stringReader = new System.IO.StringReader(classSharedFileList[selectIndex].file);
+                StringReader stringReader = new StringReader(classSharedFileList[selectIndex].file);
                 while (stringReader.Peek() > -1)
                 {
                     MaterialFlatButton fileButton = new MaterialFlatButton
@@ -1201,6 +1237,7 @@ namespace GakujoGUI
                         fileButton.Location = new Point(buttonClassSharedFileFileList[buttonClassSharedFileFileList.Count - 1].Location.X + buttonClassSharedFileFileList[buttonClassSharedFileFileList.Count - 1].Size.Width, buttonClassSharedFileFileList[buttonClassSharedFileFileList.Count - 1].Location.Y);
                     }
                     fileButton.Click += FileButton_Click;
+                    //fileButton.MouseDown += FileButton_MouseDown;
                     splitContainerClassSharedFile.Panel2.Controls.Add(fileButton);
                     fileButton.BringToFront();
                     buttonClassSharedFileFileList.Add(fileButton);
@@ -1316,7 +1353,7 @@ namespace GakujoGUI
             buttonSchoolSharedFileFileList.Clear();
             if (schoolSharedFileList[selectIndex].file != "")
             {
-                System.IO.StringReader stringReader = new System.IO.StringReader(schoolSharedFileList[selectIndex].file);
+                StringReader stringReader = new StringReader(schoolSharedFileList[selectIndex].file);
                 while (stringReader.Peek() > -1)
                 {
                     MaterialFlatButton fileButton = new MaterialFlatButton
@@ -1333,6 +1370,7 @@ namespace GakujoGUI
                         fileButton.Location = new Point(buttonSchoolSharedFileFileList[buttonSchoolSharedFileFileList.Count - 1].Location.X + buttonSchoolSharedFileFileList[buttonSchoolSharedFileFileList.Count - 1].Size.Width, buttonSchoolSharedFileFileList[buttonSchoolSharedFileFileList.Count - 1].Location.Y);
                     }
                     fileButton.Click += FileButton_Click;
+                    //fileButton.MouseDown += FileButton_MouseDown;
                     splitContainerSchoolSharedFile.Panel2.Controls.Add(fileButton);
                     fileButton.BringToFront();
                     buttonSchoolSharedFileFileList.Add(fileButton);
