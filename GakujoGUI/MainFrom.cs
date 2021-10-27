@@ -780,7 +780,7 @@ namespace GakujoGUI
                         progressBox.Set("GakujoGUI", "");
                         progressBox.Show();
                         Progress<double> progress = new Progress<double>(progressBox.Update);
-                        string quizDetail = (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex].id))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>");
+                        string quizDetail = (await Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex]))).Replace("<a href=\"javascript:void(0);\" class=\"btn_large\" onclick=\"formSubmit('tempSaveAction')\"><span class=\"btn-side\"><span class=\"icon-save_temp\">一時保存</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn_large ml20\" onclick=\"formSubmit('confirmAction')\"><span class=\"btn-side\"><span class=\"icon-confirm\">確認</span></span></a>", "").Replace("<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"formSubmit('backScreen')\"><span class=\"btn-side\"><span class=\"icon-back\">戻る</span></span></a>", "<a href=\"javascript:void(0);\" class=\"btn\" onclick=\"window.chrome.webview.postMessage(GetOutputText())\"><span class=\"btn-side\"><span class=\"icon-back\">登録</span></span></a>");
                         progressBox.Close();
                         quizForm.Set("GakujoGUI", "<script type=\"text/javascript\">function GetOutputText(){ var outputText = \"\"; for (var i = 10; true; i++){ var jLimit = document.getElementsByName(\"value\" + i).length; if (jLimit === 0){ break; } for (var j = 0; j < jLimit; j++){ if (document.getElementsByName(\"value\" + i)[j].checked){ outputText = outputText + \"&value\" + i + \"=\"; outputText = outputText +document.getElementsByName(\"value\" + i)[j].value; } } } return outputText;}</script>" + quizDetail);
                     }
@@ -791,7 +791,7 @@ namespace GakujoGUI
                             progressBox.Set("GakujoGUI", "");
                             progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            gakujoAPI.SubmitQuiz(progress, tempQuizList[selectIndex].id, quizForm.outputText);
+                            gakujoAPI.SubmitQuiz(progress, tempQuizList[selectIndex].quizId, quizForm.outputText);
                             progressBox.Close();
                         }
                     }
@@ -810,7 +810,7 @@ namespace GakujoGUI
                             progressBox.Set("GakujoGUI", "");
                             progressBox.Show();
                             Progress<double> progress = new Progress<double>(progressBox.Update);
-                            gakujoAPI.CancelQuiz(progress, tempQuizList[selectIndex].id);
+                            gakujoAPI.CancelQuiz(progress, tempQuizList[selectIndex].quizId);
                             progressBox.Close();
                         }
                     }
@@ -851,12 +851,13 @@ namespace GakujoGUI
                     progressBox.Set("GakujoGUI", "");
                     progressBox.Show();
                     Progress<double> progress = new Progress<double>(progressBox.Update);
-                    quizHtml = Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex].id)).Result;
+                    quizHtml = Task.Run(() => gakujoAPI.GetQuizDetail(progress, tempQuizList[selectIndex])).Result;
                     HtmlDocument htmlDocument = new HtmlDocument();
                     htmlDocument.LoadHtml(quizHtml);
-                    htmlDocument.DocumentNode.SelectSingleNode("div[2]").Remove();
-                    htmlDocument.DocumentNode.SelectSingleNode("div[2]").Remove();
-                    htmlDocument.DocumentNode.SelectSingleNode("p").Remove();
+                    htmlDocument.DocumentNode.SelectSingleNode("div[1]").Remove();
+                    htmlDocument.DocumentNode.SelectSingleNode("p[1]").Remove();
+                    htmlDocument.DocumentNode.SelectSingleNode("p[1]").Remove();
+                    htmlDocument.DocumentNode.SelectSingleNode("div[1]").Remove();
                     quizHtml = htmlDocument.DocumentNode.OuterHtml;
                     progressBox.Close();
                 }
