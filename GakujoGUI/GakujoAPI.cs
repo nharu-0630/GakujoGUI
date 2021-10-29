@@ -47,7 +47,14 @@ namespace GakujoGUI
             };
             httpClient = new HttpClient(httpClientHandler);
             progress.Report(100 * 2 / 2);
-            return ConnectionCheck(progress);
+            if (File.Exists("cookies"))
+            {
+                return ConnectionCheck(progress);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool Login(IProgress<double> progress)
@@ -171,7 +178,7 @@ namespace GakujoGUI
                 account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
                 progress.Report(100 * 9 / 9);
             }
-            return ConnectionCheck(progress);
+            return true;
         }
 
         public List<Report> GetReportList(IProgress<double> progress)

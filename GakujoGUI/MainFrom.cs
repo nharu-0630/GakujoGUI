@@ -1521,6 +1521,5 @@ namespace GakujoGUI
         }
 
         #endregion
-
     }
 }
