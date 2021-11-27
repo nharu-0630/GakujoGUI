@@ -1206,10 +1206,10 @@ namespace GakujoGUI
 
         public string GetLatestVersion()
         {
-            WebClient webClient = new WebClient();
-            webClient.Encoding = Encoding.UTF8;
+            WebClient webClient = new WebClient { Encoding = Encoding.UTF8};
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(webClient.DownloadString("https://github.com/xyzyxJP/GakujoGUI/releases/latest"));
+            webClient.Dispose();
             return htmlDocument.DocumentNode.SelectSingleNode("/html/head/title").InnerText.Replace("Release ","").Replace(" · xyzyxJP/GakujoGUI","").Replace(" · GitHub", "").Substring(1);
         }
     }
