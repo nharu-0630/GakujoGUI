@@ -11,8 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-using Discord;
-using System.Threading;
 
 namespace GakujoGUI
 {
@@ -1473,53 +1471,5 @@ namespace GakujoGUI
 
         #endregion
 
-        #region タスクトレイ
-
-        private void 表示ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            notifyIcon.Visible = false;
-            Visible = true;
-            WindowState = FormWindowState.Normal;
-        }
-
-        private void 更新ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            buttonRefreshClassContact_Click(sender, e);
-            buttonRefreshReport_Click(sender, e);
-            buttonRefreshQuiz_Click(sender, e);
-            buttonRefreshSchoolContact_Click(sender, e);
-            WindowState = FormWindowState.Minimized;
-            notifyIcon.Visible = true;
-            Visible = false;
-        }
-
-        private void 終了ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            notifyIcon.Dispose();
-            Close();
-        }
-
-        private void MainFrom_SizeChanged(object sender, EventArgs e)
-        {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                notifyIcon.Visible = true;
-                Visible = false;
-            }
-            else
-            {
-                notifyIcon.Visible = false;
-                Visible = true;
-            }
-        }
-
-        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            notifyIcon.Visible = false;
-            Visible = true;
-            WindowState = FormWindowState.Normal;
-        }
-
-        #endregion
     }
 }
