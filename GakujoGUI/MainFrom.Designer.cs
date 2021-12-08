@@ -123,6 +123,7 @@ namespace GakujoGUI
             this.表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonTimeTableInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
@@ -1177,6 +1178,7 @@ namespace GakujoGUI
             // tabPageAcademicAffairsSystem
             // 
             this.tabPageAcademicAffairsSystem.BackColor = System.Drawing.Color.White;
+            this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonTimeTableInformation);
             this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonSyllabusReference);
             this.tabPageAcademicAffairsSystem.Controls.Add(this.buttonSchoolRegisterInformation);
             this.tabPageAcademicAffairsSystem.Controls.Add(this.webView2AcademicAffairsSystem);
@@ -1316,6 +1318,23 @@ namespace GakujoGUI
             // 
             this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
             this.終了ToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // buttonTimeTableInformation
+            // 
+            this.buttonTimeTableInformation.AutoSize = true;
+            this.buttonTimeTableInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonTimeTableInformation.Depth = 0;
+            this.buttonTimeTableInformation.Icon = null;
+            this.buttonTimeTableInformation.Location = new System.Drawing.Point(498, 0);
+            this.buttonTimeTableInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonTimeTableInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonTimeTableInformation.Name = "buttonTimeTableInformation";
+            this.buttonTimeTableInformation.Primary = false;
+            this.buttonTimeTableInformation.Size = new System.Drawing.Size(96, 36);
+            this.buttonTimeTableInformation.TabIndex = 7;
+            this.buttonTimeTableInformation.Text = "個人時間割";
+            this.buttonTimeTableInformation.UseVisualStyleBackColor = true;
+            this.buttonTimeTableInformation.Click += new System.EventHandler(this.buttonTimeTableInformation_Click);
             // 
             // MainFrom
             // 
@@ -1467,6 +1486,7 @@ namespace GakujoGUI
         private System.Windows.Forms.ToolStripMenuItem 表示ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 更新ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 終了ToolStripMenuItem;
+        private MaterialSkin.Controls.MaterialFlatButton buttonTimeTableInformation;
     }
 }
 

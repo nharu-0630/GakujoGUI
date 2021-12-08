@@ -453,7 +453,9 @@ namespace GakujoGUI
         {
             if (File.Exists(Path.Combine(downloadPath, ((Button)sender).Text)))
             {
-                Process.Start(Path.Combine(downloadPath, ((Button)sender).Text));
+                ProcessStartInfo processStartInfo = new ProcessStartInfo("explorer.exe");
+                processStartInfo.Arguments = "/e,/select,\"" + Path.Combine(downloadPath, ((Button)sender).Text) + "\"";
+                Process.Start(processStartInfo);
             }
         }
 
@@ -1455,6 +1457,25 @@ namespace GakujoGUI
                 progressBox.Show();
                 Progress<double> progress = new Progress<double>(progressBox.Update);
                 html = await Task.Run(() => gakujoAPI.GetSchoolRegisterInformation(progress));
+                await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
+                progressBox.Close();
+            }
+            webView2AcademicAffairsSystem.NavigateToString(html);
+        }
+
+        private async void buttonTimeTableInformation_Click(object sender, EventArgs e)
+        {
+            if (!gakujoLogin)
+            {
+                return;
+            }
+            string html = "";
+            using (ProgressBox progressBox = new ProgressBox())
+            {
+                progressBox.Set("GakujoGUI", "");
+                progressBox.Show();
+                Progress<double> progress = new Progress<double>(progressBox.Update);
+                html = await Task.Run(() => gakujoAPI.GetTimeTableInformation(progress));
                 await webView2AcademicAffairsSystem.EnsureCoreWebView2Async();
                 progressBox.Close();
             }
