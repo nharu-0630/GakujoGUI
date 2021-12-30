@@ -28,6 +28,8 @@ namespace GakujoGUI
         public string schoolYear = "2021";
         public string semesterCode = "2";
 
+        public string userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71";
+
         public bool SetCookies(IProgress<double> progress)
         {
             progress.Report(100 * 0 / 2);
@@ -69,16 +71,14 @@ namespace GakujoGUI
             progress.Report(100 * 2 / 2);
             progress.Report(100 * 0 / 9);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             progress.Report(100 * 1 / 9);
-            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/login/preLogin/preLogin"); httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
+            httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/login/preLogin/preLogin");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "application/json, text/javascript, */*; q=0.01");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja");
@@ -87,18 +87,15 @@ namespace GakujoGUI
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             progress.Report(100 * 2 / 9);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/UI/jsp/topPage/topPage.jsp?_=" + (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html, */*; q=0.01");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             progress.Report(100 * 3 / 9);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/shibbolethlogin/shibbolethLogin/initLogin/sso");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -109,17 +106,15 @@ namespace GakujoGUI
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://idp.shizuoka.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s1");
             httpResponse.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpResponse.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpResponse.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpResponse.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpResponse.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpResponse.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/");
             httpResponse.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             progress.Report(100 * 5 / 9);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://idp.shizuoka.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s1");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://idp.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://idp.shizuoka.ac.jp/idp/profile/SAML2/Redirect/SSO?execution=e1s1");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -142,10 +137,8 @@ namespace GakujoGUI
                 SAMLResponse = Uri.EscapeDataString(SAMLResponse);
                 progress.Report(100 * 6 / 9);
                 httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/Shibboleth.sso/SAML2/POST");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://idp.shizuoka.ac.jp");
-                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://idp.shizuoka.ac.jp/");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -154,19 +147,15 @@ namespace GakujoGUI
                 httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
                 progress.Report(100 * 7 / 9);
                 httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/shibbolethlogin/shibbolethLogin/initLogin/sso");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://idp.shizuoka.ac.jp/");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
                 httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
                 progress.Report(100 * 8 / 9);
                 httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/home/home/initialize");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/shibbolethlogin/shibbolethLogin/initLogin/sso");
                 httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -186,10 +175,8 @@ namespace GakujoGUI
             progress.Report(100 * 0 / 2);
             List<Report> reportList = new List<Report> { };
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -232,10 +219,8 @@ namespace GakujoGUI
             progress.Report(100 * 0 / 2);
             List<Quiz> quizList = new List<Quiz> { };
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -278,10 +263,8 @@ namespace GakujoGUI
             progress.Report(100 * 0 / 2);
             List<ClassContact> classContactList = new List<ClassContact> { };
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -321,10 +304,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -336,10 +317,8 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactList/goDetail/" + indexCount);
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactDetail/goBack");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -368,10 +347,8 @@ namespace GakujoGUI
                     if (fileDownload)
                     {
                         httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadDownload/fileDownLoad?EXCLUDE_SET=&prefix=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[0].Replace("fileDownLoad('", "").Replace("'", "") + "&no=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("');", "").Replace("'", "").Trim() + "&EXCLUDE_SET=");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/classcontact/classContactList/goDetail/" + indexCount);
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -406,10 +383,8 @@ namespace GakujoGUI
             progress.Report(100 * 0 / 2);
             List<SchoolContact> schoolContactList = new List<SchoolContact> { };
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -448,10 +423,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -463,10 +436,8 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/commoncontact/commonContact/dtlEdit");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -494,10 +465,8 @@ namespace GakujoGUI
                     if (fileDownload)
                     {
                         httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadDownload/fileDownLoad?EXCLUDE_SET=&prefix=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[0].Replace("fileDownLoad('", "").Replace("'", "") + "&no=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("');", "").Replace("'", "").Trim() + "&EXCLUDE_SET=");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/commoncontact/commonContact/dtlEdit");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -532,10 +501,8 @@ namespace GakujoGUI
             progress.Report(100 * 0 / 2);
             List<ClassSharedFile> classSharedFileList = new List<ClassSharedFile> { };
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -574,10 +541,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -589,9 +554,7 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/portal/classfile/classFile/showClassFileDetail?EXCLUDE_SET=&org.apache.struts.taglib.html.TOKEN=" + account.apacheToken + "&selectIndex=" + indexCount + "&_screenIdentifier=SC_A08_01&_screenInfoDisp=true&_searchConditionDisp.accordionSearchCondition=false&_scrollTop=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -612,10 +575,8 @@ namespace GakujoGUI
                     if (fileDownload)
                     {
                         httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadDownload/fileDownLoad?EXCLUDE_SET=&prefix=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[0].Replace("fileDownLoad('", "").Replace("'", "") + "&no=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("');", "").Replace("'", "").Trim() + "&EXCLUDE_SET=");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/commoncontact/commonContact/dtlEdit");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -650,10 +611,8 @@ namespace GakujoGUI
             progress.Report(100 * 0 / 2);
             List<SchoolSharedFile> schoolSharedFileList = new List<SchoolSharedFile> { };
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -693,10 +652,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -708,10 +665,8 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div[1]/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 3);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/commonfile/commonFileDetail/initialize");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -733,10 +688,8 @@ namespace GakujoGUI
                     if (fileDownload)
                     {
                         httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadDownload/fileDownLoad?EXCLUDE_SET=&prefix=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[0].Replace("fileDownLoad('", "").Replace("'", "") + "&no=" + item.SelectSingleNode("a").Attributes["onclick"].Value.Split(',')[1].Replace("');", "").Replace("'", "").Trim() + "&EXCLUDE_SET=");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+                        httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*;q=0.8,application/signed-exchange;v=b3;q=0.9");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/commoncontact/commonContact/dtlEdit");
                         httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -770,9 +723,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/searchList/forwardSubmitRef");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.55");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/portaltopcommon/newsForTop/deadLineForTop");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en-US;q=0.7,en;q=0.3");
@@ -790,10 +742,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 2);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/submit/confirmAction");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.55");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/test/student/searchList/forwardSubmit");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -805,10 +755,8 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 2);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/submitConfirm/confirmAction");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.55");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/test/student/submit/confirmAction");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -826,10 +774,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/test/student/searchList/submitCancel");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/test/student/submitConfirm/confirmAction");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -847,10 +793,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmitRef?submitStatusCode=01");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -869,10 +813,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 4);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmit");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/report/student/reportEntry/backScreen");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -884,9 +826,7 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/form[1]/div/input")[0].Attributes["value"].Value;
             progress.Report(100 * 1 / 4);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUpload/fileUploadInit");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/portaltopcommon/submissionStatusDeadlineForTop/deadLineForTop");
@@ -899,10 +839,9 @@ namespace GakujoGUI
             account.apacheToken = htmlDocument.DocumentNode.SelectNodes("/html/body/div/div/div/div[3]/div/div/div[1]/div[2]/form/div[1]/input")[0].Attributes["value"].Value;
             progress.Report(100 * 2 / 4);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/fileUploadLocal/fileUploadLocal");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "application/json, text/javascript, */*; q=0.01");
             httpRequestMessage.Headers.TryAddWithoutValidation("X-Requested-With", "XMLHttpRequest");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/common/fileUpload/fileDelete");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -923,10 +862,8 @@ namespace GakujoGUI
             }
             progress.Report(100 * 3 / 4);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/reportEntry/regist");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36 Edg/91.0.864.71");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/forwardSubmit");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -942,10 +879,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/report/student/searchList/submitCancel");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/report/student/reportEntry/backScreen");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -963,10 +898,8 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/portal/common/generalPurpose/");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/home/home/initialize");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -996,18 +929,14 @@ namespace GakujoGUI
         {
             progress.Report(100 * 0 / 2);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/preLogin.do");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
             progress.Report(100 * 1 / 2);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("POST"), "https://gakujo.shizuoka.ac.jp/kyoumu/sso/loginStudent.do");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
             httpRequestMessage.Headers.TryAddWithoutValidation("Origin", "https://gakujo.shizuoka.ac.jp");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Referer", "https://gakujo.shizuoka.ac.jp/portal/home/systemCooperationLink/initializeShibboleth?renkeiType=kyoumu");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
@@ -1026,9 +955,7 @@ namespace GakujoGUI
             List<ResultInformation> resultInformationList = new List<ResultInformation> { };
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/seisekiSearchStudentInit.do?mainMenuCode=008&parentMenuCode=007");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -1063,9 +990,7 @@ namespace GakujoGUI
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 2);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/gpa.do");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -1094,9 +1019,7 @@ namespace GakujoGUI
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/taniShuutokuJouhouSearchInit.do?mainMenuCode=009&parentMenuCode=007");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -1118,9 +1041,7 @@ namespace GakujoGUI
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/curriculumReference.do?mainMenuCode=010&parentMenuCode=007");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -1142,9 +1063,7 @@ namespace GakujoGUI
             SetAcademicAffairsSystem(progress);
             progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/gakusekiReference.do?mainMenuCode=012&parentMenuCode=011");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -1166,9 +1085,7 @@ namespace GakujoGUI
         {
             SetAcademicAffairsSystem(progress); progress.Report(100 * 0 / 1);
             httpRequestMessage = new HttpRequestMessage(new HttpMethod("GET"), "https://gakujo.shizuoka.ac.jp/kyoumu/rishuuInit.do?mainMenuCode=005&parentMenuCode=004");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Connection", "keep-alive");
-            httpRequestMessage.Headers.TryAddWithoutValidation("Cache-Control", "max-age=0");
-            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36 Edg/92.0.902.62");
+            httpRequestMessage.Headers.TryAddWithoutValidation("User-Agent", userAgent);
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpRequestMessage.Headers.TryAddWithoutValidation("Accept-Language", "ja,en;q=0.9,en-GB;q=0.8,en-US;q=0.7");
             httpResponse = httpClient.SendAsync(httpRequestMessage).Result;
@@ -1222,11 +1139,11 @@ namespace GakujoGUI
 
         public string GetLatestVersion()
         {
-            WebClient webClient = new WebClient { Encoding = Encoding.UTF8};
+            WebClient webClient = new WebClient { Encoding = Encoding.UTF8 };
             HtmlDocument htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(webClient.DownloadString("https://github.com/xyzyxJP/GakujoGUI/releases/latest"));
             webClient.Dispose();
-            return htmlDocument.DocumentNode.SelectSingleNode("/html/head/title").InnerText.Replace("Release ","").Replace(" · xyzyxJP/GakujoGUI","").Replace(" · GitHub", "").Substring(1);
+            return htmlDocument.DocumentNode.SelectSingleNode("/html/head/title").InnerText.Replace("Release ", "").Replace(" · xyzyxJP/GakujoGUI", "").Replace(" · GitHub", "").Substring(1);
         }
     }
 
