@@ -1,7 +1,6 @@
+![](https://xyzyxjp.github.io/GakujoGUI/assets/img/hero-img.png)
 
 # GakujoGUI
-
-![Affairs System](https://raw.githubusercontent.com/xyzyxJP/GakujoGUI/main/GakujoGUI/As_Icon.ico)
 
 静岡大学 学務情報システム
 
