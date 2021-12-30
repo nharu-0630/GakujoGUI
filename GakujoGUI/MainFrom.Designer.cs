@@ -113,6 +113,7 @@ namespace GakujoGUI
             this.labelSchoolSharedFileTitle = new System.Windows.Forms.Label();
             this.labelSchoolSharedFileFileDescription = new System.Windows.Forms.TextBox();
             this.tabPageAcademicAffairsSystem = new System.Windows.Forms.TabPage();
+            this.buttonTimeTableInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonSyllabusReference = new MaterialSkin.Controls.MaterialFlatButton();
             this.buttonSchoolRegisterInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.webView2AcademicAffairsSystem = new Microsoft.Web.WebView2.WinForms.WebView2();
@@ -123,7 +124,6 @@ namespace GakujoGUI
             this.表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.更新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonTimeTableInformation = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialTabControl.SuspendLayout();
             this.tabPageLogin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webView2)).BeginInit();
@@ -171,7 +171,7 @@ namespace GakujoGUI
             this.materialTabControl.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabControl.Name = "materialTabControl";
             this.materialTabControl.SelectedIndex = 0;
-            this.materialTabControl.Size = new System.Drawing.Size(776, 345);
+            this.materialTabControl.Size = new System.Drawing.Size(956, 515);
             this.materialTabControl.TabIndex = 0;
             this.materialTabControl.TabStop = false;
             // 
@@ -334,7 +334,7 @@ namespace GakujoGUI
             this.tabPageClassContact.Location = new System.Drawing.Point(4, 22);
             this.tabPageClassContact.Name = "tabPageClassContact";
             this.tabPageClassContact.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageClassContact.Size = new System.Drawing.Size(768, 319);
+            this.tabPageClassContact.Size = new System.Drawing.Size(948, 489);
             this.tabPageClassContact.TabIndex = 1;
             this.tabPageClassContact.Text = "授業連絡";
             // 
@@ -356,8 +356,8 @@ namespace GakujoGUI
             this.splitContainerClassContact.Panel2.Controls.Add(this.buttonClassContactFile);
             this.splitContainerClassContact.Panel2.Controls.Add(this.labelClassContactTitle);
             this.splitContainerClassContact.Panel2.Controls.Add(this.labelClassContactContent);
-            this.splitContainerClassContact.Size = new System.Drawing.Size(762, 313);
-            this.splitContainerClassContact.SplitterDistance = 156;
+            this.splitContainerClassContact.Size = new System.Drawing.Size(942, 483);
+            this.splitContainerClassContact.SplitterDistance = 240;
             this.splitContainerClassContact.TabIndex = 11;
             // 
             // checkBoxClassContactFileDownload
@@ -416,7 +416,7 @@ namespace GakujoGUI
             this.listViewClassContact.MultiSelect = false;
             this.listViewClassContact.Name = "listViewClassContact";
             this.listViewClassContact.OwnerDraw = true;
-            this.listViewClassContact.Size = new System.Drawing.Size(762, 108);
+            this.listViewClassContact.Size = new System.Drawing.Size(942, 192);
             this.listViewClassContact.TabIndex = 3;
             this.listViewClassContact.UseCompatibleStateImageBehavior = false;
             this.listViewClassContact.View = System.Windows.Forms.View.Details;
@@ -455,7 +455,7 @@ namespace GakujoGUI
             this.buttonClassContactFile.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.buttonClassContactFile.Depth = 0;
             this.buttonClassContactFile.Icon = null;
-            this.buttonClassContactFile.Location = new System.Drawing.Point(3, 117);
+            this.buttonClassContactFile.Location = new System.Drawing.Point(3, 203);
             this.buttonClassContactFile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.buttonClassContactFile.MouseState = MaterialSkin.MouseState.HOVER;
             this.buttonClassContactFile.Name = "buttonClassContactFile";
@@ -473,7 +473,7 @@ namespace GakujoGUI
             this.labelClassContactTitle.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.labelClassContactTitle.Location = new System.Drawing.Point(3, 0);
             this.labelClassContactTitle.Name = "labelClassContactTitle";
-            this.labelClassContactTitle.Size = new System.Drawing.Size(756, 20);
+            this.labelClassContactTitle.Size = new System.Drawing.Size(936, 20);
             this.labelClassContactTitle.TabIndex = 4;
             // 
             // labelClassContactContent
@@ -489,7 +489,7 @@ namespace GakujoGUI
             this.labelClassContactContent.Name = "labelClassContactContent";
             this.labelClassContactContent.ReadOnly = true;
             this.labelClassContactContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.labelClassContactContent.Size = new System.Drawing.Size(756, 85);
+            this.labelClassContactContent.Size = new System.Drawing.Size(936, 171);
             this.labelClassContactContent.TabIndex = 5;
             // 
             // tabPageReport
@@ -713,7 +713,7 @@ namespace GakujoGUI
             this.tabPageSchoolContact.Location = new System.Drawing.Point(4, 22);
             this.tabPageSchoolContact.Name = "tabPageSchoolContact";
             this.tabPageSchoolContact.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSchoolContact.Size = new System.Drawing.Size(768, 319);
+            this.tabPageSchoolContact.Size = new System.Drawing.Size(948, 389);
             this.tabPageSchoolContact.TabIndex = 5;
             this.tabPageSchoolContact.Text = "学内連絡";
             // 
@@ -736,8 +736,8 @@ namespace GakujoGUI
             this.splitContainerSchoolContact.Panel2.Controls.Add(this.buttonSchoolContactFile);
             this.splitContainerSchoolContact.Panel2.Controls.Add(this.labelSchoolContactTitle);
             this.splitContainerSchoolContact.Panel2.Controls.Add(this.labelSchoolContactContent);
-            this.splitContainerSchoolContact.Size = new System.Drawing.Size(762, 313);
-            this.splitContainerSchoolContact.SplitterDistance = 156;
+            this.splitContainerSchoolContact.Size = new System.Drawing.Size(942, 383);
+            this.splitContainerSchoolContact.SplitterDistance = 190;
             this.splitContainerSchoolContact.TabIndex = 12;
             // 
             // checkBoxSchoolContactFileDownload
@@ -797,7 +797,7 @@ namespace GakujoGUI
             this.listViewSchoolContact.MultiSelect = false;
             this.listViewSchoolContact.Name = "listViewSchoolContact";
             this.listViewSchoolContact.OwnerDraw = true;
-            this.listViewSchoolContact.Size = new System.Drawing.Size(762, 108);
+            this.listViewSchoolContact.Size = new System.Drawing.Size(942, 142);
             this.listViewSchoolContact.TabIndex = 3;
             this.listViewSchoolContact.UseCompatibleStateImageBehavior = false;
             this.listViewSchoolContact.View = System.Windows.Forms.View.Details;
@@ -838,7 +838,7 @@ namespace GakujoGUI
             this.buttonSchoolContactFile.BackColor = System.Drawing.Color.White;
             this.buttonSchoolContactFile.Depth = 0;
             this.buttonSchoolContactFile.Icon = null;
-            this.buttonSchoolContactFile.Location = new System.Drawing.Point(3, 117);
+            this.buttonSchoolContactFile.Location = new System.Drawing.Point(3, 153);
             this.buttonSchoolContactFile.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.buttonSchoolContactFile.MouseState = MaterialSkin.MouseState.HOVER;
             this.buttonSchoolContactFile.Name = "buttonSchoolContactFile";
@@ -856,7 +856,7 @@ namespace GakujoGUI
             this.labelSchoolContactTitle.Font = new System.Drawing.Font("MS UI Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.labelSchoolContactTitle.Location = new System.Drawing.Point(3, 0);
             this.labelSchoolContactTitle.Name = "labelSchoolContactTitle";
-            this.labelSchoolContactTitle.Size = new System.Drawing.Size(756, 20);
+            this.labelSchoolContactTitle.Size = new System.Drawing.Size(936, 20);
             this.labelSchoolContactTitle.TabIndex = 4;
             // 
             // labelSchoolContactContent
@@ -872,7 +872,7 @@ namespace GakujoGUI
             this.labelSchoolContactContent.Name = "labelSchoolContactContent";
             this.labelSchoolContactContent.ReadOnly = true;
             this.labelSchoolContactContent.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.labelSchoolContactContent.Size = new System.Drawing.Size(756, 85);
+            this.labelSchoolContactContent.Size = new System.Drawing.Size(936, 121);
             this.labelSchoolContactContent.TabIndex = 5;
             // 
             // tabPageClassSharedFile
@@ -1188,9 +1188,26 @@ namespace GakujoGUI
             this.tabPageAcademicAffairsSystem.Location = new System.Drawing.Point(4, 22);
             this.tabPageAcademicAffairsSystem.Name = "tabPageAcademicAffairsSystem";
             this.tabPageAcademicAffairsSystem.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAcademicAffairsSystem.Size = new System.Drawing.Size(768, 319);
+            this.tabPageAcademicAffairsSystem.Size = new System.Drawing.Size(948, 389);
             this.tabPageAcademicAffairsSystem.TabIndex = 8;
             this.tabPageAcademicAffairsSystem.Text = "教務システム";
+            // 
+            // buttonTimeTableInformation
+            // 
+            this.buttonTimeTableInformation.AutoSize = true;
+            this.buttonTimeTableInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.buttonTimeTableInformation.Depth = 0;
+            this.buttonTimeTableInformation.Icon = null;
+            this.buttonTimeTableInformation.Location = new System.Drawing.Point(498, 0);
+            this.buttonTimeTableInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.buttonTimeTableInformation.MouseState = MaterialSkin.MouseState.HOVER;
+            this.buttonTimeTableInformation.Name = "buttonTimeTableInformation";
+            this.buttonTimeTableInformation.Primary = false;
+            this.buttonTimeTableInformation.Size = new System.Drawing.Size(96, 36);
+            this.buttonTimeTableInformation.TabIndex = 7;
+            this.buttonTimeTableInformation.Text = "個人時間割";
+            this.buttonTimeTableInformation.UseVisualStyleBackColor = true;
+            this.buttonTimeTableInformation.Click += new System.EventHandler(this.buttonTimeTableInformation_Click);
             // 
             // buttonSyllabusReference
             // 
@@ -1235,7 +1252,7 @@ namespace GakujoGUI
             this.webView2AcademicAffairsSystem.DefaultBackgroundColor = System.Drawing.Color.White;
             this.webView2AcademicAffairsSystem.Location = new System.Drawing.Point(0, 45);
             this.webView2AcademicAffairsSystem.Name = "webView2AcademicAffairsSystem";
-            this.webView2AcademicAffairsSystem.Size = new System.Drawing.Size(768, 274);
+            this.webView2AcademicAffairsSystem.Size = new System.Drawing.Size(948, 344);
             this.webView2AcademicAffairsSystem.TabIndex = 6;
             this.webView2AcademicAffairsSystem.ZoomFactor = 1D;
             // 
@@ -1299,7 +1316,7 @@ namespace GakujoGUI
             this.materialTabSelector.Location = new System.Drawing.Point(0, 64);
             this.materialTabSelector.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialTabSelector.Name = "materialTabSelector";
-            this.materialTabSelector.Size = new System.Drawing.Size(800, 23);
+            this.materialTabSelector.Size = new System.Drawing.Size(980, 23);
             this.materialTabSelector.TabIndex = 0;
             this.materialTabSelector.TabStop = false;
             this.materialTabSelector.Text = "materialTabSelector";
@@ -1319,28 +1336,11 @@ namespace GakujoGUI
             this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
             this.終了ToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
-            // buttonTimeTableInformation
-            // 
-            this.buttonTimeTableInformation.AutoSize = true;
-            this.buttonTimeTableInformation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.buttonTimeTableInformation.Depth = 0;
-            this.buttonTimeTableInformation.Icon = null;
-            this.buttonTimeTableInformation.Location = new System.Drawing.Point(498, 0);
-            this.buttonTimeTableInformation.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.buttonTimeTableInformation.MouseState = MaterialSkin.MouseState.HOVER;
-            this.buttonTimeTableInformation.Name = "buttonTimeTableInformation";
-            this.buttonTimeTableInformation.Primary = false;
-            this.buttonTimeTableInformation.Size = new System.Drawing.Size(96, 36);
-            this.buttonTimeTableInformation.TabIndex = 7;
-            this.buttonTimeTableInformation.Text = "個人時間割";
-            this.buttonTimeTableInformation.UseVisualStyleBackColor = true;
-            this.buttonTimeTableInformation.Click += new System.EventHandler(this.buttonTimeTableInformation_Click);
-            // 
             // MainFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(980, 620);
             this.Controls.Add(this.materialTabSelector);
             this.Controls.Add(this.materialTabControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
