@@ -29,69 +29,82 @@ namespace GakujoGUI
         public virtual string TransformText()
         {
             this.Write("\r\n<!DOCTYPE html>\r\n<html lang=\"ja\">\r\n\r\n<head>\r\n  <meta charset=\"utf-8\">\r\n  <meta " +
-                    "name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n  <link href=\"bo" +
-                    "otstrap.min.css\" rel=\"stylesheet\">\r\n  <script src=\"jquery-3.6.0.min.js\"></script" +
-                    ">\r\n  <link href=\"style.css\" rel=\"stylesheet\">\r\n</head>\r\n\r\n<body>\r\n  <div class=\"" +
-                    "d-flex align-items-start\">\r\n    <div class=\"nav flex-column nav-pills me-3\" id=\"" +
-                    "main-tab\" role=\"tablist\" aria-orientation=\"vertical\">\r\n      <button class=\"nav-" +
-                    "link active\" id=\"main-tab-login\" data-bs-toggle=\"pill\" data-bs-target=\"#main-log" +
-                    "in\"\r\n        type=\"button\" role=\"tab\" aria-controls=\"main-login\" aria-selected=\"" +
-                    "true\">\r\n        ログイン\r\n      </button>\r\n      <button class=\"nav-link\" id=\"main-t" +
-                    "ab-classcontact\" data-bs-toggle=\"pill\" data-bs-target=\"#main-classcontact\"\r\n    " +
-                    "    type=\"button\" role=\"tab\" aria-controls=\"main-classcontact\" aria-selected=\"fa" +
-                    "lse\">\r\n        授業連絡\r\n      </button>\r\n      <button class=\"nav-link\" id=\"main-ta" +
-                    "b-report\" data-bs-toggle=\"pill\" data-bs-target=\"#main-report\" type=\"button\"\r\n   " +
-                    "     role=\"tab\" aria-controls=\"main-report\" aria-selected=\"false\">\r\n        レポート" +
-                    "\r\n      </button>\r\n      <button class=\"nav-link\" id=\"main-tab-quiz\" data-bs-tog" +
-                    "gle=\"pill\" data-bs-target=\"#main-quiz\" type=\"button\"\r\n        role=\"tab\" aria-co" +
-                    "ntrols=\"main-quiz\" aria-selected=\"false\">\r\n        小テスト\r\n      </button>\r\n      " +
-                    "<button class=\"nav-link\" id=\"main-tab-schoolcontact\" data-bs-toggle=\"pill\" data-" +
-                    "bs-target=\"#main-schoolcontact\"\r\n        type=\"button\" role=\"tab\" aria-controls=" +
-                    "\"main-schoolcontact\" aria-selected=\"false\">\r\n        学内連絡\r\n      </button>\r\n    " +
-                    "  <button class=\"nav-link\" id=\"main-tab-classfile\" data-bs-toggle=\"pill\" data-bs" +
-                    "-target=\"#main-classfile\"\r\n        type=\"button\" role=\"tab\" aria-controls=\"main-" +
-                    "classfile\" aria-selected=\"false\">\r\n        授業共有ファイル\r\n      </button>\r\n      <but" +
-                    "ton class=\"nav-link\" id=\"main-tab-schoolfile\" data-bs-toggle=\"pill\" data-bs-targ" +
-                    "et=\"#main-schoolfile\"\r\n        type=\"button\" role=\"tab\" aria-controls=\"main-scho" +
-                    "olfile\" aria-selected=\"false\">\r\n        学内共有ファイル\r\n      </button>\r\n    </div>\r\n " +
-                    "   <div class=\"tab-content\" id=\"main-tab-content\">\r\n      <div class=\"tab-pane f" +
-                    "ade show active\" id=\"main-login\" role=\"tabpanel\" aria-labelledby=\"main-tab-login" +
-                    "\">\r\n        <form class=\"row g-3\">\r\n          <div class=\"row my-3\">\r\n          " +
-                    "  <label for=\"login-id\" class=\"col-sm-2 col-form-label\">静大ID</label>\r\n          " +
-                    "  <div class=\"col-sm-10\">\r\n              <input type=\"text\" class=\"form-control\"" +
-                    " id=\"login-id\" placeholder=\"\">\r\n            </div>\r\n          </div>\r\n          " +
-                    "<div class=\"row mb-3\">\r\n            <label for=\"login-password\" class=\"col-sm-2 " +
-                    "col-form-label\">パスワード</label>\r\n            <div class=\"col-sm-10\">\r\n            " +
-                    "  <input type=\"password\" class=\"form-control\" id=\"login-password\" placeholder=\"\"" +
-                    ">\r\n            </div>\r\n          </div>\r\n          <div class=\"row mb-3\">\r\n     " +
-                    "       <label for=\"login-name\" class=\"col-sm-2 col-form-label\">氏名</label>\r\n     " +
-                    "       <div class=\"col-sm-10\">\r\n              <input type=\"text\" class=\"form-con" +
-                    "trol\" id=\"login-name\" placeholder=\"\">\r\n            </div>\r\n          </div>\r\n   " +
-                    "       <div class=\"row mb-3\">\r\n            <label for=\"login-number\" class=\"col-" +
-                    "sm-2 col-form-label\">学籍番号</label>\r\n            <div class=\"col-sm-10\">\r\n        " +
-                    "      <input type=\"text\" class=\"form-control\" id=\"login-number\" placeholder=\"\">\r" +
-                    "\n            </div>\r\n          </div>\r\n          <div class=\"row mb-12\">\r\n      " +
-                    "      <button type=\"submit\" class=\"btn btn-primary\">ログイン</button>\r\n          </d" +
-                    "iv>\r\n        </form>\r\n      </div>\r\n      <div class=\"tab-pane fade\" id=\"main-cl" +
-                    "asscontact\" role=\"tabpanel\" aria-labelledby=\"main-tab-classcontact\">\r\n        <d" +
-                    "iv class=\"row\">\r\n          <div class=\"col-4\">\r\n            <div class=\"list-gro" +
-                    "up\" id=\"classcontact-tab\" role=\"tablist\">\r\n              ");
+                    "name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n  <link href=\"ht" +
+                    "tps://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"styl" +
+                    "esheet\"\r\n    integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65" +
+                    "VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\r\n  <script src=\"https://code.jquery.co" +
+                    "m/jquery-3.6.0.min.js\"\r\n    integrity=\"sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7o" +
+                    "gEvDej/m4=\" crossorigin=\"anonymous\"></script>\r\n  <style>\r\n    body {\r\n      marg" +
+                    "in: 10px;\r\n      overflow: hidden;\r\n    }\r\n\r\n    #main-tab {\r\n      width: 180px" +
+                    ";\r\n    }\r\n\r\n    #main-tab-content {\r\n      width: calc(100vw - 240px);\r\n    }\r\n\r" +
+                    "\n    #main-tab-content form {\r\n      max-width: 600px;\r\n    }\r\n\r\n    #classconta" +
+                    "ct-tab,\r\n    #schoolcontact-tab {\r\n      height: 95vh;\r\n      overflow-x: hidden" +
+                    ";\r\n      overflow-y: auto;\r\n    }\r\n\r\n    .text-wrap {\r\n      overflow: hidden;\r\n" +
+                    "      text-overflow: ellipsis;\r\n      white-space: nowrap !important;\r\n    }\r\n  " +
+                    "</style>\r\n</head>\r\n\r\n<body>\r\n  <div class=\"d-flex align-items-start\">\r\n    <div " +
+                    "class=\"nav flex-column nav-pills me-3\" id=\"main-tab\" role=\"tablist\" aria-orienta" +
+                    "tion=\"vertical\">\r\n      <button class=\"nav-link active\" id=\"main-tab-login\" data" +
+                    "-bs-toggle=\"pill\" data-bs-target=\"#main-login\"\r\n        type=\"button\" role=\"tab\"" +
+                    " aria-controls=\"main-login\" aria-selected=\"true\">\r\n        ログイン\r\n      </button>" +
+                    "\r\n      <button class=\"nav-link\" id=\"main-tab-classcontact\" data-bs-toggle=\"pill" +
+                    "\" data-bs-target=\"#main-classcontact\"\r\n        type=\"button\" role=\"tab\" aria-con" +
+                    "trols=\"main-classcontact\" aria-selected=\"false\">\r\n        授業連絡\r\n      </button>\r" +
+                    "\n      <button class=\"nav-link\" id=\"main-tab-report\" data-bs-toggle=\"pill\" data-" +
+                    "bs-target=\"#main-report\" type=\"button\"\r\n        role=\"tab\" aria-controls=\"main-r" +
+                    "eport\" aria-selected=\"false\">\r\n        レポート\r\n      </button>\r\n      <button clas" +
+                    "s=\"nav-link\" id=\"main-tab-quiz\" data-bs-toggle=\"pill\" data-bs-target=\"#main-quiz" +
+                    "\" type=\"button\"\r\n        role=\"tab\" aria-controls=\"main-quiz\" aria-selected=\"fal" +
+                    "se\">\r\n        小テスト\r\n      </button>\r\n      <button class=\"nav-link\" id=\"main-tab" +
+                    "-schoolcontact\" data-bs-toggle=\"pill\" data-bs-target=\"#main-schoolcontact\"\r\n    " +
+                    "    type=\"button\" role=\"tab\" aria-controls=\"main-schoolcontact\" aria-selected=\"f" +
+                    "alse\">\r\n        学内連絡\r\n      </button>\r\n      <button class=\"nav-link\" id=\"main-t" +
+                    "ab-classfile\" data-bs-toggle=\"pill\" data-bs-target=\"#main-classfile\"\r\n        ty" +
+                    "pe=\"button\" role=\"tab\" aria-controls=\"main-classfile\" aria-selected=\"false\">\r\n  " +
+                    "      授業共有ファイル\r\n      </button>\r\n      <button class=\"nav-link\" id=\"main-tab-sch" +
+                    "oolfile\" data-bs-toggle=\"pill\" data-bs-target=\"#main-schoolfile\"\r\n        type=\"" +
+                    "button\" role=\"tab\" aria-controls=\"main-schoolfile\" aria-selected=\"false\">\r\n     " +
+                    "   学内共有ファイル\r\n      </button>\r\n    </div>\r\n    <div class=\"tab-content\" id=\"main-" +
+                    "tab-content\">\r\n      <div class=\"tab-pane fade show active\" id=\"main-login\" role" +
+                    "=\"tabpanel\" aria-labelledby=\"main-tab-login\">\r\n        <form class=\"row g-3\">\r\n " +
+                    "         <div class=\"row my-3\">\r\n            <label for=\"login-id\" class=\"col-sm" +
+                    "-2 col-form-label\">静大ID</label>\r\n            <div class=\"col-sm-10\">\r\n          " +
+                    "    <input type=\"text\" class=\"form-control\" id=\"login-id\" placeholder=\"\">\r\n     " +
+                    "       </div>\r\n          </div>\r\n          <div class=\"row mb-3\">\r\n            <" +
+                    "label for=\"login-password\" class=\"col-sm-2 col-form-label\">パスワード</label>\r\n      " +
+                    "      <div class=\"col-sm-10\">\r\n              <input type=\"password\" class=\"form-" +
+                    "control\" id=\"login-password\" placeholder=\"\">\r\n            </div>\r\n          </di" +
+                    "v>\r\n          <div class=\"row mb-3\">\r\n            <label for=\"login-name\" class=" +
+                    "\"col-sm-2 col-form-label\">氏名</label>\r\n            <div class=\"col-sm-10\">\r\n     " +
+                    "         <input type=\"text\" class=\"form-control\" id=\"login-name\" placeholder=\"\">" +
+                    "\r\n            </div>\r\n          </div>\r\n          <div class=\"row mb-3\">\r\n      " +
+                    "      <label for=\"login-number\" class=\"col-sm-2 col-form-label\">学籍番号</label>\r\n  " +
+                    "          <div class=\"col-sm-10\">\r\n              <input type=\"text\" class=\"form-" +
+                    "control\" id=\"login-number\" placeholder=\"\">\r\n            </div>\r\n          </div>" +
+                    "\r\n          <div class=\"row mb-12\">\r\n            <button type=\"button\" class=\"bt" +
+                    "n btn-primary\"\r\n              onclick=\"window.chrome.webview.postMessage(\'login\'" +
+                    ");\">ログイン</button>\r\n          </div>\r\n        </form>\r\n      </div>\r\n      <div c" +
+                    "lass=\"tab-pane fade\" id=\"main-classcontact\" role=\"tabpanel\" aria-labelledby=\"mai" +
+                    "n-tab-classcontact\">\r\n        <button type=\"button\" class=\"btn btn-primary m-2\"\r" +
+                    "\n          onclick=\"window.chrome.webview.postMessage(\'refresh-classcontact\');\">" +
+                    "更新</button>\r\n        <div class=\"row\">\r\n          <div class=\"col-4\">\r\n         " +
+                    "   <div class=\"list-group\" id=\"classcontact-tab\" role=\"tablist\">\r\n              " +
+                    "");
             
-            #line 86 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 121 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  int classContactListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 87 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 122 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.ClassContactList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 88 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 123 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  classContactListIndex++; 
             
             #line default
@@ -99,21 +112,21 @@ namespace GakujoGUI
             this.Write("              <a class=\"list-group-item list-group-item-action\" id=\"classcontact-" +
                     "tab-");
             
-            #line 89 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 124 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classContactListIndex));
             
             #line default
             #line hidden
             this.Write("\" data-bs-toggle=\"list\"\r\n                href=\"#classcontact-");
             
-            #line 90 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 125 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classContactListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tab\" aria-controls=\"classcontact-");
             
-            #line 90 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 125 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classContactListIndex));
             
             #line default
@@ -121,35 +134,35 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"d-flex w-100 justify-content-between\">\r\n         " +
                     "         <h5 class=\"mb-1\">");
             
-            #line 92 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 127 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                  <small>");
             
-            #line 93 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 128 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.contactTime));
             
             #line default
             #line hidden
             this.Write("</small>\r\n                </div>\r\n                <p class=\"mb-1 text-wrap\">");
             
-            #line 95 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 130 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.content));
             
             #line default
             #line hidden
             this.Write("</p>\r\n                <small>");
             
-            #line 96 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 131 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.classSubjects));
             
             #line default
             #line hidden
             this.Write("</small>\r\n              </a>\r\n              ");
             
-            #line 98 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 133 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -157,35 +170,35 @@ namespace GakujoGUI
             this.Write("            </div>\r\n          </div>\r\n          <div class=\"col-8\">\r\n            " +
                     "<div class=\"tab-content\" id=\"classcontact-tab-content\">\r\n              ");
             
-            #line 103 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 138 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  classContactListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 104 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 139 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.ClassContactList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 105 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 140 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  classContactListIndex++; 
             
             #line default
             #line hidden
             this.Write("              <div class=\"tab-pane fade\" id=\"classcontact-");
             
-            #line 106 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 141 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classContactListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tabpanel\" aria-labelledby=\"classcontact-tab-");
             
-            #line 106 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 141 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classContactListIndex));
             
             #line default
@@ -193,28 +206,28 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"card\">\r\n                  <div class=\"card-body\">" +
                     "\r\n                    <h5 class=\"card-title\">");
             
-            #line 109 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 144 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                    <h6 class=\"card-subtitle mb-2 text-muted\">");
             
-            #line 110 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 145 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.contactTime));
             
             #line default
             #line hidden
             this.Write("</h6>\r\n                    <p class=\"card-text\">");
             
-            #line 111 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 146 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.content));
             
             #line default
             #line hidden
             this.Write("\r\n                    </p>\r\n                    <a href=\"#\" class=\"card-link\">");
             
-            #line 113 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 148 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.file));
             
             #line default
@@ -222,7 +235,7 @@ namespace GakujoGUI
             this.Write("</a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n   " +
                     "           ");
             
-            #line 117 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 152 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -232,6 +245,8 @@ namespace GakujoGUI
         </div>
       </div>
       <div class=""tab-pane fade"" id=""main-report"" role=""tabpanel"" aria-labelledby=""main-tab-report"">
+        <button type=""button"" class=""btn btn-primary m-2""
+          onclick=""window.chrome.webview.postMessage('refresh-report');"">更新</button>
         <table class=""table table-hover"">
           <thead>
             <tr>
@@ -246,56 +261,56 @@ namespace GakujoGUI
           <tbody>
             ");
             
-            #line 135 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 172 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.ReportList) { 
             
             #line default
             #line hidden
             this.Write("            <tr>\r\n              <td>");
             
-            #line 137 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 174 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.classSubjects));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 138 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 175 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 139 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 176 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.status));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 140 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 177 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.submissionPeriod));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 141 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 178 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.lastSubmissionTime));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 142 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 179 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.operation));
             
             #line default
             #line hidden
             this.Write("</td>\r\n            </tr>\r\n            ");
             
-            #line 144 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 181 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -304,6 +319,8 @@ namespace GakujoGUI
         </table>
       </div>
       <div class=""tab-pane fade"" id=""main-quiz"" role=""tabpanel"" aria-labelledby=""main-tab-quiz"">
+        <button type=""button"" class=""btn btn-primary m-2""
+          onclick=""window.chrome.webview.postMessage('refresh-quiz');"">更新</button>
         <table class=""table table-hover"">
           <thead>
             <tr>
@@ -318,56 +335,56 @@ namespace GakujoGUI
           <tbody>
             ");
             
-            #line 161 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 200 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.QuizList) { 
             
             #line default
             #line hidden
             this.Write("            <tr>\r\n              <td>");
             
-            #line 163 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 202 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.classSubjects));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 164 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 203 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 165 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 204 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.status));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 166 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 205 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.submissionPeriod));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 167 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 206 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.submissionStatus));
             
             #line default
             #line hidden
             this.Write("</td>\r\n              <td>");
             
-            #line 168 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 207 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.operation));
             
             #line default
             #line hidden
             this.Write("</td>\r\n            </tr>\r\n            ");
             
-            #line 170 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 209 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -376,26 +393,28 @@ namespace GakujoGUI
         </table>
       </div>
       <div class=""tab-pane fade"" id=""main-schoolcontact"" role=""tabpanel"" aria-labelledby=""main-tab-schoolcontact"">
+        <button type=""button"" class=""btn btn-primary m-2""
+          onclick=""window.chrome.webview.postMessage('refresh-schoolcontact');"">更新</button>
         <div class=""row"">
           <div class=""col-4"">
             <div class=""list-group"" id=""schoolcontact-tab"" role=""tablist"">
               ");
             
-            #line 178 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 219 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  int schoolContactListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 179 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 220 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.SchoolContactList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 180 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 221 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  schoolContactListIndex++; 
             
             #line default
@@ -403,21 +422,21 @@ namespace GakujoGUI
             this.Write("              <a class=\"list-group-item list-group-item-action\" id=\"schoolcontact" +
                     "-tab-");
             
-            #line 181 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 222 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolContactListIndex));
             
             #line default
             #line hidden
             this.Write("\" data-bs-toggle=\"list\"\r\n                href=\"#schoolcontact-");
             
-            #line 182 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 223 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolContactListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tab\" aria-controls=\"schoolcontact-");
             
-            #line 182 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 223 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolContactListIndex));
             
             #line default
@@ -425,35 +444,35 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"d-flex w-100 justify-content-between\">\r\n         " +
                     "         <h5 class=\"mb-1\">");
             
-            #line 184 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 225 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                  <small>");
             
-            #line 185 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 226 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.contactTime));
             
             #line default
             #line hidden
             this.Write("</small>\r\n                </div>\r\n                <p class=\"mb-1 text-wrap\">");
             
-            #line 187 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 228 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.content));
             
             #line default
             #line hidden
             this.Write("</p>\r\n                <small>");
             
-            #line 188 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 229 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.category));
             
             #line default
             #line hidden
             this.Write("</small>\r\n              </a>\r\n              ");
             
-            #line 190 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 231 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -461,35 +480,35 @@ namespace GakujoGUI
             this.Write("            </div>\r\n          </div>\r\n          <div class=\"col-8\">\r\n            " +
                     "<div class=\"tab-content\" id=\"schoolcontact-tab-content\">\r\n              ");
             
-            #line 195 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 236 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  schoolContactListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 196 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 237 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.SchoolContactList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 197 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 238 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  schoolContactListIndex++; 
             
             #line default
             #line hidden
             this.Write("              <div class=\"tab-pane fade\" id=\"schoolcontact-");
             
-            #line 198 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 239 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolContactListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tabpanel\" aria-labelledby=\"schoolcontact-tab-");
             
-            #line 198 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 239 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolContactListIndex));
             
             #line default
@@ -497,28 +516,28 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"card\">\r\n                  <div class=\"card-body\">" +
                     "\r\n                    <h5 class=\"card-title\">");
             
-            #line 201 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 242 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                    <h6 class=\"card-subtitle mb-2 text-muted\">");
             
-            #line 202 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 243 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.contactTime));
             
             #line default
             #line hidden
             this.Write("</h6>\r\n                    <p class=\"card-text\">");
             
-            #line 203 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 244 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.content));
             
             #line default
             #line hidden
             this.Write("\r\n                    </p>\r\n                    <a href=\"#\" class=\"card-link\">");
             
-            #line 205 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 246 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.file));
             
             #line default
@@ -526,7 +545,7 @@ namespace GakujoGUI
             this.Write("</a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n   " +
                     "           ");
             
-            #line 209 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 250 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -536,26 +555,28 @@ namespace GakujoGUI
         </div>
       </div>
       <div class=""tab-pane fade"" id=""main-classfile"" role=""tabpanel"" aria-labelledby=""main-tab-classfile"">
+        <button type=""button"" class=""btn btn-primary m-2""
+          onclick=""window.chrome.webview.postMessage('refresh-classfile');"">更新</button>
         <div class=""row"">
           <div class=""col-4"">
             <div class=""list-group"" id=""classfile-tab"" role=""tablist"">
               ");
             
-            #line 218 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 261 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  int classFileListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 219 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 262 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.ClassFileList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 220 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 263 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  classFileListIndex++; 
             
             #line default
@@ -563,21 +584,21 @@ namespace GakujoGUI
             this.Write("              <a class=\"list-group-item list-group-item-action\" id=\"classfile-tab" +
                     "-");
             
-            #line 221 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 264 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classFileListIndex));
             
             #line default
             #line hidden
             this.Write("\" data-bs-toggle=\"list\"\r\n                href=\"#classfile-");
             
-            #line 222 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 265 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classFileListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tab\" aria-controls=\"classfile-");
             
-            #line 222 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 265 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classFileListIndex));
             
             #line default
@@ -585,35 +606,35 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"d-flex w-100 justify-content-between\">\r\n         " +
                     "         <h5 class=\"mb-1\">");
             
-            #line 224 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 267 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                  <small>");
             
-            #line 225 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 268 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.updateTime));
             
             #line default
             #line hidden
             this.Write("</small>\r\n                </div>\r\n                <p class=\"mb-1 text-wrap\">");
             
-            #line 227 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 270 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.fileDescription));
             
             #line default
             #line hidden
             this.Write("</p>\r\n                <small>");
             
-            #line 228 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 271 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.classSubjects));
             
             #line default
             #line hidden
             this.Write("</small>\r\n              </a>\r\n              ");
             
-            #line 230 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 273 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -621,35 +642,35 @@ namespace GakujoGUI
             this.Write("            </div>\r\n          </div>\r\n          <div class=\"col-8\">\r\n            " +
                     "<div class=\"tab-content\" id=\"classfile-tab-content\">\r\n              ");
             
-            #line 235 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 278 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  classFileListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 236 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 279 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.ClassFileList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 237 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 280 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  classFileListIndex++; 
             
             #line default
             #line hidden
             this.Write("              <div class=\"tab-pane fade\" id=\"classfile-");
             
-            #line 238 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 281 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classFileListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tabpanel\" aria-labelledby=\"classfile-tab-");
             
-            #line 238 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 281 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(classFileListIndex));
             
             #line default
@@ -657,28 +678,28 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"card\">\r\n                  <div class=\"card-body\">" +
                     "\r\n                    <h5 class=\"card-title\">");
             
-            #line 241 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 284 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                    <h6 class=\"card-subtitle mb-2 text-muted\">");
             
-            #line 242 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 285 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.updateTime));
             
             #line default
             #line hidden
             this.Write("</h6>\r\n                    <p class=\"card-text\">");
             
-            #line 243 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 286 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.fileDescription));
             
             #line default
             #line hidden
             this.Write("\r\n                    </p>\r\n                    <a href=\"#\" class=\"card-link\">");
             
-            #line 245 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 288 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.file));
             
             #line default
@@ -686,7 +707,7 @@ namespace GakujoGUI
             this.Write("</a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n   " +
                     "           ");
             
-            #line 249 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 292 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -696,26 +717,28 @@ namespace GakujoGUI
         </div>
       </div>
       <div class=""tab-pane fade"" id=""main-schoolfile"" role=""tabpanel"" aria-labelledby=""main-tab-schoolfile"">
+        <button type=""button"" class=""btn btn-primary m-2""
+          onclick=""window.chrome.webview.postMessage('refresh-schoolfile');"">更新</button>
         <div class=""row"">
           <div class=""col-4"">
             <div class=""list-group"" id=""schoolfile-tab"" role=""tablist"">
               ");
             
-            #line 258 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 303 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  int schoolFileListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 259 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 304 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.SchoolFileList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 260 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 305 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  schoolFileListIndex++; 
             
             #line default
@@ -723,21 +746,21 @@ namespace GakujoGUI
             this.Write("              <a class=\"list-group-item list-group-item-action\" id=\"schoolfile-ta" +
                     "b-");
             
-            #line 261 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 306 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolFileListIndex));
             
             #line default
             #line hidden
             this.Write("\" data-bs-toggle=\"list\"\r\n                href=\"#schoolfile-");
             
-            #line 262 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 307 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolFileListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tab\" aria-controls=\"schoolfile-");
             
-            #line 262 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 307 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolFileListIndex));
             
             #line default
@@ -745,35 +768,35 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"d-flex w-100 justify-content-between\">\r\n         " +
                     "         <h5 class=\"mb-1\">");
             
-            #line 264 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 309 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                  <small>");
             
-            #line 265 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 310 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.updateTime));
             
             #line default
             #line hidden
             this.Write("</small>\r\n                </div>\r\n                <p class=\"mb-1 text-wrap\">");
             
-            #line 267 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 312 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.fileDescription));
             
             #line default
             #line hidden
             this.Write("</p>\r\n                <small>");
             
-            #line 268 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 313 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.category));
             
             #line default
             #line hidden
             this.Write("</small>\r\n              </a>\r\n              ");
             
-            #line 270 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 315 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default
@@ -781,35 +804,35 @@ namespace GakujoGUI
             this.Write("            </div>\r\n          </div>\r\n          <div class=\"col-8\">\r\n            " +
                     "<div class=\"tab-content\" id=\"schoolfile-tab-content\">\r\n              ");
             
-            #line 275 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 320 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  schoolFileListIndex = 0; 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 276 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 321 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  foreach(var item in IndexData.SchoolFileList) { 
             
             #line default
             #line hidden
             this.Write("              ");
             
-            #line 277 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 322 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  schoolFileListIndex++; 
             
             #line default
             #line hidden
             this.Write("              <div class=\"tab-pane fade\" id=\"schoolfile-");
             
-            #line 278 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 323 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolFileListIndex));
             
             #line default
             #line hidden
             this.Write("\" role=\"tabpanel\" aria-labelledby=\"schoolfile-tab-");
             
-            #line 278 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 323 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(schoolFileListIndex));
             
             #line default
@@ -817,28 +840,28 @@ namespace GakujoGUI
             this.Write("\">\r\n                <div class=\"card\">\r\n                  <div class=\"card-body\">" +
                     "\r\n                    <h5 class=\"card-title\">");
             
-            #line 281 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 326 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.title));
             
             #line default
             #line hidden
             this.Write("</h5>\r\n                    <h6 class=\"card-subtitle mb-2 text-muted\">");
             
-            #line 282 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 327 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.updateTime));
             
             #line default
             #line hidden
             this.Write("</h6>\r\n                    <p class=\"card-text\">");
             
-            #line 283 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 328 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.fileDescription));
             
             #line default
             #line hidden
             this.Write("\r\n                    </p>\r\n                    <a href=\"#\" class=\"card-link\">");
             
-            #line 285 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 330 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(item.file));
             
             #line default
@@ -846,7 +869,7 @@ namespace GakujoGUI
             this.Write("</a>\r\n                  </div>\r\n                </div>\r\n              </div>\r\n   " +
                     "           ");
             
-            #line 289 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
+            #line 334 "C:\Users\cs21043\Documents\GitHub\GakujoGUI\GakujoGUI\Index.tt"
  } 
             
             #line default

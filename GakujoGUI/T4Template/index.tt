@@ -10,9 +10,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="bootstrap.min.css" rel="stylesheet">
-  <script src="jquery-3.6.0.min.js"></script>
-  <link href="style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 10px;
+      overflow: hidden;
+    }
+
+    #main-tab {
+      width: 180px;
+    }
+
+    #main-tab-content {
+      width: calc(100vw - 240px);
+    }
+
+    #main-tab-content form {
+      max-width: 600px;
+    }
+
+    #classcontact-tab,
+    #schoolcontact-tab {
+      height: 95vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .text-wrap {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -75,11 +107,14 @@
             </div>
           </div>
           <div class="row mb-12">
-            <button type="submit" class="btn btn-primary">ログイン</button>
+            <button type="button" class="btn btn-primary"
+              onclick="window.chrome.webview.postMessage('login');">ログイン</button>
           </div>
         </form>
       </div>
       <div class="tab-pane fade" id="main-classcontact" role="tabpanel" aria-labelledby="main-tab-classcontact">
+        <button type="button" class="btn btn-primary m-2"
+          onclick="window.chrome.webview.postMessage('refresh-classcontact');">更新</button>
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="classcontact-tab" role="tablist">
@@ -120,6 +155,8 @@
         </div>
       </div>
       <div class="tab-pane fade" id="main-report" role="tabpanel" aria-labelledby="main-tab-report">
+        <button type="button" class="btn btn-primary m-2"
+          onclick="window.chrome.webview.postMessage('refresh-report');">更新</button>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -146,6 +183,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="main-quiz" role="tabpanel" aria-labelledby="main-tab-quiz">
+        <button type="button" class="btn btn-primary m-2"
+          onclick="window.chrome.webview.postMessage('refresh-quiz');">更新</button>
         <table class="table table-hover">
           <thead>
             <tr>
@@ -172,6 +211,8 @@
         </table>
       </div>
       <div class="tab-pane fade" id="main-schoolcontact" role="tabpanel" aria-labelledby="main-tab-schoolcontact">
+        <button type="button" class="btn btn-primary m-2"
+          onclick="window.chrome.webview.postMessage('refresh-schoolcontact');">更新</button>
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="schoolcontact-tab" role="tablist">
@@ -212,6 +253,8 @@
         </div>
       </div>
       <div class="tab-pane fade" id="main-classfile" role="tabpanel" aria-labelledby="main-tab-classfile">
+        <button type="button" class="btn btn-primary m-2"
+          onclick="window.chrome.webview.postMessage('refresh-classfile');">更新</button>
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="classfile-tab" role="tablist">
@@ -252,6 +295,8 @@
         </div>
       </div>
       <div class="tab-pane fade" id="main-schoolfile" role="tabpanel" aria-labelledby="main-tab-schoolfile">
+        <button type="button" class="btn btn-primary m-2"
+          onclick="window.chrome.webview.postMessage('refresh-schoolfile');">更新</button>
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="schoolfile-tab" role="tablist">
