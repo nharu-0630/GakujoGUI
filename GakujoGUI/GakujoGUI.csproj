@@ -159,6 +159,12 @@
     <Compile Include="BrowserBox.Designer.cs">
       <DependentUpon>BrowserBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Index.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IndexCode.cs" />
     <Compile Include="NotifyAPI.cs" />
     <Compile Include="SyllabusForm.cs">
       <SubType>Form</SubType>
@@ -250,6 +256,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="As_Icon.ico" />
+    <Content Include="Index.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>Index.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,0 +1,28 @@
+body {
+    margin: 10px;
+    overflow: hidden;
+}
+
+#main-tab {
+    width: 180px;
+}
+
+#main-tab-content {
+    width: calc(100vw - 240px);
+}
+
+#main-tab-content form {
+    max-width: 600px;
+}
+
+#classcontact-tab, #schoolcontact-tab {
+    height: 95vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.text-wrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+}

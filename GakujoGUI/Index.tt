@@ -1,3 +1,9 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -77,31 +83,38 @@
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="classcontact-tab" role="tablist">
-              <a class="list-group-item list-group-item-action" id="classcontact-tab-001" data-bs-toggle="list"
-                href="#classcontact-001" role="tab" aria-controls="classcontact-001">
+              <# int classContactListIndex = 0; #>
+              <# foreach(var item in IndexData.ClassContactList) { #>
+              <# classContactListIndex++; #>
+              <a class="list-group-item list-group-item-action" id="classcontact-tab-<#= classContactListIndex #>" data-bs-toggle="list"
+                href="#classcontact-<#= classContactListIndex #>" role="tab" aria-controls="classcontact-<#= classContactListIndex #>">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">タイトル</h5>
-                  <small>連絡日時</small>
+                  <h5 class="mb-1"><#= item.title #></h5>
+                  <small><#= item.contactTime #></small>
                 </div>
-                <p class="mb-1">内容</p>
-                <small>授業科目</small>
+                <p class="mb-1 text-wrap"><#= item.content #></p>
+                <small><#= item.classSubjects #></small>
               </a>
+              <# } #>
             </div>
           </div>
           <div class="col-8">
             <div class="tab-content" id="classcontact-tab-content">
-              <div class="tab-pane fade" id="classcontact-001" role="tabpanel" aria-labelledby="classcontact-tab-001">
+              <# classContactListIndex = 0; #>
+              <# foreach(var item in IndexData.ClassContactList) { #>
+              <# classContactListIndex++; #>
+              <div class="tab-pane fade" id="classcontact-<#= classContactListIndex #>" role="tabpanel" aria-labelledby="classcontact-tab-<#= classContactListIndex #>">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">タイトル</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">連絡日時</h6>
-                    <p class="card-text">内容
+                    <h5 class="card-title"><#= item.title #></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><#= item.contactTime #></h6>
+                    <p class="card-text"><#= item.content #>
                     </p>
-                    <a href="#" class="card-link">ファイル1</a>
-                    <a href="#" class="card-link">ファイル2</a>
+                    <a href="#" class="card-link"><#= item.file #></a>
                   </div>
                 </div>
               </div>
+              <# } #>
             </div>
           </div>
         </div>
@@ -119,14 +132,16 @@
             </tr>
           </thead>
           <tbody>
+            <# foreach(var item in IndexData.ReportList) { #>
             <tr>
-              <td>授業科目</td>
-              <td>タイトル</td>
-              <td>状態</td>
-              <td>提出期間</td>
-              <td>最終提出日時</td>
-              <td>操作</td>
+              <td><#= item.classSubjects #></td>
+              <td><#= item.title #></td>
+              <td><#= item.status #></td>
+              <td><#= item.submissionPeriod #></td>
+              <td><#= item.lastSubmissionTime #></td>
+              <td><#= item.operation #></td>
             </tr>
+            <# } #>
           </tbody>
         </table>
       </div>
@@ -143,14 +158,16 @@
             </tr>
           </thead>
           <tbody>
+            <# foreach(var item in IndexData.QuizList) { #>
             <tr>
-              <td>授業科目</td>
-              <td>タイトル</td>
-              <td>状態</td>
-              <td>提出期間</td>
-              <td>提出状態</td>
-              <td>操作</td>
+              <td><#= item.classSubjects #></td>
+              <td><#= item.title #></td>
+              <td><#= item.status #></td>
+              <td><#= item.submissionPeriod #></td>
+              <td><#= item.submissionStatus #></td>
+              <td><#= item.operation #></td>
             </tr>
+            <# } #>
           </tbody>
         </table>
       </div>
@@ -158,31 +175,38 @@
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="schoolcontact-tab" role="tablist">
-              <a class="list-group-item list-group-item-action" id="schoolcontact-tab-001" data-bs-toggle="list"
-                href="#schoolcontact-001" role="tab" aria-controls="schoolcontact-001">
+              <# int schoolContactListIndex = 0; #>
+              <# foreach(var item in IndexData.SchoolContactList) { #>
+              <# schoolContactListIndex++; #>
+              <a class="list-group-item list-group-item-action" id="schoolcontact-tab-<#= schoolContactListIndex #>" data-bs-toggle="list"
+                href="#schoolcontact-<#= schoolContactListIndex #>" role="tab" aria-controls="schoolcontact-<#= schoolContactListIndex #>">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">タイトル</h5>
-                  <small>連絡日時</small>
+                  <h5 class="mb-1"><#= item.title #></h5>
+                  <small><#= item.contactTime #></small>
                 </div>
-                <p class="mb-1">内容</p>
-                <small>カテゴリ</small>
+                <p class="mb-1 text-wrap"><#= item.content #></p>
+                <small><#= item.category #></small>
               </a>
+              <# } #>
             </div>
           </div>
           <div class="col-8">
             <div class="tab-content" id="schoolcontact-tab-content">
-              <div class="tab-pane fade" id="schoolcontact-001" role="tabpanel" aria-labelledby="schoolcontact-tab-001">
+              <# schoolContactListIndex = 0; #>
+              <# foreach(var item in IndexData.SchoolContactList) { #>
+              <# schoolContactListIndex++; #>
+              <div class="tab-pane fade" id="schoolcontact-<#= schoolContactListIndex #>" role="tabpanel" aria-labelledby="schoolcontact-tab-<#= schoolContactListIndex #>">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">タイトル</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">連絡日時</h6>
-                    <p class="card-text">内容
+                    <h5 class="card-title"><#= item.title #></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><#= item.contactTime #></h6>
+                    <p class="card-text"><#= item.content #>
                     </p>
-                    <a href="#" class="card-link">ファイル1</a>
-                    <a href="#" class="card-link">ファイル2</a>
+                    <a href="#" class="card-link"><#= item.file #></a>
                   </div>
                 </div>
               </div>
+              <# } #>
             </div>
           </div>
         </div>
@@ -191,31 +215,38 @@
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="classfile-tab" role="tablist">
-              <a class="list-group-item list-group-item-action" id="classfile-tab-001" data-bs-toggle="list"
-                href="#classfile-001" role="tab" aria-controls="classfile-001">
+              <# int classFileListIndex = 0; #>
+              <# foreach(var item in IndexData.ClassFileList) { #>
+              <# classFileListIndex++; #>
+              <a class="list-group-item list-group-item-action" id="classfile-tab-<#= classFileListIndex #>" data-bs-toggle="list"
+                href="#classfile-<#= classFileListIndex #>" role="tab" aria-controls="classfile-<#= classFileListIndex #>">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">タイトル</h5>
-                  <small>更新日時</small>
+                  <h5 class="mb-1"><#= item.title #></h5>
+                  <small><#= item.updateTime #></small>
                 </div>
-                <p class="mb-1">ファイル説明</p>
-                <small>授業科目</small>
+                <p class="mb-1 text-wrap"><#= item.fileDescription #></p>
+                <small><#= item.classSubjects #></small>
               </a>
+              <# } #>
             </div>
           </div>
           <div class="col-8">
             <div class="tab-content" id="classfile-tab-content">
-              <div class="tab-pane fade" id="classfile-001" role="tabpanel" aria-labelledby="classfile-tab-001">
+              <# classFileListIndex = 0; #>
+              <# foreach(var item in IndexData.ClassFileList) { #>
+              <# classFileListIndex++; #>
+              <div class="tab-pane fade" id="classfile-<#= classFileListIndex #>" role="tabpanel" aria-labelledby="classfile-tab-<#= classFileListIndex #>">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">タイトル</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">更新日時</h6>
-                    <p class="card-text">ファイル説明
+                    <h5 class="card-title"><#= item.title #></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><#= item.updateTime #></h6>
+                    <p class="card-text"><#= item.fileDescription #>
                     </p>
-                    <a href="#" class="card-link">ファイル1</a>
-                    <a href="#" class="card-link">ファイル2</a>
+                    <a href="#" class="card-link"><#= item.file #></a>
                   </div>
                 </div>
               </div>
+              <# } #>
             </div>
           </div>
         </div>
@@ -224,31 +255,38 @@
         <div class="row">
           <div class="col-4">
             <div class="list-group" id="schoolfile-tab" role="tablist">
-              <a class="list-group-item list-group-item-action" id="schoolfile-tab-001" data-bs-toggle="list"
-                href="#schoolfile-001" role="tab" aria-controls="schoolfile-001">
+              <# int schoolFileListIndex = 0; #>
+              <# foreach(var item in IndexData.SchoolFileList) { #>
+              <# schoolFileListIndex++; #>
+              <a class="list-group-item list-group-item-action" id="schoolfile-tab-<#= schoolFileListIndex #>" data-bs-toggle="list"
+                href="#schoolfile-<#= schoolFileListIndex #>" role="tab" aria-controls="schoolfile-<#= schoolFileListIndex #>">
                 <div class="d-flex w-100 justify-content-between">
-                  <h5 class="mb-1">タイトル</h5>
-                  <small>更新日時</small>
+                  <h5 class="mb-1"><#= item.title #></h5>
+                  <small><#= item.updateTime #></small>
                 </div>
-                <p class="mb-1">ファイル説明</p>
-                <small>カテゴリ</small>
+                <p class="mb-1 text-wrap"><#= item.fileDescription #></p>
+                <small><#= item.category #></small>
               </a>
+              <# } #>
             </div>
           </div>
           <div class="col-8">
             <div class="tab-content" id="schoolfile-tab-content">
-              <div class="tab-pane fade" id="schoolfile-001" role="tabpanel" aria-labelledby="schoolfile-tab-001">
+              <# schoolFileListIndex = 0; #>
+              <# foreach(var item in IndexData.SchoolFileList) { #>
+              <# schoolFileListIndex++; #>
+              <div class="tab-pane fade" id="schoolfile-<#= schoolFileListIndex #>" role="tabpanel" aria-labelledby="schoolfile-tab-<#= schoolFileListIndex #>">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">タイトル</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">更新日時</h6>
-                    <p class="card-text">ファイル説明
+                    <h5 class="card-title"><#= item.title #></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><#= item.updateTime #></h6>
+                    <p class="card-text"><#= item.fileDescription #>
                     </p>
-                    <a href="#" class="card-link">ファイル1</a>
-                    <a href="#" class="card-link">ファイル2</a>
+                    <a href="#" class="card-link"><#= item.file #></a>
                   </div>
                 </div>
               </div>
+              <# } #>
             </div>
           </div>
         </div>

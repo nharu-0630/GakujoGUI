@@ -983,7 +983,7 @@ namespace GakujoGUI
 
     //アカウント
     [JsonObject]
-    class Account
+    public class Account
     {
         [JsonProperty("userId")]
         public string userId;
@@ -999,7 +999,7 @@ namespace GakujoGUI
 
     //レポート
     [JsonObject]
-    class Report
+    public class Report
     {
         //授業科目 学期/曜日時限
         [JsonProperty("classSubjects")]
@@ -1038,7 +1038,7 @@ namespace GakujoGUI
 
     //小テスト
     [JsonObject]
-    class Quiz
+    public class Quiz
     {
         //授業科目 学期/曜日時限
         [JsonProperty("classSubjects")]
@@ -1080,7 +1080,7 @@ namespace GakujoGUI
 
     //授業連絡
     [JsonObject]
-    class ClassContact
+    public class ClassContact
     {
         //授業科目 学期/曜日時限
         [JsonProperty("classSubjects")]
@@ -1122,7 +1122,7 @@ namespace GakujoGUI
 
     //学内連絡
     [JsonObject]
-    class SchoolContact
+    public class SchoolContact
     {
         //カテゴリ
         [JsonProperty("category")]
@@ -1164,7 +1164,7 @@ namespace GakujoGUI
 
     //授業共有ファイル
     [JsonObject]
-    class ClassSharedFile
+    public class ClassSharedFile
     {
         //授業科目 学期/曜日時限
         [JsonProperty("classSubjects")]
@@ -1191,7 +1191,7 @@ namespace GakujoGUI
 
     //学内共有ファイル
     [JsonObject]
-    class SchoolSharedFile
+    public class SchoolSharedFile
     {
         //カテゴリ
         [JsonProperty("category")]
@@ -1224,7 +1224,7 @@ namespace GakujoGUI
 
     //成績情報
     [JsonObject]
-    class ResultInformation
+    public class ResultInformation
     {
         //科目名
         [JsonProperty("subjectName")]
@@ -1263,7 +1263,7 @@ namespace GakujoGUI
 
     //学部内GPA
     [JsonObject]
-    class GPAInDepartment
+    public class GPAInDepartment
     {
         //学年
         [JsonProperty("grade")]

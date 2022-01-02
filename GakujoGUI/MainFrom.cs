@@ -351,6 +351,20 @@ namespace GakujoGUI
             {
                 //textOutputBox.Set("GakujoGUI", "キャッシュログインに失敗しました。", MessageBoxButtons.OK);
             }
+
+            //IndexData indexData = new IndexData
+            //{
+            //    ClassContactList = classContactList,
+            //    ReportList = reportList,
+            //    QuizList = quizList,
+            //    SchoolContactList = schoolContactList,
+            //    ClassFileList = classSharedFileList,
+            //    SchoolFileList = schoolSharedFileList
+            //};
+            //Index index = new Index(indexData);
+            //String html = index.TransformText();
+            //File.WriteAllText("index.html", html);
+            //Process.Start("index.html");
         }
 
         private async void buttonLogin_Click(object sender, EventArgs e)
