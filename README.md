@@ -1,4 +1,7 @@
-![](https://xyzyxjp.github.io/GakujoGUI/assets/img/hero-img.png)
+## ⚠️ GakujoGUIは最新ではありません．
+
+2022年よりGakujoGUI-WPFに移行しました．  
+[https://github.com/xyzyxJP/GakujoGUI-WPF](https://github.com/xyzyxJP/GakujoGUI-WPF)
 
 # GakujoGUI
 
